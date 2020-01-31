@@ -11,4 +11,4 @@ Global Game Jam 2020 Boys
 `npm run dev`
 
 ## Profit
-Visit localhost:8080 to see the game
+Visit localhost:8000 to see the game
