@@ -15,6 +15,7 @@ Clone the repo to your machine. `git clone https://github.com/mcouture5/GGJ2020.
 
 ## 3) Run dev build
 The dev webpack build will auto build whenever changes are made. No need to rebuild and crap.
+
 `npm run dev`
 
 ## 4) Profit
