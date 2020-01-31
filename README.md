@@ -4,5 +4,11 @@ Global Game Jam 2020 Boys
 ## Install dependencies
 `npm install`
 
+## Run a python webserver
+`python -m SimpleHTTPServer`
+
 ## Run dev webserver
 `npm run dev`
+
+## Profit
+Visit localhost:8080 to see the game
