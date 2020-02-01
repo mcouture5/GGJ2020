@@ -16,7 +16,7 @@ export class HUDGroup extends Phaser.GameObjects.Group {
         progressBox.fillStyle(0x000000, 1);
         progressBox.fillRect(100, 50, 150, 15);
         progressBox.setScrollFactor(1);
-        this.add(progressBox);
+        this.add(progressBox, true);
 
         // The timer bar
         var progressBar = new Phaser.GameObjects.Graphics(scene);
@@ -26,6 +26,6 @@ export class HUDGroup extends Phaser.GameObjects.Group {
             progressBar.fillRect(100, 50, 150 * e.detail, 15);
         });
         progressBar.setScrollFactor(1);
-        this.add(progressBar);
+        this.add(progressBar, true);
     }
 }

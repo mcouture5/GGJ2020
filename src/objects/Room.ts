@@ -42,20 +42,7 @@ export class Room extends Phaser.GameObjects.Container {
         this.createDoors(room.doors);
     }
 
-    private counter = 0;
     update(): void {
-        // TODO remove: After a while, move to the next random room
-        this.counter++;
-        if (this.counter >= 100) {
-            let rand = Math.floor(Math.random() * this.doors.length);
-            this.counter = 0;
-            // Fix all hazards
-            for (let hazard of this.activeHazards) {
-                hazard.fix();
-            }
-            this.activeHazards = [];
-            this.scene.events.emit('moveToRoom', this.doors[rand].target);
-        }
     }
 
     getDoors() {
@@ -71,6 +58,14 @@ export class Room extends Phaser.GameObjects.Container {
             thisHazard.activate();
             this.activeHazards.push(thisHazard);
         }
+    }
+
+    public checkInteraction() {
+        // Fix all hazards
+        for (let hazard of this.activeHazards) {
+            hazard.fix();
+        }
+        this.activeHazards = [];
     }
 
     public fixHazard(key: string) {

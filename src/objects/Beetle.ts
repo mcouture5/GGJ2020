@@ -4,7 +4,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     protected leftKey: Phaser.Input.Keyboard.Key;
 	protected rightKey: Phaser.Input.Keyboard.Key;
-	protected enterDoorKey: Phaser.Input.Keyboard.Key;
+    protected enterDoorKey: Phaser.Input.Keyboard.Key;
+    protected actionKey: Phaser.Input.Keyboard.Key;
 
     protected beetleEvents: Phaser.Events.EventEmitter;
     protected moveSpeed: integer;
@@ -35,6 +36,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         // image
         this.setScale(0.4);
         this.setOrigin(0.5, 1);
+        this.setDepth(800);
         this.moveSpeed = 200;
 
         // physics
@@ -51,6 +53,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.enterDoorKey = params.scene.input.keyboard.addKey(
             Phaser.Input.Keyboard.KeyCodes.UP
         );
+        this.actionKey = params.scene.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
     }
 	
     update(): void {
@@ -60,7 +65,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.beetleEvents.emit("enterDoor", "right");
         } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.beetleEvents.emit("enterDoor", "center");
-        } else {
+        } else if (Phaser.Input.Keyboard.JustDown(this.actionKey)) {
+            this.beetleEvents.emit("action");
+        }
+        else {
             this.handleMove();
         }
 	}

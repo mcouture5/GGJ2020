@@ -105,6 +105,11 @@ export class GameScene extends Phaser.Scene {
             }
         });
 
+        // Listen for when the hero interacts with a hazard
+        this.events.addListener('action', () => {
+            this.currentRoom.checkInteraction();
+        });
+
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             this.state = GameState.AWAITING_INPUT;
