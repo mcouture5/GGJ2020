@@ -9,42 +9,36 @@
             {
                 "type": "image",
                 "key": "room_bg",
-                "url": "assets/images/room.png"
+                "url": "assets/images/rooms/room.png"
             },
             {
                 "type": "image",
-                "key": "living_room",
-                "url": "assets/images/rooms/living_room.jpg"
+                "key": "chair",
+                "url": "assets/images/hazards/chair.png"
             },
             {
                 "type": "image",
-                "key": "family_room",
-                "url": "assets/images/rooms/family_room.jpg"
+                "key": "lamp",
+                "url": "assets/images/hazards/lamp.png"
             },
             {
                 "type": "image",
-                "key": "dining_room",
-                "url": "assets/images/rooms/dining_room.jpg"
+                "key": "shower",
+                "url": "assets/images/hazards/shower.png"
             },
             {
                 "type": "image",
-                "key": "kitchen",
-                "url": "assets/images/rooms/kitchen.jpg"
-            },
-            {
-                "type": "image",
-                "key": "bedroom",
-                "url": "assets/images/rooms/bedroom.jpg"
-            },
-            {
-                "type": "image",
-                "key": "bathroom",
-                "url": "assets/images/rooms/bathroom.jpg"
+                "key": "sink",
+                "url": "assets/images/hazards/sink.png"
             },
             {
                 "type": "image",
                 "key": "foot",
                 "url": "assets/images/foot.png"
+            },{
+                "type": "image",
+                "key": "toilet",
+                "url": "assets/images/hazards/toilet.png"
             }
         ]
     }
