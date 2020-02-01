@@ -44,13 +44,14 @@ export class Boot extends Phaser.Scene {
          */
         this.load.pack('preload', './assets/pack.json');
 
-        //Load other JSON files
-        // this.load.json('stuff', './assets/stuff.json');
+        //Load room data
+        this.load.json('layout', './assets/layout.json');
     }
 
     update() {
         // Immediately start the main menu
-        this.scene.start('MainMenu');
+        // this.scene.start('MainMenu');
+        this.scene.start('GameScene');
     }
 
     private createLoadingbar() {

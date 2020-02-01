@@ -1,4 +1,7 @@
 import { Scene } from 'phaser';
+import { Room, IRoom } from '../objects/Room';
+import { IFubarObject } from '../objects/FubarObject';
+import { RoomGroup } from '../groups/RoomGroup';
 
 enum GameState {
     STARTING_LEVEL,
@@ -14,6 +17,11 @@ export class GameScene extends Phaser.Scene {
     // Game state
     private state: GameState;
 
+    // Rooms
+    private layout: IRoom[];
+    private roomGroup: RoomGroup;
+    private rooms: Room[];
+
     constructor() {
         super({
             key: 'GameScene'
@@ -25,11 +33,21 @@ export class GameScene extends Phaser.Scene {
         this.state = GameState.STARTING_LEVEL;
         // starts fading
         this.fading = true;
+        // Get the rooms layout
+        this.layout = this.cache.json.get('layout');
+
+        // Create new rooms using the layout config
+        this.roomGroup = null;
     }
 
     create(): void {
         // Create the background and main scene
-        // this.add.sprite(0, 0, 'background').setOrigin(0, 0);
+        let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
+        bg.displayWidth = 1024;
+        bg.displayHeight = 768;
+
+        // Create and add the rooms
+        this.roomGroup = new RoomGroup({scene: this, layout: this.layout});
 
         // Listen for events from obejcts
         this.events.addListener('event', () => {
@@ -61,4 +79,5 @@ export class GameScene extends Phaser.Scene {
     private restartGame(): void {
         this.scene.start('MainMenu');
     }
+
 }
