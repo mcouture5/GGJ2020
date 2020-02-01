@@ -1,13 +1,20 @@
-import { Scene } from 'phaser';
+import { Scene, Game } from 'phaser';
 import { Room, IRoom } from '../objects/Room';
 import { IFubarObject } from '../objects/FubarObject';
 import { Beetle } from '../objects/Beetle';
+import { HUDGroup } from '../groups/HUDGroup';
 
 enum GameState {
     STARTING_LEVEL,
     GETTING_RECIPE,
     AWAITING_INPUT,
-    ANIMATING
+    ANIMATING,
+    GAME_OVER
+}
+
+export interface ILevel {
+    hazards: { [room: string]: string[] };
+    time_limit: number;
 }
 
 // All of the rooms
@@ -25,6 +32,9 @@ export class GameScene extends Phaser.Scene {
     // Game state
     private state: GameState;
 
+    // Timer Event
+    private timer: Phaser.Time.TimerEvent;
+
     // Keep references
     private camera: Phaser.Cameras.Scene2D.Camera;
 
@@ -33,9 +43,14 @@ export class GameScene extends Phaser.Scene {
     private rooms: { [key: string]: Room };
     private currentRoom: Room;
 
+    // Levels
+    private level: ILevel;
+    private currentLevel: number;
+
+    private hud: HUDGroup;
+
     private beetleSprite;
     private beetle;
-    private beetleEvents: Phaser.Events.EventEmitter;
 
     constructor() {
         super({
@@ -54,11 +69,11 @@ export class GameScene extends Phaser.Scene {
         // Create new rooms using the layout config
         this.rooms = {};
         this.currentRoom = null;
+        this.level = null;
+        this.currentLevel = 1;
 
         // References
         this.camera = this.cameras.main;
-
-        this.beetleEvents = new Phaser.Events.EventEmitter();
     }
 
     create(): void {
@@ -76,35 +91,39 @@ export class GameScene extends Phaser.Scene {
         }
 
         // Listen for when the hero interacts with a door
-        this.events.addListener('moveToRoom', (room: string) => {
-            // Stop all input!
-            this.state = GameState.ANIMATING;
-
-            // Move to next room
-            this.moveToRoom(room);
+        this.events.addListener('enterDoor', (doorString: string) => {
+            const doorToEnter = this.currentRoom.getDoors().find(door => door.position === doorString);
+            if (doorToEnter) {
+                this.beetle.stop();
+                // Stop all input!
+                this.state = GameState.ANIMATING;
+                // Move to next room
+                const roomString = doorToEnter.target;
+                const roomObj = this.rooms[roomString];
+                this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
+                this.moveToRoom(roomString);
+            }
         });
-        
+
+        // Listen for when the hero interacts with a hazard
+        this.events.addListener('action', () => {
+            this.currentRoom.checkInteraction();
+        });
+
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             this.state = GameState.AWAITING_INPUT;
 
-            // Zoom and pan must be the same duration so the scene will begin seamlessly when both finish
-            if (false) {
-                // Begin in the living room
-                this.moveToRoom(LIVING_ROOM);
-                
-                // Zoom in on it
-                camera.zoomTo(2.4, 1000, 'Linear');
-            }
+            // Load the first level
+            this.loadLevel(1);
         });
-
         this.beetle = new Beetle({
             scene: this,
-            x: 512,
-            y: 650,
+            x: 0,
+            y: 0,
             key: 'beetle',
-            // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
-            eventEmitter: this.beetleEvents,
+            eventEmitter: this.events,
+            roomCoords: {x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y}
         });
         this.add.existing(this.beetle);
     }
@@ -117,6 +136,38 @@ export class GameScene extends Phaser.Scene {
             this.fading = false;
         }
         this.runGame();
+        // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
+        if (this.timer) {
+            let timerProgress: number = this.timer.getProgress();
+            dispatchEvent(new CustomEvent('timer_update', {
+                detail: timerProgress
+            }));
+        }
+    }
+
+    private loadLevel(level: number) {
+        this.level = this.cache.json.get('level_' + level);
+        let rooms = this.level['hazards'];
+        // Apply the level to each room
+        for (let key in rooms) {
+            let room = this.rooms[key];
+            room.loadHazards(rooms[key])
+        }
+        if (true) {
+            // Zoom and pan to begin
+            setTimeout(() => {
+                this.camera.zoomTo(2.7, 1000, 'Linear', true);
+                // Begin in the living room
+                this.moveToRoom(FAMILY_ROOM);
+            }, 1000);
+        }
+        // Create timer event
+        this.timer = this.time.addEvent({
+            delay: this.level.time_limit,
+            callback: this.setGameOver,
+        });
+        // Create the HUD
+        this.hud = new HUDGroup(this.scene);
     }
 
     private runGame() {
@@ -127,8 +178,12 @@ export class GameScene extends Phaser.Scene {
                 break;
             case GameState.AWAITING_INPUT:
                 this.beetle.update();
-                // this.currentRoom && this.currentRoom.update();
-                this.beetle.update();
+                this.currentRoom && this.currentRoom.update();
+                this.checkRooms();
+                break;
+            case GameState.GAME_OVER:
+                // TODO: Create this scene.
+                this.scene.start('GameOver');
                 break;
         }
     }
@@ -139,10 +194,38 @@ export class GameScene extends Phaser.Scene {
 
     private moveToRoom(key: string) {
         this.currentRoom = this.rooms[key];
-        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2', false, (camera, progress) => {
+        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2', true, (camera, progress) => {
             if (progress >= 1) {
                 this.state = GameState.AWAITING_INPUT;
             }
         });
+    }
+
+    /**
+     * Check the rooms for cleared hazards. If all clear, advance
+     */
+    private checkRooms() {
+        let allClear = true;
+        for (let key in this.rooms) {
+            let room = this.rooms[key];
+            if (!room.allHazardsFixed()) {
+                allClear = false;
+                break;
+            }
+        }
+        if (allClear) {
+            this.state = GameState.ANIMATING;
+            this.currentLevel++;
+            this.camera.pan(512, 384, 1000, 'Linear', true);
+            this.camera.zoomTo(1, 1000, 'Linear', true, (camera, progress) => {
+                if (progress >= 1) {
+                    setTimeout(() => { this.loadLevel(this.currentLevel); }, 1000);
+                }
+            });
+        }
+    }
+
+    private setGameOver() {
+        this.state = GameState.GAME_OVER;
     }
 }

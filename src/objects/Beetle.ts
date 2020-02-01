@@ -1,17 +1,23 @@
 export class Beetle extends Phaser.GameObjects.Sprite {
     protected isWalking: boolean = false;
-	protected isEnteringElevator: boolean = false;
     protected walkAnim: Phaser.Tweens.Tween;
 
     protected leftKey: Phaser.Input.Keyboard.Key;
 	protected rightKey: Phaser.Input.Keyboard.Key;
-	protected enterDoorKey: Phaser.Input.Keyboard.Key;
+    protected enterDoorKey: Phaser.Input.Keyboard.Key;
+    protected actionKey: Phaser.Input.Keyboard.Key;
 
     protected beetleEvents: Phaser.Events.EventEmitter;
+    protected moveSpeed: integer;
+
+    protected roomCoords;
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
         this.beetleEvents = params.eventEmitter;
+        this.roomCoords = params.roomCoords;
+        this.x = this.roomCoords.x;
+        this.y = this.roomCoords.y + 100;
 
         params.scene.anims.create({
             key: 'idle',
@@ -28,13 +34,15 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.anims.play('idle');
 
         // image
-        this.setScale(1);
+        this.setScale(0.4);
         this.setOrigin(0.5, 1);
+        this.setDepth(800);
+        this.moveSpeed = 200;
 
         // physics
         params.scene.physics.world.enable(this);
 		this.body.allowGravity = false;
-		this.body.collideWorldBounds = true;
+		this.body.collideWorldBounds = false;
 
         this.leftKey = params.scene.input.keyboard.addKey(
             Phaser.Input.Keyboard.KeyCodes.LEFT
@@ -45,26 +53,64 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.enterDoorKey = params.scene.input.keyboard.addKey(
             Phaser.Input.Keyboard.KeyCodes.UP
         );
+        this.actionKey = params.scene.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
     }
 	
     update(): void {
-        this.handleMove();
+        if (this.isOnLeft() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "left");
+        } else if (this.isOnRight() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "right");
+        } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "center");
+        } else if (Phaser.Input.Keyboard.JustDown(this.actionKey)) {
+            this.beetleEvents.emit("action");
+        }
+        else {
+            this.handleMove();
+        }
 	}
+
+    protected moveToRoom(newCoords): void {
+        const wasOnLeft = this.isOnLeft();
+        const wasOnRight = this.isOnRight();
+        this.roomCoords = newCoords;
+        if (wasOnLeft) {
+            this.x = this.roomCoords.x + 140 - (this.displayWidth / 2);
+        } else if (wasOnRight) {
+            this.x = this.roomCoords.x + (this.displayWidth / 2) - 140;
+        }
+        this.y = this.roomCoords.y + 100;
+    }
+
+    protected isOnLeft(): boolean {
+        return this.x <= this.roomCoords.x + (this.displayWidth / 2) - 140;
+    }
+
+    protected isOnRight(): boolean {
+        return this.x >= this.roomCoords.x + 140 - (this.displayWidth / 2);
+    }
+
+    public stop(): void {
+        this.applyVelocity(0);
+    }
+
+    protected applyVelocity(velocity): void {
+        this.anims.play(velocity === 0 ? 'idle' : 'run', true);
+        this.body.setVelocityX(velocity);
+    }
 
     protected handleMove(): void {
         let velocity = 0;
-        const moveSpeed = 500
-        if (this.leftKey.isDown && !this.isEnteringElevator) {
-            velocity = -moveSpeed;
+        if (this.leftKey.isDown && !this.isOnLeft()) {
+            velocity = -this.moveSpeed;
             this.flipX = false;
-        } else if (this.rightKey.isDown && !this.isEnteringElevator) {
-            velocity = moveSpeed;
+        } else if (this.rightKey.isDown && !this.isOnRight()) {
+            velocity = this.moveSpeed;
             this.flipX = true;
-        } else if (Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-            this.isEnteringElevator = true;
-            this.beetleEvents.emit("panToRoom", 1/* dynamically determine appropriate room */);
         }
-        this.anims.play(velocity === 0 ? 'idle' : 'run', true);
-        this.body.setVelocityX(velocity);
+        this.applyVelocity(velocity);
     }
 }

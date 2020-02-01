@@ -18,13 +18,28 @@
             },
             {
                 "type": "image",
+                "key": "chair_active",
+                "url": "assets/images/hazards/active/chair.png"
+            },
+            {
+                "type": "image",
                 "key": "lamp",
                 "url": "assets/images/hazards/lamp.png"
             },
             {
                 "type": "image",
+                "key": "lamp_active",
+                "url": "assets/images/hazards/active/lamp.png"
+            },
+            {
+                "type": "image",
                 "key": "shower",
                 "url": "assets/images/hazards/shower.png"
+            },
+            {
+                "type": "image",
+                "key": "shower_active",
+                "url": "assets/images/hazards/active/shower.png"
             },
             {
                 "type": "image",
@@ -35,7 +50,8 @@
                 "type": "image",
                 "key": "foot",
                 "url": "assets/images/foot.png"
-            },{
+            },
+            {
                 "type": "image",
                 "key": "toilet",
                 "url": "assets/images/hazards/toilet.png"
@@ -49,6 +65,16 @@
                 "type": "image",
                 "key": "entrance",
                 "url": "assets/images/entrance.png"
+            },
+            {
+                "type": "image",
+                "key": "toilet_active",
+                "url": "assets/images/hazards/active/toilet.png"
+            },
+            {
+                "type": "image",
+                "key": "door",
+                "url": "assets/images/doors/door.png"
             }
         ]
     }

@@ -21,11 +21,11 @@
                 "key": "sink",
                 "position": {
                     "x": 0,
-                    "y": 0
+                    "y": 14
                 },
                 "display_ratio": {
                     "width": 0.3,
-                    "height": 0.75
+                    "height": 0.4
                 },
                 "tool": "plunger"
             },
@@ -71,12 +71,12 @@
             {
                 "key": "lamp",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": -70,
+                    "y": 24
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.3
                 },
                 "tool": "screwdriver"
             }
@@ -95,7 +95,7 @@
             {
                 "position": "center",
                 "target": "living_room",
-                "key": "1"
+                "key": "door"
             }
         ]
     },
@@ -108,8 +108,8 @@
             {
                 "key": "chair",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": -60,
+                    "y": 45
                 },
                 "display_ratio": {
                     "width": 0.2,
@@ -171,12 +171,12 @@
             {
                 "key": "lamp",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 5,
+                    "y": 23
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.3
                 },
                 "tool": "screwdriver"
             },
@@ -246,7 +246,7 @@
             {
                 "position": "center",
                 "target": "family_room",
-                "key": "1"
+                "key": "door"
             }
         ]
     },
@@ -259,36 +259,36 @@
             {
                 "key": "sink",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": -70,
+                    "y": 14
                 },
                 "display_ratio": {
                     "width": 0.3,
-                    "height": 0.75
+                    "height": 0.4
                 },
                 "tool": "plunger"
             },
             {
                 "key": "shower",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 15,
+                    "y": 15
                 },
                 "display_ratio": {
-                    "width": 0.25,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.35
                 },
                 "tool": "screwdriver"
             },
             {
                 "key": "toilet",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 100,
+                    "y": 45
                 },
                 "display_ratio": {
-                    "width": 0.4,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.4
                 },
                 "tool": "plunger"
             }
