@@ -39,11 +39,6 @@
                 "type": "image",
                 "key": "toilet",
                 "url": "assets/images/hazards/toilet.png"
-            },
-            {
-                "type": "image",
-                "key": "beetle-standing",
-                "url": "assets/images/beetle.png"
             }
         ]
     }

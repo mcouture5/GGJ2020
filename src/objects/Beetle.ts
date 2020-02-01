@@ -13,6 +13,20 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         super(params.scene, params.x, params.y, params.key, params.frame);
         this.beetleEvents = params.eventEmitter;
 
+        params.scene.anims.create({
+            key: 'idle',
+            frames: params.scene.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
+            frameRate: 3,
+            repeat: -1,
+        });
+        params.scene.anims.create({
+            key: 'run',
+            frames: params.scene.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.play('idle');
+
         // image
         this.setScale(1);
         this.setOrigin(0.5, 1);
@@ -42,12 +56,15 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         const moveSpeed = 500
         if (this.leftKey.isDown && !this.isEnteringElevator) {
             velocity = -moveSpeed;
+            this.flipX = false;
         } else if (this.rightKey.isDown && !this.isEnteringElevator) {
             velocity = moveSpeed;
+            this.flipX = true;
         } else if (Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.isEnteringElevator = true;
             this.beetleEvents.emit("panToRoom", 1/* dynamically determine appropriate room */);
         }
+        this.anims.play(velocity === 0 ? 'idle' : 'run', true);
         this.body.setVelocityX(velocity);
     }
 }

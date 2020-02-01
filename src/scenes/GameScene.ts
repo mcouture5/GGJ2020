@@ -94,7 +94,7 @@ export class GameScene extends Phaser.Scene {
         
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
-            this.state = GameState.ANIMATING;
+            this.state = GameState.AWAITING_INPUT;
 
             // Zoom and pan must be the same duration so the scene will begin seamlessly when both finish
             if (false) {
@@ -111,7 +111,7 @@ export class GameScene extends Phaser.Scene {
             scene: this,
             x: 512,
             y: 650,
-            key: 'beetle-standing',
+            key: 'beetle',
             // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
             eventEmitter: this.beetleEvents,
         });
@@ -129,14 +129,13 @@ export class GameScene extends Phaser.Scene {
     }
 
     private runGame() {
-        this.beetle.update();
         switch (this.state) {
             case GameState.STARTING_LEVEL:
             case GameState.ANIMATING:
                 // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
-                // this.beetle.update();
+                this.beetle.update();
                 break;
         }
     }
