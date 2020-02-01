@@ -45,7 +45,7 @@ export class LevelIntro extends Phaser.Scene {
             targets: this.foot,
             duration: 1000,
             onComplete: () => {
-                
+                this.cameras.main.shake(1000,0.02);
 			},
 			y: 0
         })
