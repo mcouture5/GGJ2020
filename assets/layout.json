@@ -21,7 +21,8 @@
         ],
         "doors": [
             "left"
-        ]
+        ],
+        "background-key": "1"
     },
     {
         "key": "living_room",
@@ -42,7 +43,8 @@
             "left",
             "right",
             "center"
-        ]
+        ],
+        "background-key": "1"
     },
     {
         "key": "kitchen",
@@ -66,7 +68,8 @@
         ],
         "doors": [
             "right"
-        ]
+        ],
+        "background-key": "1"
     },
     {
         "key": "bathroom",
@@ -90,7 +93,8 @@
         ],
         "doors": [
             "right"
-        ]
+        ],
+        "background-key": "1"
     },
     {
         "key": "family_room",
@@ -111,7 +115,8 @@
             "left",
             "right",
             "center"
-        ]
+        ],
+        "background-key": "1"
     },
     {
         "key": "bedroom",
@@ -135,6 +140,7 @@
         ],
         "doors": [
             "right"
-        ]
+        ],
+        "background-key": "1"
     }
 ]
