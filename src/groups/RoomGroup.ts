@@ -6,6 +6,7 @@ export class RoomGroup extends Phaser.GameObjects.Group {
 
     constructor(params: {scene: Phaser.Scene, layout: IRoom[]}) {
         super(params.scene);
+        this.rooms = [];
         this.createRooms(params.layout);
     }
     
