@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { Foot } from '../objects/Foot';
 
 enum GameState {
     STARTING_LEVEL,
@@ -10,7 +11,7 @@ enum GameState {
 export class LevelIntro extends Phaser.Scene {
     // variables
 	private fading: boolean;
-	private y = 0;
+	private foot: Foot;
 
     constructor() {
         super({
@@ -19,31 +20,26 @@ export class LevelIntro extends Phaser.Scene {
     }
 
     init(): void {
-		this.load.atlas('foot', 'assets/foot.png');
     }
 
     create(): void {
         // Create the background and main scene
-        // this.add.sprite(0, 0, 'background').setOrigin(0, 0);
+        let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
+        bg.displayWidth = 1024;
+		bg.displayHeight = 768;
 
-        // Listen for events from obejcts
-        this.events.addListener('event', () => {
-            // noop
+		// this.add.sprite(0, 0, 'background').setOrigin(0, 0);
+		this.foot = new Foot({
+            scene: this,
+            x: 70,
+            y: 500,
+            key: 'foot',
 		});
-
-		this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, this.addAnimation, this);
-    }
+        // Add foot
+        this.add.existing(this.foot);
+	}
 
     update(): void {
-        // Very first update, begin a fade in (camera & music)
-        if (this.fading) {
-            let fadeInDuration: number = 1300;
-            this.cameras.main.fadeIn(fadeInDuration, 255, 255, 255);
-            this.fading = false;
-        }
+        this.foot.update();
     }
-
-	addAnimation(key): void {
-		this.add.sprite(400, this.y, 'gems').play(key);
-	}
 }

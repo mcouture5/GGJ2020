@@ -40,6 +40,11 @@
                 "type": "image",
                 "key": "bathroom",
                 "url": "assets/images/rooms/bathroom.jpg"
+            },
+            {
+                "type": "image",
+                "key": "foot",
+                "url": "assets/images/foot.png"
             }
         ]
     }
