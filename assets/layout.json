@@ -1,0 +1,39 @@
+{
+    "rooms": [
+        {
+            "key": "living_room",
+            "hazards": [
+                {
+                    "key": "hole_in_wall",
+                    "position": {"x": 0, "y": 0},
+                    "tool": "screwdriver"
+                }
+            ]
+        },
+        {
+            "key": "family_room",
+            "hazards": [
+            ]
+        },
+        {
+            "key": "dining_room",
+            "hazards": [
+            ]
+        },
+        {
+            "key": "bedroom",
+            "hazards": [
+            ]
+        },
+        {
+            "key": "bathroom",
+            "hazards": [
+            ]
+        },
+        {
+            "key": "kitchen",
+            "hazards": [
+            ]
+        }
+    ]
+}
