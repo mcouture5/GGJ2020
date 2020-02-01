@@ -51,7 +51,6 @@ export class GameScene extends Phaser.Scene {
 
     private beetleSprite;
     private beetle;
-    private beetleEvents: Phaser.Events.EventEmitter;
 
     constructor() {
         super({
@@ -75,8 +74,6 @@ export class GameScene extends Phaser.Scene {
 
         // References
         this.camera = this.cameras.main;
-
-        this.beetleEvents = new Phaser.Events.EventEmitter();
     }
 
     create(): void {
@@ -94,12 +91,18 @@ export class GameScene extends Phaser.Scene {
         }
 
         // Listen for when the hero interacts with a door
-        this.events.addListener('moveToRoom', (room: string) => {
-            // Stop all input!
-            this.state = GameState.ANIMATING;
-
-            // Move to next room
-            this.moveToRoom(room);
+        this.events.addListener('enterDoor', (doorString: string) => {
+            const doorToEnter = this.currentRoom.getDoors().find(door => door.position === doorString);
+            if (doorToEnter) {
+                this.beetle.stop();
+                // Stop all input!
+                this.state = GameState.ANIMATING;
+                // Move to next room
+                const roomString = doorToEnter.target;
+                const roomObj = this.rooms[roomString];
+                this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
+                this.moveToRoom(roomString);
+            }
         });
 
         // Listen for every time the camera is done fading
@@ -111,12 +114,11 @@ export class GameScene extends Phaser.Scene {
         });
         this.beetle = new Beetle({
             scene: this,
-            x: 512,
-            y: 405,
+            x: 0,
+            y: 0,
             key: 'beetle',
-            // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
-            eventEmitter: this.beetleEvents,
-            roomCoords: { x: this.rooms[LIVING_ROOM].x, y: this.rooms[LIVING_ROOM].y }
+            eventEmitter: this.events,
+            roomCoords: {x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y}
         });
         this.add.existing(this.beetle);
     }

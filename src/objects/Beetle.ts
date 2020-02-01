@@ -9,12 +9,14 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected beetleEvents: Phaser.Events.EventEmitter;
     protected moveSpeed: integer;
 
-    public roomCoords;
+    protected roomCoords;
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
         this.beetleEvents = params.eventEmitter;
         this.roomCoords = params.roomCoords;
+        this.x = this.roomCoords.x;
+        this.y = this.roomCoords.y + 100;
 
         params.scene.anims.create({
             key: 'idle',
@@ -56,12 +58,24 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.beetleEvents.emit("enterDoor", "left");
         } else if (this.isOnRight() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.beetleEvents.emit("enterDoor", "right");
-        } else if (Math.abs(this.body.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-            this.beetleEvents.emit("enterDoor", "right");
+        } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "center");
         } else {
             this.handleMove();
         }
 	}
+
+    protected moveToRoom(newCoords): void {
+        const wasOnLeft = this.isOnLeft();
+        const wasOnRight = this.isOnRight();
+        this.roomCoords = newCoords;
+        if (wasOnLeft) {
+            this.x = this.roomCoords.x + 140 - (this.displayWidth / 2);
+        } else if (wasOnRight) {
+            this.x = this.roomCoords.x + (this.displayWidth / 2) - 140;
+        }
+        this.y = this.roomCoords.y + 100;
+    }
 
     protected isOnLeft(): boolean {
         return this.x <= this.roomCoords.x + (this.displayWidth / 2) - 140;
@@ -69,6 +83,15 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     protected isOnRight(): boolean {
         return this.x >= this.roomCoords.x + 140 - (this.displayWidth / 2);
+    }
+
+    public stop(): void {
+        this.applyVelocity(0);
+    }
+
+    protected applyVelocity(velocity): void {
+        this.anims.play(velocity === 0 ? 'idle' : 'run', true);
+        this.body.setVelocityX(velocity);
     }
 
     protected handleMove(): void {
@@ -80,7 +103,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             velocity = this.moveSpeed;
             this.flipX = true;
         }
-        this.anims.play(velocity === 0 ? 'idle' : 'run', true);
-        this.body.setVelocityX(velocity);
+        this.applyVelocity(velocity);
     }
 }
