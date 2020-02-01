@@ -2,7 +2,7 @@
     "dining_room": {
         "position": {
             "x": 200,
-            "y": 260
+            "y": 310
         },
         "hazards": [
             {
@@ -53,7 +53,7 @@
     "living_room": {
         "position": {
             "x": 512,
-            "y": 260
+            "y": 310
         },
         "hazards": [
             {
@@ -102,7 +102,7 @@
     "kitchen": {
         "position": {
             "x": 824,
-            "y": 260
+            "y": 310
         },
         "hazards": [
             {
@@ -153,7 +153,7 @@
     "bathroom": {
         "position": {
             "x": 200,
-            "y": 500
+            "y": 575
         },
         "hazards": [
             {
@@ -204,7 +204,7 @@
     "family_room": {
         "position": {
             "x": 512,
-            "y": 500
+            "y": 575
         },
         "hazards": [
             {
@@ -253,7 +253,7 @@
     "bedroom": {
         "position": {
             "x": 824,
-            "y": 500
+            "y": 575
         },
         "hazards": [
             {
