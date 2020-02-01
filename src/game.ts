@@ -4,6 +4,7 @@ import 'phaser';
 import { Boot } from './scenes/Boot';
 import { MainMenu } from './scenes/MainMenu';
 import { GameScene } from './scenes/GameScene';
+import { LevelIntro } from './scenes/LevelIntro';
 
 // main game configuration
 const config: GameConfig = {
@@ -12,7 +13,7 @@ const config: GameConfig = {
   height: 768,
   type: Phaser.WEBGL,
   parent: 'game',
-  scene: [Boot, MainMenu, GameScene],
+  scene: [Boot, MainMenu, GameScene, LevelIntro],
   input: {
     keyboard: true,
     mouse: false,

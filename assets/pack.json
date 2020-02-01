@@ -33,6 +33,10 @@
             },
             {
                 "type": "image",
+                "key": "foot",
+                "url": "assets/images/foot.png"
+            },{
+                "type": "image",
                 "key": "toilet",
                 "url": "assets/images/hazards/toilet.png"
             }
