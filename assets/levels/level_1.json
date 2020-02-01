@@ -7,7 +7,17 @@
             "chair"
         ],
         "family_room": [
-            "hole"
+            "lamp"
+        ],
+        "kitchen": [
+            "sink"
+        ],
+        "bathroom": [
+            "shower",
+            "toilet"
+        ],
+        "bedroom": [
+            "lamp"
         ]
     },
     "time_limit": 1000

@@ -14,6 +14,7 @@ export class Door extends FubarObject {
 
         // image
         this.setOrigin(0.5, 0.5);
+        this.setScale(0.3, 0.3);
     }
 
     update(): void {

@@ -95,7 +95,7 @@
             {
                 "position": "center",
                 "target": "living_room",
-                "key": "1"
+                "key": "door"
             }
         ]
     },
@@ -246,7 +246,7 @@
             {
                 "position": "center",
                 "target": "family_room",
-                "key": "1"
+                "key": "door"
             }
         ]
     },
