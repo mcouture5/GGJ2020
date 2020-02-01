@@ -17,16 +17,9 @@ export class RoomGroup extends Phaser.GameObjects.Group {
     private createRooms(layout: IRoom[]) {
         for (let room_key in layout) {
             let room = layout[room_key];
-            // Create a new position
-            let fubarParams: IFubarObject = {
-                scene: this.scene,
-                x: room.position.x,
-                y: room.position.y,
-                key: room.key,
-                frame: 0
-            };
-            let roomSprite = new Room(fubarParams, room);
-            this.add(roomSprite, true);
+            let roomSprite = new Room(this.scene, room.position.x, room.position.y, room);
+            this.scene.add.existing(roomSprite);
+            //this.add(roomSprite, true);
             this.rooms[room_key] = roomSprite;
         }
     }

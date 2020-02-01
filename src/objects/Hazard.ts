@@ -8,7 +8,6 @@ export interface IHazard {
 }
 
 export class Hazard extends FubarObject {
-    private 
     constructor(params: IFubarObject, hazard: IHazard) {
         super(params);
 

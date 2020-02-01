@@ -30,8 +30,7 @@ export class GameScene extends Phaser.Scene {
 
     // Rooms
     private layout: IRoom[];
-    private roomGroup: RoomGroup;
-    private rooms: Room[];
+    private rooms: { [key: string]: Room };
     private currentRoom: Room;
 
     constructor() {
@@ -49,7 +48,8 @@ export class GameScene extends Phaser.Scene {
         this.layout = this.cache.json.get('layout');
 
         // Create new rooms using the layout config
-        this.roomGroup = null;
+        this.rooms = {};
+        this.currentRoom = null;
 
         // References
         this.camera = this.cameras.main;
@@ -62,27 +62,42 @@ export class GameScene extends Phaser.Scene {
         bg.displayHeight = 768;
 
         // Create and add the rooms
-        this.roomGroup = new RoomGroup({scene: this, layout: this.layout});
+        for (let room_key in this.layout) {
+            let room = this.layout[room_key];
+            let roomContainer = new Room(this, room.position.x, room.position.y, room);
+            this.add.existing(roomContainer);
+            this.rooms[room_key] = roomContainer;
+        }
 
         // Start in the living room
-        this.currentRoom = this.roomGroup.getRoom(LIVING_ROOM);
+        this.currentRoom = this.rooms[LIVING_ROOM];
 
         // Listen for events from obejcts
         this.events.addListener('event', () => {
             // noop
+        });
+
+        // Listen for when the hero interacts with a door
+        this.events.addListener('door', (door) => {
+            // Stop all input!
+            this.state = GameState.ANIMATING;
+
+            // Pan to the new level
         });
         
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             this.state = GameState.ANIMATING;
 
-            // Zoom and pan must be the same time so the scene will begin seamlessly when both finish
-            // camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Linear');
-            // camera.zoomTo(3.7, 1000, 'Linear', (camera, progress) => {
-            //     if (progress >= 1) {
-            //         this.state = GameState.AWAITING_INPUT;
-            //     }
-            // });
+            // Zoom and pan must be the same duration so the scene will begin seamlessly when both finish
+            if (false) {
+                camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2');
+                camera.zoomTo(3.7, 1000, 'Linear', (camera, progress) => {
+                    if (progress >= 1) {
+                        this.state = GameState.AWAITING_INPUT;
+                    }
+                });
+            }
         });
 
     }
@@ -110,6 +125,10 @@ export class GameScene extends Phaser.Scene {
 
     private restartGame(): void {
         this.scene.start('MainMenu');
+    }
+
+    private moveToRoom(key: string) {
+
     }
 
 }
