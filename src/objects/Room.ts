@@ -26,8 +26,8 @@ export class Room extends FubarObject {
 
         // image
         this.setOrigin(0.5, 0.5);
-        this.displayWidth = 200;
-        this.displayHeight = 150;
+        this.displayWidth = 300;
+        this.displayHeight = 200;
 
         // Create hazards in the room
         this.hazardSprites = new HazardGroup({ scene: this.scene, hazards: room.hazards });

@@ -1,7 +1,7 @@
 {
     "dining_room": {
         "position": {
-            "x": 100,
+            "x": 200,
             "y": 260
         },
         "hazards": [
@@ -45,13 +45,14 @@
         "doors": [
             {
                 "position": "left",
-                "target": "family_room"
+                "target": "family_room",
+                "key": "1"
             }
         ]
     },
     "living_room": {
         "position": {
-            "x": 412,
+            "x": 512,
             "y": 260
         },
         "hazards": [
@@ -83,21 +84,24 @@
         "doors": [
             {
                 "position": "left",
-                "target": "bedroom"
+                "target": "bedroom",
+                "key": "1"
             },
             {
                 "position": "right",
-                "target": "bathroom"
+                "target": "bathroom",
+                "key": "1"
             },
             {
                 "position": "center",
-                "target": "family_room"
+                "target": "family_room",
+                "key": "1"
             }
         ]
     },
     "kitchen": {
         "position": {
-            "x": 724,
+            "x": 824,
             "y": 260
         },
         "hazards": [
@@ -141,13 +145,14 @@
         "doors": [
             {
                 "position": "right",
-                "target": "family_room"
+                "target": "family_room",
+                "key": "1"
             }
         ]
     },
     "bathroom": {
         "position": {
-            "x": 100,
+            "x": 200,
             "y": 500
         },
         "hazards": [
@@ -191,13 +196,14 @@
         "doors": [
             {
                 "position": "left",
-                "target": "living_room"
+                "target": "living_room",
+                "key": "1"
             }
         ]
     },
     "family_room": {
         "position": {
-            "x": 412,
+            "x": 512,
             "y": 500
         },
         "hazards": [
@@ -229,21 +235,24 @@
         "doors": [
             {
                 "position": "left",
-                "target": "kitchen"
+                "target": "kitchen",
+                "key": "1"
             },
             {
                 "position": "right",
-                "target": "dining_room"
+                "target": "dining_room",
+                "key": "1"
             },
             {
                 "position": "center",
-                "target": "living_room"
+                "target": "living_room",
+                "key": "1"
             }
         ]
     },
     "bedroom": {
         "position": {
-            "x": 724,
+            "x": 824,
             "y": 500
         },
         "hazards": [
@@ -287,7 +296,8 @@
         "doors": [
             {
                 "position": "right",
-                "target": "living_room"
+                "target": "living_room",
+                "key": "1"
             }
         ]
     }
