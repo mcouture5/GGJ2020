@@ -1,5 +1,6 @@
 import { IHazard } from "./Hazard";
 import { FubarObject, IFubarObject } from "./FubarObject";
+import { HazardGroup } from "../groups/HazardGroup";
 
 export interface IRoom {
     key: string;
@@ -8,16 +9,11 @@ export interface IRoom {
     doors: ('left' | 'right' | 'center')[];
 }
 
-export interface RoomOptions extends IRoom {
-    scene: Phaser.Scene;
-    x: number,
-    y: number;
-}
-
 export class Room extends FubarObject {
-    private bg_key: string;
     private doors: ('left' | 'right' | 'center')[];
     private hazards: IHazard[];
+
+    private hazardSprites: HazardGroup;
 
     constructor(params: IFubarObject, room: IRoom) {
 
@@ -32,6 +28,9 @@ export class Room extends FubarObject {
         this.setOrigin(0, 0);
         this.displayWidth = 200;
         this.displayHeight = 150;
+
+        // Create hazards in the room
+        this.hazardSprites = new HazardGroup({ scene: this.scene, hazards: room.hazards });
     }
 
     update(): void {

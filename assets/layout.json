@@ -74,17 +74,17 @@
         "hazards": [
             {
                 "key": "sink",
-                "position": {"x": 0, "y": 0},
+                "position": {"x": 10, "y": 20},
                 "tool": "plunger"
             },
             {
                 "key": "shower",
-                "position": {"x": 0, "y": 0},
+                "position": {"x": 110, "y": 30},
                 "tool": "screwdriver"
             },
             {
                 "key": "toilet",
-                "position": {"x": 0, "y": 0},
+                "position": {"x": 50, "y": 10},
                 "tool": "plunger"
             }
         ],

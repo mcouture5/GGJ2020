@@ -10,6 +10,31 @@
                 "type": "image",
                 "key": "room_bg",
                 "url": "assets/images/rooms/room.png"
+            },
+            {
+                "type": "image",
+                "key": "chair",
+                "url": "assets/images/hazards/chair.png"
+            },
+            {
+                "type": "image",
+                "key": "lamp",
+                "url": "assets/images/hazards/lamp.png"
+            },
+            {
+                "type": "image",
+                "key": "shower",
+                "url": "assets/images/hazards/shower.png"
+            },
+            {
+                "type": "image",
+                "key": "sink",
+                "url": "assets/images/hazards/sink.png"
+            },
+            {
+                "type": "image",
+                "key": "toilet",
+                "url": "assets/images/hazards/toilet.png"
             }
         ]
     }

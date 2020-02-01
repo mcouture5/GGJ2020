@@ -1,16 +1,20 @@
+import { IFubarObject, FubarObject } from "./FubarObject";
+
 export interface IHazard {
     key: string;
     position: { x: number, y: number };
     tool: string;
 }
 
-export class Hazard extends Phaser.GameObjects.Sprite {
-    constructor(params) {
-        super(params.scene, params.x, params.y, params.key, params.frame);
+export class Hazard extends FubarObject {
+    private 
+    constructor(params: IFubarObject, hazard: IHazard) {
+        super(params);
 
         // image
-        this.setScale(3);
         this.setOrigin(0, 0);
+        this.displayWidth = 32;
+        this.displayHeight = 64;
     }
 
     update(): void {
