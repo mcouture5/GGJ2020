@@ -130,10 +130,12 @@ export class GameScene extends Phaser.Scene {
         }
         this.runGame();
         // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
-        let timerProgress: number = this.timer.getProgress();
-        dispatchEvent(new CustomEvent('timer_update', {
-            detail: timerProgress
-        }))
+        if (this.timer) {
+            let timerProgress: number = this.timer.getProgress();
+            dispatchEvent(new CustomEvent('timer_update', {
+                detail: timerProgress
+            }));
+        }
     }
 
     private loadLevel(level: number) {
