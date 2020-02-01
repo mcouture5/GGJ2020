@@ -43,7 +43,10 @@
             }
         ],
         "doors": [
-            "left"
+            {
+                "position": "left",
+                "target": "family_room"
+            }
         ]
     },
     "living_room": {
@@ -78,9 +81,18 @@
             }
         ],
         "doors": [
-            "left",
-            "right",
-            "center"
+            {
+                "position": "left",
+                "target": "bedroom"
+            },
+            {
+                "position": "right",
+                "target": "bathroom"
+            },
+            {
+                "position": "center",
+                "target": "family_room"
+            }
         ]
     },
     "kitchen": {
@@ -127,7 +139,10 @@
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "right",
+                "target": "family_room"
+            }
         ]
     },
     "bathroom": {
@@ -174,7 +189,10 @@
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "left",
+                "target": "living_room"
+            }
         ]
     },
     "family_room": {
@@ -209,9 +227,18 @@
             }
         ],
         "doors": [
-            "left",
-            "right",
-            "center"
+            {
+                "position": "left",
+                "target": "kitchen"
+            },
+            {
+                "position": "right",
+                "target": "dining_room"
+            },
+            {
+                "position": "center",
+                "target": "living_room"
+            }
         ]
     },
     "bedroom": {
@@ -258,7 +285,10 @@
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "right",
+                "target": "living_room"
+            }
         ]
     }
 }
