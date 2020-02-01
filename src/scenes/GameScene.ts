@@ -101,14 +101,14 @@ export class GameScene extends Phaser.Scene {
             // Load the first level
             this.loadLevel(1);
         });
-
         this.beetle = new Beetle({
             scene: this,
             x: 512,
-            y: 650,
+            y: 405,
             key: 'beetle',
             // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
             eventEmitter: this.beetleEvents,
+            roomCoords: {x: this.rooms[LIVING_ROOM].x, y: this.rooms[LIVING_ROOM].y}
         });
         this.add.existing(this.beetle);
     }
