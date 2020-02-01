@@ -5,17 +5,20 @@
         "hazards": [
             {
                 "key": "chair",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 100, "y": 360 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             },
             {
                 "key": "table",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 100, "y": 360 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             },
             {
                 "key": "wetbar",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 100, "y": 360 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "plunger"
             }
         ],
@@ -29,12 +32,14 @@
         "hazards": [
             {
                 "key": "hole",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 412, "y": 260 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             },
             {
                 "key": "tv",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 412, "y": 260 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             }
         ],
@@ -50,17 +55,20 @@
         "hazards": [
             {
                 "key": "stove",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 724, "y": 260 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             },
             {
                 "key": "sink",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 724, "y": 260 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "plunger"
             },
             {
                 "key": "fridge",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 724, "y": 260 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             }
         ],
@@ -74,17 +82,20 @@
         "hazards": [
             {
                 "key": "sink",
-                "position": {"x": 10, "y": 20},
+                "position": { "x": 100, "y": 500 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "plunger"
             },
             {
                 "key": "shower",
-                "position": {"x": 110, "y": 30},
+                "position": { "x": 100, "y": 500 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             },
             {
                 "key": "toilet",
-                "position": {"x": 50, "y": 10},
+                "position": { "x": 100, "y": 500 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "plunger"
             }
         ],
@@ -98,12 +109,14 @@
         "hazards": [
             {
                 "key": "hole",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 0, "y": 0 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             },
             {
                 "key": "outlet",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 0, "y": 0 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             }
         ],
@@ -119,17 +132,20 @@
         "hazards": [
             {
                 "key": "bed",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 0, "y": 0 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             },
             {
                 "key": "outlet",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 0, "y": 0 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "screwdriver"
             }, 
             {
                 "key": "closet",
-                "position": {"x": 0, "y": 0},
+                "position": { "x": 0, "y": 0 },
+                "display": { "width": 32, "height": 64 },
                 "tool": "hammer"
             }
         ],
