@@ -7,7 +7,6 @@ export interface IDoor {
 }
 
 export class Door extends FubarObject {
-    private position: 'left' | 'right' | 'center';
     private target: string;
 
     constructor(params: IFubarObject, door: IDoor) {

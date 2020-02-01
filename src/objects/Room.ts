@@ -1,7 +1,7 @@
 import { IHazard, Hazard } from "./Hazard";
 import { FubarObject, IFubarObject } from "./FubarObject";
 import { HazardGroup } from "../groups/HazardGroup";
-import { IDoor } from "./Door";
+import { IDoor, Door } from "./Door";
 import { DoorGroup } from "../groups/DoorGroup";
 
 export interface IRoom {
@@ -10,6 +10,9 @@ export interface IRoom {
     hazards: IHazard[];
     doors: IDoor[];
 }
+
+let WIDTH = 300;
+let HEIGHT = 200;
 
 export class Room extends Phaser.GameObjects.Container {
     // Conatins all the children. Used for "collision" detections
@@ -28,13 +31,15 @@ export class Room extends Phaser.GameObjects.Container {
         this.children = [];
 
         // Create background image
-        this.add(new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'room_bg').setOrigin(0.5, 0.5).setScale(0.5, 0.5));
+        let bg = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'room_bg').setOrigin(0.5, 0.5).setScale(0.489, 0.392);
+        this.add(bg);
+        this.sendToBack(bg);
 
         // Create hazards in the room
         this.createHazards();
 
         // Create the doors
-        //this.createDoors();
+        this.createDoors();
     }
 
     update(): void {
@@ -46,9 +51,29 @@ export class Room extends Phaser.GameObjects.Container {
 
     private createHazards() {
         for (let hazard of this.hazards) {
-            let hd = new Hazard({ scene: this.scene, x: hazard.position.x, y: hazard.position.y, key: hazard.key }, hazard);
+            let hd = new Hazard({ scene: this.scene, x: 0, y: 0, key: hazard.key }, hazard);
             this.add(hd);
             this.children.push(hd);
+        }
+    }
+    
+    private createDoors() {
+        for (let door of this.doors) {
+            // Create a new position based on the door position
+            let x = 0, y = HEIGHT / 2;
+            switch (door.position) {
+                case "left":
+                    x = 0 - (WIDTH / 2);
+                    break;
+                case "center":
+                    break;
+                case "right":
+                    x = WIDTH / 2;
+                    break;
+            }
+            let dr = new Door({ scene: this.scene, x: x, y: y, key: door.key }, door);
+            this.add(dr);
+            this.children.push(dr);
         }
     }
     

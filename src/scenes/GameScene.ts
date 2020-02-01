@@ -97,9 +97,9 @@ export class GameScene extends Phaser.Scene {
             this.state = GameState.ANIMATING;
 
             // Zoom and pan must be the same duration so the scene will begin seamlessly when both finish
-            if (false) {
+            if (true) {
                 camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2');
-                camera.zoomTo(3.7, 1000, 'Linear', (camera, progress) => {
+                camera.zoomTo(2.4, 1000, 'Linear', (camera, progress) => {
                     if (progress >= 1) {
                         this.state = GameState.AWAITING_INPUT;
                     }

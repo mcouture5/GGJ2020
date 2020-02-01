@@ -13,8 +13,7 @@ export class Hazard extends FubarObject {
 
         // image
         this.setOrigin(0.5, 0.5);
-        this.displayWidth = hazard.display.width;
-        this.displayHeight = hazard.display.width;
+        this.setScale(0.5, 0.5);
     }
 
     update(): void {

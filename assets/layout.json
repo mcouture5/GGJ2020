@@ -44,7 +44,7 @@
         ],
         "doors": [
             {
-                "position": "left",
+                "position": "right",
                 "target": "family_room",
                 "key": "1"
             }
@@ -144,7 +144,7 @@
         ],
         "doors": [
             {
-                "position": "right",
+                "position": "left",
                 "target": "family_room",
                 "key": "1"
             }
@@ -195,7 +195,7 @@
         ],
         "doors": [
             {
-                "position": "left",
+                "position": "right",
                 "target": "living_room",
                 "key": "1"
             }
@@ -295,7 +295,7 @@
         ],
         "doors": [
             {
-                "position": "right",
+                "position": "left",
                 "target": "living_room",
                 "key": "1"
             }
