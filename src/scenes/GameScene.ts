@@ -10,6 +10,14 @@ enum GameState {
     ANIMATING
 }
 
+// All of the rooms
+let LIVING_ROOM = "living_room";
+let FAMILY_ROOM = "family_room";
+let DINING_ROOM = "dining_room";
+let BEDROOM = "bedroom";
+let BATHROOM = "bathroom";
+let KITCHEN = "kitchen";
+
 export class GameScene extends Phaser.Scene {
     // variables
     private fading: boolean;
@@ -17,10 +25,14 @@ export class GameScene extends Phaser.Scene {
     // Game state
     private state: GameState;
 
+    // Keep references
+    private camera: Phaser.Cameras.Scene2D.Camera;
+
     // Rooms
     private layout: IRoom[];
     private roomGroup: RoomGroup;
     private rooms: Room[];
+    private currentRoom: Room;
 
     constructor() {
         super({
@@ -38,6 +50,9 @@ export class GameScene extends Phaser.Scene {
 
         // Create new rooms using the layout config
         this.roomGroup = null;
+
+        // References
+        this.camera = this.cameras.main;
     }
 
     create(): void {
@@ -49,10 +64,27 @@ export class GameScene extends Phaser.Scene {
         // Create and add the rooms
         this.roomGroup = new RoomGroup({scene: this, layout: this.layout});
 
+        // Start in the living room
+        this.currentRoom = this.roomGroup.getRoom(LIVING_ROOM);
+
         // Listen for events from obejcts
         this.events.addListener('event', () => {
             // noop
         });
+        
+        // Listen for every time the camera is done fading
+        this.camera.once('camerafadeincomplete', (camera) => {
+            this.state = GameState.ANIMATING;
+
+            // Zoom and pan must be the same time so the scene will begin seamlessly when both finish
+            // camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Linear');
+            // camera.zoomTo(3.7, 1000, 'Linear', (camera, progress) => {
+            //     if (progress >= 1) {
+            //         this.state = GameState.AWAITING_INPUT;
+            //     }
+            // });
+        });
+
     }
 
     update(): void {
@@ -68,10 +100,10 @@ export class GameScene extends Phaser.Scene {
     private runGame() {
         switch (this.state) {
             case GameState.STARTING_LEVEL:
+            case GameState.ANIMATING:
+                // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
-                break;
-            case GameState.ANIMATING:
                 break;
         }
     }

@@ -25,7 +25,7 @@ export class Room extends FubarObject {
         this.hazards = room.hazards;
 
         // image
-        this.setOrigin(0, 0);
+        this.setOrigin(0.5, 0.5);
         this.displayWidth = 200;
         this.displayHeight = 150;
 
