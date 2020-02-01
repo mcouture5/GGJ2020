@@ -45,6 +45,7 @@ export class Room extends Phaser.GameObjects.Container {
     private counter = 0;
     update(): void {
         // TODO remove: After a while, move to the next random room
+        /*
         this.counter++;
         if (this.counter >= 100) {
             let rand = Math.floor(Math.random() * this.doors.length);
@@ -52,6 +53,7 @@ export class Room extends Phaser.GameObjects.Container {
             this.activeHazards = [];
             this.scene.events.emit('moveToRoom', this.doors[rand].target);
         }
+        */
     }
 
     getDoors() {
@@ -75,7 +77,7 @@ export class Room extends Phaser.GameObjects.Container {
 
     private createHazards(hazards: IHazard[]) {
         for (let hazard of hazards) {
-            let hd = new Hazard({ scene: this.scene, x: 0, y: 0, key: hazard.key }, hazard);
+            let hd = new Hazard({ scene: this.scene, x: 0, y: 0, key: hazard.key }, hazard, this);
             this.add(hd);
             this.children.push(hd);
             this.hazards[hazard.key] = hd;

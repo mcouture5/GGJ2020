@@ -135,7 +135,7 @@ export class GameScene extends Phaser.Scene {
             // Zoom and pan to begin
             this.camera.zoomTo(2.7, 1000, 'Linear', true);
             // Begin in the living room
-            this.moveToRoom(LIVING_ROOM);
+            this.moveToRoom(FAMILY_ROOM);
         }
     }
 

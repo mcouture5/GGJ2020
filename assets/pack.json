@@ -18,6 +18,11 @@
             },
             {
                 "type": "image",
+                "key": "chair_active",
+                "url": "assets/images/hazards/active/chair.png"
+            },
+            {
+                "type": "image",
                 "key": "lamp",
                 "url": "assets/images/hazards/lamp.png"
             },
