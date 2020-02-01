@@ -1,17 +1,20 @@
-import { Scene } from 'phaser';
+import { Scene, Game } from 'phaser';
 import { Room, IRoom } from '../objects/Room';
 import { IFubarObject } from '../objects/FubarObject';
 import { Beetle } from '../objects/Beetle';
+import { HUDGroup } from '../groups/HUDGroup';
 
 enum GameState {
     STARTING_LEVEL,
     GETTING_RECIPE,
     AWAITING_INPUT,
-    ANIMATING
+    ANIMATING,
+    GAME_OVER
 }
 
 export interface ILevel {
     hazards: { [room: string]: string[] };
+    time_limit: number;
 }
 
 // All of the rooms
@@ -29,6 +32,9 @@ export class GameScene extends Phaser.Scene {
     // Game state
     private state: GameState;
 
+    // Timer Event
+    private timer: Phaser.Time.TimerEvent;
+
     // Keep references
     private camera: Phaser.Cameras.Scene2D.Camera;
 
@@ -40,6 +46,8 @@ export class GameScene extends Phaser.Scene {
     // Levels
     private level: ILevel;
     private currentLevel: number;
+
+    private hud: HUDGroup;
 
     private beetleSprite;
     private beetle;
@@ -93,7 +101,7 @@ export class GameScene extends Phaser.Scene {
             // Move to next room
             this.moveToRoom(room);
         });
-        
+
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             this.state = GameState.AWAITING_INPUT;
@@ -108,7 +116,7 @@ export class GameScene extends Phaser.Scene {
             key: 'beetle',
             // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
             eventEmitter: this.beetleEvents,
-            roomCoords: {x: this.rooms[LIVING_ROOM].x, y: this.rooms[LIVING_ROOM].y}
+            roomCoords: { x: this.rooms[LIVING_ROOM].x, y: this.rooms[LIVING_ROOM].y }
         });
         this.add.existing(this.beetle);
     }
@@ -121,6 +129,11 @@ export class GameScene extends Phaser.Scene {
             this.fading = false;
         }
         this.runGame();
+        // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
+        let timerProgress: number = this.timer.getProgress();
+        dispatchEvent(new CustomEvent('timer_update', {
+            detail: timerProgress
+        }))
     }
 
     private loadLevel(level: number) {
@@ -137,6 +150,13 @@ export class GameScene extends Phaser.Scene {
             // Begin in the living room
             this.moveToRoom(FAMILY_ROOM);
         }
+        // Create timer event
+        this.timer = this.time.addEvent({
+            delay: this.level.time_limit,
+            callback: this.setGameOver,
+        });
+        // Create the HUD
+        this.hud = new HUDGroup(this.scene);
     }
 
     private runGame() {
@@ -149,6 +169,10 @@ export class GameScene extends Phaser.Scene {
                 this.beetle.update();
                 this.currentRoom && this.currentRoom.update();
                 // this.checkRooms();
+                break;
+            case GameState.GAME_OVER:
+                // TODO: Create this scene.
+                this.scene.start('GameOver');
                 break;
         }
     }
@@ -188,5 +212,9 @@ export class GameScene extends Phaser.Scene {
                 }
             });
         }
+    }
+
+    private setGameOver() {
+        this.state = GameState.GAME_OVER;
     }
 }
