@@ -1,6 +1,11 @@
 {
     "hazards": {
-        "living_room": ["hole_in_wall"],
-        "family_room": ["tv"]
-    }
+        "living_room": [
+            "hole_in_wall"
+        ],
+        "family_room": [
+            "tv"
+        ]
+    },
+    "time_limit": 1000
 }
