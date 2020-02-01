@@ -9,7 +9,7 @@
             {
                 "type": "image",
                 "key": "room_bg",
-                "url": "assets/images/room.png"
+                "url": "assets/images/rooms/room.png"
             },
             {
                 "type": "image",

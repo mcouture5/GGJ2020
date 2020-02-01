@@ -20,6 +20,9 @@ export class Room extends FubarObject {
     private hazards: IHazard[];
 
     constructor(params: IFubarObject, room: IRoom) {
+
+        // all rooms shall use this
+        params.key = 'room_bg';
         super(params);
 
         this.doors = room.doors;
