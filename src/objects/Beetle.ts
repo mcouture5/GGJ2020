@@ -52,32 +52,31 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     }
 	
     update(): void {
-        this.handleMove();
-        // if (this.body.x <= this.roomCoords.x + this.displayWidth - 150) {
-        //     this.body.setVelocityX(0);
-        //     if (Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-        //         this.beetleEvents.emit("enterDoor", "left");
-        //     }
-        // } else if (this.body.x >= this.roomCoords.x + 150 - this.displayWidth) {
-        //     this.body.setVelocityX(0);
-        //     if (Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-        //         this.beetleEvents.emit("enterDoor", "right");
-        //     }
-        // } else {
-        //     if (Math.abs(this.body.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-        //         this.beetleEvents.emit("enterDoor", "right");
-        //     } else {
-        //         this.handleMove();
-        //     }
-        // }
+        if (this.isOnLeft() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "left");
+        } else if (this.isOnRight() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "right");
+        } else if (Math.abs(this.body.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+            this.beetleEvents.emit("enterDoor", "right");
+        } else {
+            this.handleMove();
+        }
 	}
+
+    protected isOnLeft(): boolean {
+        return this.x <= this.roomCoords.x + (this.displayWidth / 2) - 140;
+    }
+
+    protected isOnRight(): boolean {
+        return this.x >= this.roomCoords.x + 140 - (this.displayWidth / 2);
+    }
 
     protected handleMove(): void {
         let velocity = 0;
-        if (this.leftKey.isDown) {
+        if (this.leftKey.isDown && !this.isOnLeft()) {
             velocity = -this.moveSpeed;
             this.flipX = false;
-        } else if (this.rightKey.isDown) {
+        } else if (this.rightKey.isDown && !this.isOnRight()) {
             velocity = this.moveSpeed;
             this.flipX = true;
         }
