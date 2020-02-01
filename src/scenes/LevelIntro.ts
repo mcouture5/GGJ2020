@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Foot } from '../objects/Foot';
+import { IFubarObject } from '../objects/FubarObject';
 
 enum GameState {
     STARTING_LEVEL,
@@ -12,6 +13,8 @@ export class LevelIntro extends Phaser.Scene {
     // variables
 	private fading: boolean;
 	private foot: Foot;
+
+	private footAnim: Phaser.Tweens.Tween;
 
     constructor() {
         super({
@@ -29,14 +32,23 @@ export class LevelIntro extends Phaser.Scene {
 		bg.displayHeight = 768;
 
 		// this.add.sprite(0, 0, 'background').setOrigin(0, 0);
-		this.foot = new Foot({
-            scene: this,
-            x: 70,
-            y: 500,
-            key: 'foot',
-		});
-        // Add foot
-        this.add.existing(this.foot);
+		let fubarParams: IFubarObject = {
+			scene: this,
+			x: 900,
+			y: -512,
+			frame: 0
+		};
+		this.foot = new Foot(fubarParams);
+		this.add.existing(this.foot);
+
+		this.footAnim = this.add.tween({
+            targets: this.foot,
+            duration: 1000,
+            onComplete: () => {
+                
+			},
+			y: 0
+        })
 	}
 
     update(): void {

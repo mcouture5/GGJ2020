@@ -1,18 +1,14 @@
-export interface IFoot {
-    scene: Phaser.Scene;
-    x: number,
-    y: number;
-    key?: string;
-    frame?: number;
-}
+import { FubarObject, IFubarObject } from "./FubarObject";
 
-export class Foot extends Phaser.GameObjects.Sprite {
-    constructor(params: IFoot) {
-        super(params.scene, params.x, params.y, params.key, params.frame);
 
-        // image
-        this.setScale(3);
+export class Foot extends FubarObject {
+    constructor(params: IFubarObject) {
+		params.key = 'foot';
+        super(params);
+
         this.setOrigin(0, 0);
+        this.displayWidth = -512;
+        this.displayHeight = 512;
     }
 
     update(): void {
