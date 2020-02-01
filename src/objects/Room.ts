@@ -1,6 +1,5 @@
 import { IHazard, Hazard } from "./Hazard";
 import { FubarObject, IFubarObject } from "./FubarObject";
-import { HazardGroup } from "../groups/HazardGroup";
 import { IDoor, Door } from "./Door";
 import { DoorGroup } from "../groups/DoorGroup";
 
@@ -42,7 +41,16 @@ export class Room extends Phaser.GameObjects.Container {
         this.createDoors();
     }
 
+    private counter = 0;
     update(): void {
+        // TODO remove: After a while, move to the next random room
+        this.counter++;
+        console.log(this.counter);
+        if (this.counter >= 3000) {
+            let rand = Math.floor(Math.random() * this.doors.length);
+            this.counter = 0;
+            this.scene.events.emit('moveToRoom', this.doors[rand]);
+        }
     }
 
     getDoors() {

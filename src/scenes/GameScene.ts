@@ -1,7 +1,6 @@
 import { Scene } from 'phaser';
 import { Room, IRoom } from '../objects/Room';
 import { IFubarObject } from '../objects/FubarObject';
-import { RoomGroup } from '../groups/RoomGroup';
 import { Beetle } from '../objects/Beetle';
 
 enum GameState {
@@ -76,20 +75,13 @@ export class GameScene extends Phaser.Scene {
             this.rooms[room_key] = roomContainer;
         }
 
-        // Start in the living room
-        this.currentRoom = this.rooms[LIVING_ROOM];
-
-        // Listen for events from obejcts
-        this.events.addListener('event', () => {
-            // noop
-        });
-
         // Listen for when the hero interacts with a door
-        this.events.addListener('door', (door) => {
+        this.events.addListener('moveToRoom', (room: string) => {
             // Stop all input!
             this.state = GameState.ANIMATING;
 
-            // Pan to the new level
+            // Move to next room
+            this.moveToRoom(room);
         });
         
         // Listen for every time the camera is done fading
@@ -98,12 +90,11 @@ export class GameScene extends Phaser.Scene {
 
             // Zoom and pan must be the same duration so the scene will begin seamlessly when both finish
             if (false) {
-                camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2');
-                camera.zoomTo(2.4, 1000, 'Linear', (camera, progress) => {
-                    if (progress >= 1) {
-                        this.state = GameState.AWAITING_INPUT;
-                    }
-                });
+                // Begin in the living room
+                this.moveToRoom(LIVING_ROOM);
+                
+                // Zoom in on it
+                camera.zoomTo(2.4, 1000, 'Linear');
             }
         });
 
@@ -136,6 +127,8 @@ export class GameScene extends Phaser.Scene {
                 break;
             case GameState.AWAITING_INPUT:
                 this.beetle.update();
+                // this.currentRoom && this.currentRoom.update();
+                this.beetle.update();
                 break;
         }
     }
@@ -145,7 +138,11 @@ export class GameScene extends Phaser.Scene {
     }
 
     private moveToRoom(key: string) {
-
+        this.currentRoom = this.rooms[key];
+        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2', false, (camera, progress) => {
+            if (progress >= 1) {
+                this.state = GameState.AWAITING_INPUT;
+            }
+        });
     }
-
 }
