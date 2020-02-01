@@ -23,7 +23,7 @@ export class HUDGroup extends Phaser.GameObjects.Group {
         progressBar.addListener('timer', function (e) {
             progressBar.clear();
             progressBar.fillStyle(0xF93208, 1);
-            progressBar.fillRect(100, 50, 100 * e.detail, 15);
+            progressBar.fillRect(100, 50, 150 * e.detail, 15);
         });
         progressBar.setScrollFactor(1);
         this.add(progressBar);
