@@ -1,87 +1,131 @@
 {
     "rooms": [
         {
+            "name": "Dining Room",
+            "key": "dining_room",
+            "hazards": [
+                {
+                    "name": "Broken Chair",
+                    "key": "chair"
+                },
+                {
+                    "name": "Broken Table",
+                    "key": "table"
+                },
+                {
+                    "name": "Leaky Wetbar",
+                    "key": "wetbar"
+                }
+            ],
+            "background_key": "1",
+            "doors": [
+                "left"
+            ]
+        },
+        {
+            "name": "Family Room",
+            "key": "family_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ],
+            "background_key": "2",
+            "doors": [
+                "left",
+                "right",
+                "center"
+            ]
+        },
+        {
+            "name": "Bathroom",
+            "key": "bathroom",
+            "hazards": [
+                {
+                    "name": "Leaky Sink",
+                    "key": "sink"
+                },
+                {
+                    "name": "Broken Shower",
+                    "key": "shower"
+                },
+                {
+                    "name": "Overflowing Toilet",
+                    "key": "toilet"
+                }
+            ],
+            "background_key": "3",
+            "doors": [
+                "right"
+            ]
+        },
+        {
+            "name": "Kitchen",
+            "key": "kitchen",
+            "hazards": [
+                {
+                    "name": "Flaming Stove",
+                    "key": "stove"
+                },
+                {
+                    "name": "Leaky Sink",
+                    "key": "sink"
+                },
+                {
+                    "name": "Broken Fridge",
+                    "key": "fridge"
+                }
+            ],
+            "background_key": "4",
+            "doors": [
+                "right"
+            ]
+        },
+        {
+            "name": "Bedroom",
+            "key": "bedroom",
+            "hazards": [
+                {
+                    "name": "Broken Bed",
+                    "key": "bed"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }, 
+                {
+                    "name": "Broken Closet",
+                    "key": "closet"
+                }
+            ],
+            "background_key": "5",
+            "doors": [
+                "right"
+            ]
+        },
+        {
             "name": "Living Room",
             "key": "living_room",
             "hazards": [
                 {
                     "name": "Hole in Wall",
-                    "key": "hole_in_wall"
+                    "key": "hole"
                 },
                 {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
+                    "name": "Broken TV",
+                    "key": "tv"
                 }
-            ]
-        },
-        {
-            "name": "Dining Room",
-            "key": "living_room",
-            "hazards": [
-                {
-                    "name": "Hole in Wall",
-                    "key": "hole_in_wall"
-                },
-                {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
-                }
-            ]
-        },
-        {
-            "name": "Kitchen",
-            "key": "living_room",
-            "hazards": [
-                {
-                    "name": "Hole in Wall",
-                    "key": "hole_in_wall"
-                },
-                {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
-                }
-            ]
-        },
-        {
-            "name": "Bathroom",
-            "key": "living_room",
-            "hazards": [
-                {
-                    "name": "Hole in Wall",
-                    "key": "hole_in_wall"
-                },
-                {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
-                }
-            ]
-        },
-        {
-            "name": "Bedroom",
-            "key": "living_room",
-            "hazards": [
-                {
-                    "name": "Hole in Wall",
-                    "key": "hole_in_wall"
-                },
-                {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
-                }
-            ]
-        },
-        {
-            "name": "Family Room",
-            "key": "living_room",
-            "hazards": [
-                {
-                    "name": "Hole in Wall",
-                    "key": "hole_in_wall"
-                },
-                {
-                    "name": "Sparking Outlet",
-                    "key": "outlet"
-                }
+            ],
+            "background_key": "2",
+            "doors": [
+                "left",
+                "right",
+                "center"
             ]
         }
     ]
