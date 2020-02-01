@@ -39,6 +39,16 @@
                 "type": "image",
                 "key": "toilet",
                 "url": "assets/images/hazards/toilet.png"
+            },
+            {
+                "type": "image",
+                "key": "ants",
+                "url": "assets/images/ants.png"
+            },
+            {
+                "type": "image",
+                "key": "entrance",
+                "url": "assets/images/entrance.png"
             }
         ]
     }

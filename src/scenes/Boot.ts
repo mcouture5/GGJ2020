@@ -47,6 +47,8 @@ export class Boot extends Phaser.Scene {
         //Load room data
         this.load.json('layout', './assets/layout.json');
         this.load.spritesheet('beetle', 'assets/images/beetle.png', {frameWidth: 245, frameHeight: 252});
+
+        this.load.json('intro_layout', './assets/intro_layout.json');
     }
 
     update() {
