@@ -9,11 +9,15 @@ export interface IHazard {
 }
 
 export class Hazard extends FubarObject {
+    public key: string;
     private room: Room;
     private activeKey: string;
+    private activeSprite: Phaser.GameObjects.Sprite;
 
     constructor(params: IFubarObject, hazard: IHazard, room: Room) {
         super(params);
+
+        this.key = params.key;
 
         // image
         this.setOrigin(0.5, 0.5);
@@ -32,9 +36,12 @@ export class Hazard extends FubarObject {
 
     public activate() {
         // Cover this obkect with the active key
-        let activeSprite = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x, this.room.y + this.y, this.activeKey);
-        activeSprite.setScale(0.3)
-        this.scene.add.existing(activeSprite);
-        console.log('Activate!!!')
+        this.activeSprite = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x, this.room.y + this.y, this.activeKey);
+        this.activeSprite.setScale(0.3)
+        this.scene.add.existing(this.activeSprite);
+    }
+
+    public fix() {
+        this.activeSprite.destroy();
     }
 }

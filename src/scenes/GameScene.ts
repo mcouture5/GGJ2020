@@ -131,11 +131,13 @@ export class GameScene extends Phaser.Scene {
             let room = this.rooms[key];
             room.loadHazards(rooms[key])
         }
-        if (false) {
+        if (true) {
             // Zoom and pan to begin
-            this.camera.zoomTo(2.7, 1000, 'Linear', true);
-            // Begin in the living room
-            this.moveToRoom(FAMILY_ROOM);
+            setTimeout(() => {
+                this.camera.zoomTo(2.7, 1000, 'Linear', true);
+                // Begin in the living room
+                this.moveToRoom(FAMILY_ROOM);
+            }, 1000);
         }
     }
 
@@ -148,7 +150,7 @@ export class GameScene extends Phaser.Scene {
             case GameState.AWAITING_INPUT:
                 this.beetle.update();
                 this.currentRoom && this.currentRoom.update();
-                // this.checkRooms();
+                this.checkRooms();
                 break;
         }
     }
