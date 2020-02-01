@@ -18,4 +18,8 @@ export class Hazard extends FubarObject {
 
     update(): void {
     }
+
+    public activate() {
+        console.log('Activate!!!')
+    }
 }
