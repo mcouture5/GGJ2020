@@ -19,10 +19,6 @@ export class LevelIntro extends Phaser.Scene {
     }
 
     init(): void {
-        // Starting level
-        this.state = GameState.STARTING_LEVEL;
-        // starts fading
-		this.fading = true;
 		this.load.atlas('foot', 'assets/foot.png');
     }
 
@@ -34,8 +30,8 @@ export class LevelIntro extends Phaser.Scene {
         this.events.addListener('event', () => {
             // noop
 		});
-		
-		this.anims.on()
+
+		this.anims.on(Phaser.Animations.Events.ADD_ANIMATION, this.addAnimation, this);
     }
 
     update(): void {
@@ -48,8 +44,6 @@ export class LevelIntro extends Phaser.Scene {
     }
 
 	addAnimation(key): void {
-		this.add.sprite(400, y, 'gems').play(key);
-	
-		y += 100;
+		this.add.sprite(400, this.y, 'gems').play(key);
 	}
 }

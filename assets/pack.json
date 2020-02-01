@@ -1,6 +1,46 @@
 {
     "preload": {
         "files": [
+            {
+                "type": "image",
+                "key": "game_bg",
+                "url": "assets/images/game_bg.png"
+            },
+            {
+                "type": "image",
+                "key": "room_bg",
+                "url": "assets/images/room.png"
+            },
+            {
+                "type": "image",
+                "key": "living_room",
+                "url": "assets/images/rooms/living_room.jpg"
+            },
+            {
+                "type": "image",
+                "key": "family_room",
+                "url": "assets/images/rooms/family_room.jpg"
+            },
+            {
+                "type": "image",
+                "key": "dining_room",
+                "url": "assets/images/rooms/dining_room.jpg"
+            },
+            {
+                "type": "image",
+                "key": "kitchen",
+                "url": "assets/images/rooms/kitchen.jpg"
+            },
+            {
+                "type": "image",
+                "key": "bedroom",
+                "url": "assets/images/rooms/bedroom.jpg"
+            },
+            {
+                "type": "image",
+                "key": "bathroom",
+                "url": "assets/images/rooms/bathroom.jpg"
+            }
         ]
     }
 }
