@@ -87,7 +87,7 @@ export class Room extends Phaser.GameObjects.Container {
     private createDoors(doors: IDoor[]) {
         for (let door of doors) {
             // Create a new position based on the door position
-            let x = 0, y = this.displayHeight / 2;
+            let x = 0, y = (this.displayHeight / 4) - 20;
             switch (door.position) {
                 case "left":
                     x = 0 - (this.displayWidth / 2);
