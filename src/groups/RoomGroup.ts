@@ -2,13 +2,14 @@ import { IRoom, Room } from "../objects/Room";
 import { IFubarObject } from "../objects/FubarObject";
 
 export class RoomGroup extends Phaser.GameObjects.Group {
+    private rooms: Room[];
+
     constructor(params: {scene: Phaser.Scene, layout: IRoom[]}) {
         super(params.scene);
         this.createRooms(params.layout);
     }
     
     private createRooms(layout: IRoom[]) {
-        let rooms = [];
         for (let room_key in layout) {
             let room = layout[room_key];
             // Create a new position
@@ -21,9 +22,7 @@ export class RoomGroup extends Phaser.GameObjects.Group {
             };
             let roomSprite = new Room(fubarParams, room);
             this.add(roomSprite, true);
-            rooms.push(roomSprite);
-            console.log(roomSprite);
+            this.rooms.push(roomSprite);
         }
-        return rooms;
     }
 }
