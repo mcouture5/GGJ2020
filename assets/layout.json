@@ -8,36 +8,36 @@
             {
                 "key": "chair",
                 "position": {
-                    "x": 100,
-                    "y": 360
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.2
                 },
                 "tool": "hammer"
             },
             {
                 "key": "table",
                 "position": {
-                    "x": 100,
-                    "y": 360
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "hammer"
             },
             {
                 "key": "wetbar",
                 "position": {
-                    "x": 100,
-                    "y": 360
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "plunger"
             }
@@ -59,24 +59,24 @@
             {
                 "key": "hole",
                 "position": {
-                    "x": 412,
-                    "y": 260
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "hammer"
             },
             {
                 "key": "tv",
                 "position": {
-                    "x": 412,
-                    "y": 260
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             }
@@ -108,36 +108,36 @@
             {
                 "key": "stove",
                 "position": {
-                    "x": 724,
-                    "y": 260
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             },
             {
                 "key": "sink",
                 "position": {
-                    "x": 724,
-                    "y": 260
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "plunger"
             },
             {
                 "key": "fridge",
                 "position": {
-                    "x": 724,
-                    "y": 260
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             }
@@ -159,36 +159,36 @@
             {
                 "key": "sink",
                 "position": {
-                    "x": 100,
-                    "y": 500
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "plunger"
             },
             {
                 "key": "shower",
                 "position": {
-                    "x": 100,
-                    "y": 500
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.25,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             },
             {
                 "key": "toilet",
                 "position": {
-                    "x": 100,
-                    "y": 500
+                    "x": 0,
+                    "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.4,
+                    "height": 0.5
                 },
                 "tool": "plunger"
             }
@@ -213,9 +213,9 @@
                     "x": 0,
                     "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "hammer"
             },
@@ -225,9 +225,9 @@
                     "x": 0,
                     "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             }
@@ -262,9 +262,9 @@
                     "x": 0,
                     "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "hammer"
             },
@@ -274,9 +274,9 @@
                     "x": 0,
                     "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "screwdriver"
             },
@@ -286,9 +286,9 @@
                     "x": 0,
                     "y": 0
                 },
-                "display": {
-                    "width": 32,
-                    "height": 64
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
                 },
                 "tool": "hammer"
             }
