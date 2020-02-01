@@ -29,8 +29,8 @@ export class MainMenu extends Phaser.Scene {
 
         // Start text (or others)
         this.texts.push(
-            this.add.text(320,410,
-                'Press Space',
+            this.add.text(300,410,
+                'FixUp Bug - Always Reparing!',
                 {
                     fontFamily: 'Digital',
                     fontSize: 30,

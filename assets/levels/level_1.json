@@ -1,0 +1,88 @@
+{
+    "rooms": [
+        {
+            "name": "Living Room",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        },
+        {
+            "name": "Dining Room",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        },
+        {
+            "name": "Kitchen",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        },
+        {
+            "name": "Bathroom",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        },
+        {
+            "name": "Bedroom",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        },
+        {
+            "name": "Family Room",
+            "key": "living_room",
+            "hazards": [
+                {
+                    "name": "Hole in Wall",
+                    "key": "hole_in_wall"
+                },
+                {
+                    "name": "Sparking Outlet",
+                    "key": "outlet"
+                }
+            ]
+        }
+    ]
+}
