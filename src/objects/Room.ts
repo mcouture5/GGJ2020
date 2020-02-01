@@ -51,5 +51,5 @@ export class Room extends Phaser.GameObjects.Container {
             this.children.push(hd);
         }
     }
-    
+
 }
