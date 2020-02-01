@@ -33,8 +33,17 @@
             },
             {
                 "type": "image",
+                "key": "foot",
+                "url": "assets/images/foot.png"
+            },{
+                "type": "image",
                 "key": "toilet",
                 "url": "assets/images/hazards/toilet.png"
+            },
+            {
+                "type": "image",
+                "key": "beetle-standing",
+                "url": "assets/images/beetle.png"
             }
         ]
     }

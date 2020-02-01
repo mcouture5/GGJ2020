@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Room, IRoom } from '../objects/Room';
 import { IFubarObject } from '../objects/FubarObject';
 import { RoomGroup } from '../groups/RoomGroup';
+import { Beetle } from '../objects/Beetle';
 
 enum GameState {
     STARTING_LEVEL,
@@ -33,6 +34,10 @@ export class GameScene extends Phaser.Scene {
     private rooms: { [key: string]: Room };
     private currentRoom: Room;
 
+    private beetleSprite;
+    private beetle;
+    private beetleEvents: Phaser.Events.EventEmitter;
+
     constructor() {
         super({
             key: 'GameScene'
@@ -53,6 +58,8 @@ export class GameScene extends Phaser.Scene {
 
         // References
         this.camera = this.cameras.main;
+
+        this.beetleEvents = new Phaser.Events.EventEmitter();
     }
 
     create(): void {
@@ -100,6 +107,15 @@ export class GameScene extends Phaser.Scene {
             }
         });
 
+        this.beetle = new Beetle({
+            scene: this,
+            x: 512,
+            y: 650,
+            key: 'beetle-standing',
+            // beetleEvents.addListener("panToRoom", HANDLER_FUNCTION); handler function should take room number arg
+            eventEmitter: this.beetleEvents,
+        });
+        this.add.existing(this.beetle);
     }
 
     update(): void {
@@ -113,12 +129,14 @@ export class GameScene extends Phaser.Scene {
     }
 
     private runGame() {
+        this.beetle.update();
         switch (this.state) {
             case GameState.STARTING_LEVEL:
             case GameState.ANIMATING:
                 // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
+                // this.beetle.update();
                 break;
         }
     }
