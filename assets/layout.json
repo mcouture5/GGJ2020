@@ -1,140 +1,294 @@
-[
-    {
-        "key": "dining_room",
-        "position": { "x": 100, "y": 260 },
+{
+    "dining_room": {
+        "position": {
+            "x": 100,
+            "y": 260
+        },
         "hazards": [
             {
                 "key": "chair",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 100,
+                    "y": 360
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             },
             {
                 "key": "table",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 100,
+                    "y": 360
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             },
             {
                 "key": "wetbar",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 100,
+                    "y": 360
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "plunger"
             }
         ],
         "doors": [
-            "left"
+            {
+                "position": "left",
+                "target": "family_room"
+            }
         ]
     },
-    {
-        "key": "living_room",
-        "position": { "x": 412, "y": 260 },
+    "living_room": {
+        "position": {
+            "x": 412,
+            "y": 260
+        },
         "hazards": [
             {
                 "key": "hole",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 412,
+                    "y": 260
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             },
             {
                 "key": "tv",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 412,
+                    "y": 260
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
             }
         ],
         "doors": [
-            "left",
-            "right",
-            "center"
+            {
+                "position": "left",
+                "target": "bedroom"
+            },
+            {
+                "position": "right",
+                "target": "bathroom"
+            },
+            {
+                "position": "center",
+                "target": "family_room"
+            }
         ]
     },
-    {
-        "key": "kitchen",
-        "position": { "x": 724, "y": 260 },
+    "kitchen": {
+        "position": {
+            "x": 724,
+            "y": 260
+        },
         "hazards": [
             {
                 "key": "stove",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 724,
+                    "y": 260
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
             },
             {
                 "key": "sink",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 724,
+                    "y": 260
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "plunger"
             },
             {
                 "key": "fridge",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 724,
+                    "y": 260
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "right",
+                "target": "family_room"
+            }
         ]
     },
-    {
-        "key": "bathroom",
-        "position": { "x": 100, "y": 500 },
+    "bathroom": {
+        "position": {
+            "x": 100,
+            "y": 500
+        },
         "hazards": [
             {
                 "key": "sink",
-                "position": {"x": 10, "y": 20},
+                "position": {
+                    "x": 100,
+                    "y": 500
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "plunger"
             },
             {
                 "key": "shower",
-                "position": {"x": 110, "y": 30},
+                "position": {
+                    "x": 100,
+                    "y": 500
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
             },
             {
                 "key": "toilet",
-                "position": {"x": 50, "y": 10},
+                "position": {
+                    "x": 100,
+                    "y": 500
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "plunger"
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "left",
+                "target": "living_room"
+            }
         ]
     },
-    {
-        "key": "family_room",
-        "position": { "x": 412, "y": 500 },
+    "family_room": {
+        "position": {
+            "x": 412,
+            "y": 500
+        },
         "hazards": [
             {
                 "key": "hole",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             },
             {
                 "key": "outlet",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
             }
         ],
         "doors": [
-            "left",
-            "right",
-            "center"
+            {
+                "position": "left",
+                "target": "kitchen"
+            },
+            {
+                "position": "right",
+                "target": "dining_room"
+            },
+            {
+                "position": "center",
+                "target": "living_room"
+            }
         ]
     },
-    {
-        "key": "bedroom",
-        "position": { "x": 724, "y": 500 },
+    "bedroom": {
+        "position": {
+            "x": 724,
+            "y": 500
+        },
         "hazards": [
             {
                 "key": "bed",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             },
             {
                 "key": "outlet",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "screwdriver"
-            }, 
+            },
             {
                 "key": "closet",
-                "position": {"x": 0, "y": 0},
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display": {
+                    "width": 32,
+                    "height": 64
+                },
                 "tool": "hammer"
             }
         ],
         "doors": [
-            "right"
+            {
+                "position": "right",
+                "target": "living_room"
+            }
         ]
     }
-]
+}

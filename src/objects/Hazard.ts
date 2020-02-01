@@ -3,6 +3,7 @@ import { IFubarObject, FubarObject } from "./FubarObject";
 export interface IHazard {
     key: string;
     position: { x: number, y: number };
+    display: { width: number, height: number };
     tool: string;
 }
 
@@ -12,9 +13,9 @@ export class Hazard extends FubarObject {
         super(params);
 
         // image
-        this.setOrigin(0, 0);
-        this.displayWidth = 32;
-        this.displayHeight = 64;
+        this.setOrigin(0.5, 0.5);
+        this.displayWidth = hazard.display.width;
+        this.displayHeight = hazard.display.width;
     }
 
     update(): void {
