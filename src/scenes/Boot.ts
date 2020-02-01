@@ -44,7 +44,7 @@ export class Boot extends Phaser.Scene {
          */
         this.load.pack('preload', './assets/pack.json');
 
-        //Load other JSON files
+        //Load room data
         this.load.json('layout', './assets/layout.json');
     }
 
