@@ -3,7 +3,7 @@ import { IFubarObject, FubarObject } from "./FubarObject";
 export interface IHazard {
     key: string;
     position: { x: number, y: number };
-    display: { width: number, height: number };
+    display_ratio: { width: number, height: number };
     tool: string;
 }
 
@@ -13,8 +13,8 @@ export class Hazard extends FubarObject {
 
         // image
         this.setOrigin(0.5, 0.5);
-        this.displayWidth = hazard.display.width;
-        this.displayHeight = hazard.display.width;
+        this.displayWidth = hazard.display_ratio.width;
+        this.displayHeight = hazard.display_ratio.width;
     }
 
     update(): void {
