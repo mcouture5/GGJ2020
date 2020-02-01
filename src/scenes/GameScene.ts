@@ -219,7 +219,10 @@ export class GameScene extends Phaser.Scene {
             this.camera.pan(512, 384, 1000, 'Linear', true);
             this.camera.zoomTo(1, 1000, 'Linear', true, (camera, progress) => {
                 if (progress >= 1) {
-                    setTimeout(() => { this.loadLevel(this.currentLevel); }, 1000);
+                    setTimeout(() => {
+                        this.beetle.initializeToRoom({x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y});
+                        this.loadLevel(this.currentLevel);
+                    }, 1000);
                 }
             });
         }
