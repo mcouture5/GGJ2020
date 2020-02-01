@@ -65,3 +65,5 @@ package-lock.json
 
 # webstorm junk
 .idea
+
+bundle.js
