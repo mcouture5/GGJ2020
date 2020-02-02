@@ -91,6 +91,66 @@ export class GameScene extends Phaser.Scene {
             frameRate: 8,
             repeat: -1,
         });
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
+            frameRate: 3,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'hammer',
+            frames: this.anims.generateFrameNames('beetle', { start: 4, end: 4 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-hammer',
+            frames: this.anims.generateFrameNames('beetle', { start: 5, end: 6 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'plunger',
+            frames: this.anims.generateFrameNames('beetle', { start: 7, end: 7 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-plunger',
+            frames: this.anims.generateFrameNames('beetle', { start: 8, end: 9 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'screwdriver',
+            frames: this.anims.generateFrameNames('beetle', { start: 10, end: 10 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-screwdriver',
+            frames: this.anims.generateFrameNames('beetle', { start: 11, end: 12 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'wrench',
+            frames: this.anims.generateFrameNames('beetle', { start: 13, end: 13 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-wrench',
+            frames: this.anims.generateFrameNames('beetle', { start: 14, end: 15 }),
+            frameRate: 8,
+            repeat: 0,
+        });
     }
 
     create(): void {
@@ -145,6 +205,7 @@ export class GameScene extends Phaser.Scene {
     private loadLevel(level: number) {
         this.level = this.cache.json.get('level_' + level);
         let rooms = this.level['hazards'];
+        this.events.emit('load_level', this.currentLevel);
         // Apply the level to each room
         for (let key in rooms) {
             let room = this.rooms[key];
@@ -166,7 +227,7 @@ export class GameScene extends Phaser.Scene {
             this.currentRoom = this.rooms[FAMILY_ROOM];
             this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
                 if (progress >= 1) {
-                    this.events.emit('begin_level');
+                    this.events.emit('begin_level', this.currentLevel);
                     
                     // Listen for when the hero interacts with a door
                     (this.events.off as any)('enterDoor');
