@@ -155,8 +155,7 @@ export class GameScene extends Phaser.Scene {
             delay: this.level.time_limit,
             callback: this.setGameOver,
         });
-        // Create the HUD
-        this.hud = new HUDGroup(this.scene);
+
         // Zoom and pan to begin
         setTimeout(() => {
             this.camera.zoomTo(2.7, 800, 'Linear', true);
@@ -237,7 +236,7 @@ export class GameScene extends Phaser.Scene {
         this.camera.pan(512, 384, 800, 'Linear', true);
         this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
-                this.scene.start('LevelIntro', {currentLevel: this.currentLevel});
+                this.scene.start('LevelIntro', {currentLevel: this.currentLevel});``
             }
         });
     }
