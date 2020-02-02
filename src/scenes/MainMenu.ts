@@ -7,9 +7,11 @@ export class MainMenu extends Phaser.Scene {
     private rightKey: Phaser.Input.Keyboard.Key;
     private texts: Phaser.GameObjects.Text[] = [];
     private fading: boolean;
-    private music: Phaser.Sound.BaseSound;
     private selected: integer;
     private selectedButton: Phaser.GameObjects.Sprite;
+
+    // sound effects
+    private music: Phaser.Sound.BaseSound;
 
     constructor() {
         super({
@@ -40,7 +42,11 @@ export class MainMenu extends Phaser.Scene {
 
         // set up sound effects. don't pause on blur. start playing music.
         this.sound.pauseOnBlur = false;
-        this.music = this.sound.add('riff', {loop: true, volume: 1});
+        if (!this.music) {
+            this.music = this.sound.add('riff', {loop: true, volume: 0.4});
+            this.music.play();
+        }
+
         this.selectedButton = this.add.sprite(420, 570, 'selected-menu-option').setOrigin(0, 0);
 
         // Start text (or others)
@@ -54,11 +60,9 @@ export class MainMenu extends Phaser.Scene {
                 }
             )
         );
-        this.music.play();
 
         // Listen for when the camera is done fading after a selection has been chosen
         this.cameras.main.once('camerafadeoutcomplete', (camera) => {
-            this.music.stop();
             this.scene.start('LevelIntro');
         });
     }
@@ -78,7 +82,10 @@ export class MainMenu extends Phaser.Scene {
                         targets: this.music,
                         volume: 0,
                         ease: 'Linear',
-                        duration: fadeOutDuration
+                        duration: fadeOutDuration,
+                        onComplete: () => {
+                            this.music.stop();
+                        }
                     });
                 } else {
                     this.scene.start('Credits');

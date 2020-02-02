@@ -52,10 +52,31 @@ export class Hazard extends FubarObject {
     }
 
     public activate() {
-        // Cover this obkect with the active key
+        // Cover this object with the active key
         this.activeSprite = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x, this.room.y + this.y, this.activeKey);
         this.activeSprite.setScale(0.3)
         this.scene.add.existing(this.activeSprite);
+
+        // Add a little tween to show the active object
+        setTimeout(() => {
+            this.scene.add.tween({
+                targets: [this.activeSprite],
+                duration: 200,
+                scaleX: 0.35,
+                ease: 'Linear',
+                scaleY: 0.35,
+                onComplete: () => {
+                    // snap this object back to its correct scale
+                    this.scene.add.tween({
+                        targets: [this.activeSprite],
+                        scaleX: 0.3,
+                        scaleY: 0.3,
+                        ease: 'Linear',
+                        duration: 200
+                    });
+                }
+            });
+        }, 900);
 
         // shrink this object down to zero and make it completely transparent. this will make for an awesome tween
         // later and ensure this object is completely covered by the "active sprite".

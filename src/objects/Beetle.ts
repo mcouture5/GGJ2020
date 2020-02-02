@@ -20,10 +20,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     // sound effects
     protected doorSound: Phaser.Sound.BaseSound;
-    protected hammerSound: Phaser.Sound.BaseSound;
-    protected plungerSound: Phaser.Sound.BaseSound;
-    protected screwdriverSound: Phaser.Sound.BaseSound;
-    protected wrenchSound: Phaser.Sound.BaseSound;
+    private hammerSound: Phaser.Sound.BaseSound;
+    private plungerSound: Phaser.Sound.BaseSound;
+    private screwdriverSound: Phaser.Sound.BaseSound;
+    private wrenchSound: Phaser.Sound.BaseSound;
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
