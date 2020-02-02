@@ -25,6 +25,16 @@
                 "type": "image",
                 "key": "wrench",
                 "url": "assets/images/wrenchbutton.png"
+            },
+            {
+                "type": "audio",
+                "key": "ants-boo",
+                "url": "assets/sound/ants-boo.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-grumble",
+                "url": "assets/sound/ants-grumble.mp3"
             }
         ]
     }

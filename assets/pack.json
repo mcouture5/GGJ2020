@@ -8,6 +8,11 @@
             },
             {
                 "type": "image",
+                "key": "hazardprogress",
+                "url": "assets/images/hazardprogress.png"
+            },
+            {
+                "type": "image",
                 "key": "selected-menu-option",
                 "url": "assets/images/selectedmenuoption.png"
             },
@@ -18,6 +23,11 @@
             },
             {
                 "type": "image",
+                "key": "instructions",
+                "url": "assets/images/instructions.png"
+            },
+            {
+                "type": "image",
                 "key": "game_bg",
                 "url": "assets/images/game_bg.png"
             },
@@ -25,6 +35,11 @@
                 "type": "image",
                 "key": "room_bg",
                 "url": "assets/images/rooms/room.png"
+            },
+            {
+                "type": "image",
+                "key": "hazard-meter",
+                "url": "assets/images/hazardmeter.png"
             },
             {
                 "type": "image",
@@ -203,18 +218,8 @@
             },
             {
                 "type": "audio",
-                "key": "ants-displeased-1",
-                "url": "assets/sound/ants-displeased-1.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "ants-displeased-1",
-                "url": "assets/sound/ants-displeased-2.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "ants-displeased-1",
-                "url": "assets/sound/ants-displeased-3.mp3"
+                "key": "ants-boo",
+                "url": "assets/sound/ants-boo.mp3"
             },
             {
                 "type": "audio",
@@ -225,6 +230,11 @@
                 "type": "audio",
                 "key": "ants-great-job",
                 "url": "assets/sound/ants-great-job.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-grumble",
+                "url": "assets/sound/ants-grumble.mp3"
             },
             {
                 "type": "audio",
@@ -263,16 +273,6 @@
             },
             {
                 "type": "audio",
-                "key": "right-tool",
-                "url": "assets/sound/right-tool.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "right-tool-2",
-                "url": "assets/sound/right-tool-2.mp3"
-            },
-            {
-                "type": "audio",
                 "key": "screwdriver",
                 "url": "assets/sound/screwdriver.mp3"
             },
@@ -288,13 +288,8 @@
             },
             {
                 "type": "audio",
-                "key": "wrong-tool-1",
-                "url": "assets/sound/wrong-tool-1.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "wrong-tool-2",
-                "url": "assets/sound/wrong-tool-2.mp3"
+                "key": "wrong-tool",
+                "url": "assets/sound/wrong-tool.mp3"
             }
         ]
     }

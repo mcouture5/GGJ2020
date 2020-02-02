@@ -43,7 +43,7 @@ export class MainMenu extends Phaser.Scene {
         // set up sound effects. don't pause on blur. start playing music.
         this.sound.pauseOnBlur = false;
         if (!this.music) {
-            this.music = this.sound.add('riff', {loop: true, volume: 0.4});
+            this.music = this.sound.add('riff', {loop: true, volume: 0.2});
             this.music.play();
         }
 
@@ -72,10 +72,10 @@ export class MainMenu extends Phaser.Scene {
         if (!this.fading) {
             if (Phaser.Input.Keyboard.JustDown(this.startKey)) {
                 if (this.selected === 0) {
-                    this.scene.start('Credits');
+                    this.scene.start('Instructions');
                 } else if (this.selected === 1) {
-                    let fadeOutDuration: number = this.selected === 1 ? 2000 : 0;
-                    this.cameras.main.fadeOut(fadeOutDuration, 255, 255, 255);
+                    let fadeOutDuration: number = this.selected === 1 ? 1300 : 0;
+                    this.cameras.main.fadeOut(fadeOutDuration, 130, 130, 130);
                     this.fading = true;
                     // fade out music
                     this.add.tween({

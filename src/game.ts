@@ -8,15 +8,16 @@ import { Credits } from './scenes/Credits';
 import { GameScene } from './scenes/GameScene';
 import { LevelIntro } from './scenes/LevelIntro';
 import { HUDScene } from './scenes/HUDScene';
+import { Instructions } from './scenes/Instructions';
 
 // main game configuration
 const config: GameConfig = {
-  title: 'GGJ2020',
+  title: 'FUBAR',
   width: 1024,
   height: 768,
   type: Phaser.WEBGL,
   parent: 'game',
-  scene: [Boot, MainMenu, /*Instructions, */Credits, GameScene, LevelIntro, HUDScene],
+  scene: [Boot, MainMenu, Instructions, Credits, GameScene, LevelIntro, HUDScene],
   input: {
     keyboard: true,
     mouse: false,
@@ -30,7 +31,7 @@ const config: GameConfig = {
       debug: false
     }
   },
-  backgroundColor: '#fff',
+  backgroundColor: '#a8a8a8',
   render: { pixelArt: false, antialias: true, autoResize: false }
 };
 

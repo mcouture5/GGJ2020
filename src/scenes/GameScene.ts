@@ -16,6 +16,7 @@ enum GameState {
 export interface ILevel {
     hazards: { [room: string]: string[] };
     time_limit: number;
+    tooltips: string[];
 }
 
 // All of the rooms
@@ -193,7 +194,7 @@ export class GameScene extends Phaser.Scene {
         this.sound.pauseOnBlur = false;
         this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
         this.music.play();
-        this.levelCompleteSound = this.sound.add('level-complete', {volume: 0.5});
+        this.levelCompleteSound = this.sound.add('level-complete', {volume: 0.1});
         this.gameOverSound = this.sound.add('game-over', {volume: 0.1});
 
         this.events.emit('pick_tool', undefined);
@@ -218,12 +219,13 @@ export class GameScene extends Phaser.Scene {
     private loadLevel(level: number) {
         let brokenRoomCount = 0;
         this.level = this.cache.json.get('level_' + level);
-        let rooms = this.level['hazards'];
+        let rooms = this.level.hazards;
+        let tooltips = this.level.tooltips;
         this.events.emit('load_level', this.currentLevel);
         // Apply the level to each room
         for (let key in rooms) {
             let room = this.rooms[key];
-            room.loadHazards(rooms[key])
+            room.loadHazards(rooms[key], tooltips)
             brokenRoomCount++;
         }
         this.fixedRoomCount = 6 - brokenRoomCount;
@@ -266,6 +268,11 @@ export class GameScene extends Phaser.Scene {
                     this.events.addListener('action', (tool, x) => {
                         this.currentRoom.checkInteraction(tool, x);
                     });
+
+                    // Tell the rooms the game has started
+                    for (let key in this.rooms) {
+                        this.rooms[key].gameStart();
+                    }
 
                     // Create timer event
                     this.timer = this.time.addEvent({
@@ -346,6 +353,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        this.timer.destroy();
         (this.events.off as any)('enterDoor');
         (this.events.off as any)('action');
         this.gameStarted = false;
@@ -458,6 +466,7 @@ export class GameScene extends Phaser.Scene {
         overlay.fillStyle(0xFFFFFF, 1);
         overlay.fillRect(0, 0, 1024, 768);
         overlay.setAlpha(0);
+        overlay.setDepth(99999);
         this.add.tween({
             targets: [overlay],
             duration: 4000,
@@ -473,6 +482,7 @@ export class GameScene extends Phaser.Scene {
                 fontSize: 42,
                 color: '#000'
             }).setOrigin(0.5, 0.5).setScale(1.2);
+            textojb.setDepth(overlay.depth + 1);
             textObjs.push(textojb);
             if (text !== ' ' && text === text.toLowerCase()) {
                 toBreak.push(textojb);
@@ -542,8 +552,9 @@ export class GameScene extends Phaser.Scene {
                                                             let text = this.add.text(512, 560, 'Press Space', {
                                                                 fontFamily: 'Digital',
                                                                 fontSize: 30,
-                                                                color: '#000'
+                                                                color: '#000',
                                                             }).setOrigin(0.5, 0.5);
+                                                            text.setDepth(overlay.depth + 1);
                                                             this.add.tween({
                                                                 targets: [text],
                                                                 duration: 1200,
