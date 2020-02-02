@@ -19,7 +19,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected roomCoords;
 
     // sound effects
-    protected doorSound: Phaser.Sound.BaseSound;
     private hammerSound: Phaser.Sound.BaseSound;
     private plungerSound: Phaser.Sound.BaseSound;
     private screwdriverSound: Phaser.Sound.BaseSound;
@@ -71,7 +70,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         );
 
         // set up sound effects
-        this.doorSound = this.scene.sound.add('door', {volume: 0.25});
         this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
         this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
         this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.4});
@@ -141,9 +139,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.x = this.roomCoords.x + (this.displayWidth / 2) - 140;
         }
         this.y = this.roomCoords.y + 95;
-
-        // play door sound
-        this.doorSound.play();
     }
 
     protected isOnLeft(): boolean {
@@ -200,7 +195,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
                 velocity = this.moveSpeed;
             }
             this.flipX = true;
-        } else if (this.hammerKey.isDown) {
+        }
+        if (this.hammerKey.isDown) {
             this.toolEquipped = 1;
             this.pickTool('hammer');
         } else if (this.plungerKey.isDown) {
