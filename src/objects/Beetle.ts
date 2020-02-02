@@ -15,9 +15,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
         this.beetleEvents = params.eventEmitter;
-        this.roomCoords = params.roomCoords;
-        this.x = this.roomCoords.x;
-        this.y = this.roomCoords.y + 100;
+        this.initializeToRoom(params.roomCoords);
 
         params.scene.anims.create({
             key: 'idle',
@@ -59,9 +57,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     }
 	
     update(): void {
-        if (this.isOnLeft() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+        if (this.canEnterLeftDoor() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.beetleEvents.emit("enterDoor", "left");
-        } else if (this.isOnRight() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
+        } else if (this.canEnterRightDoor() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.beetleEvents.emit("enterDoor", "right");
         } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.beetleEvents.emit("enterDoor", "center");
@@ -72,6 +70,21 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.handleMove();
         }
 	}
+
+    protected canEnterLeftDoor(): boolean {
+        return this.isOnLeft() && !this.flipX;
+    }
+
+    protected canEnterRightDoor(): boolean {
+        return this.isOnRight() && this.flipX;
+    }
+
+    // like moveToRoom but starts at the center always
+    public initializeToRoom(coords): void {
+        this.roomCoords = coords;
+        this.x = this.roomCoords.x;
+        this.y = this.roomCoords.y + 100;
+    }
 
     public moveToRoom(newCoords): void {
         const wasOnLeft = this.isOnLeft();
@@ -104,11 +117,15 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     protected handleMove(): void {
         let velocity = 0;
-        if (this.leftKey.isDown && !this.isOnLeft()) {
-            velocity = -this.moveSpeed;
+        if (this.leftKey.isDown) {
+            if (!this.isOnLeft()) {
+                velocity = -this.moveSpeed;
+            }
             this.flipX = false;
-        } else if (this.rightKey.isDown && !this.isOnRight()) {
-            velocity = this.moveSpeed;
+        } else if (this.rightKey.isDown) {
+            if (!this.isOnRight()) {
+                velocity = this.moveSpeed;
+            }
             this.flipX = true;
         }
         this.applyVelocity(velocity);
