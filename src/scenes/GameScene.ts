@@ -60,6 +60,7 @@ export class GameScene extends Phaser.Scene {
 
     // sound effects
     private music: Phaser.Sound.BaseSound;
+    private gameOverSound: Phaser.Sound.BaseSound;
 
     constructor() {
         super({
@@ -189,8 +190,9 @@ export class GameScene extends Phaser.Scene {
 
         // set up sound effects. don't pause on blur. start playing music at 0 volume. will fade in shortly.
         this.sound.pauseOnBlur = false;
-        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.03});
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
         this.music.play();
+        this.gameOverSound = this.sound.add('game-over', {volume: 0.1});
 
         this.events.emit('pick_tool', undefined);
     }
@@ -205,7 +207,7 @@ export class GameScene extends Phaser.Scene {
                 targets: this.music,
                 volume: 0.05,
                 ease: 'Linear',
-                duration: 2000
+                duration: fadeInDuration
             });
         }
         this.runGame();
@@ -434,6 +436,12 @@ export class GameScene extends Phaser.Scene {
     }
 
     private setGameOver() {
+        // abruptly stop music
+        this.music.stop();
+
+        // play game over sound
+        this.gameOverSound.play();
+
         (this.events.off as any)('enterDoor');
         (this.events.off as any)('action');
         this.scene.setVisible(false, 'HUDScene');
