@@ -183,6 +183,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.anims.play(tool, false);
         this.holdingUpTool++;
         this.overrideHolding = false;
+        this.scene.events.emit("pick_tool", tool);
         setTimeout(() => {
             this.holdingUpTool--;
         }, 1000);
