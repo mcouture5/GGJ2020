@@ -14,6 +14,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected moveSpeed: integer;
     protected toolEquipped: integer; // 0=none,1=hammer,2=plunger,3=screwdriver,4=wrench
     protected holdingUpTool: integer; // 0 means not holding up, n means n setTimeouts are waiting to put the tool back down
+    protected overrideHolding: boolean; // override holding up tool because we moved (don't want to mess with async timeout counter)
 
     protected roomCoords;
 
@@ -30,6 +31,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
         this.toolEquipped = 0;
         this.holdingUpTool = 0;
+        this.overrideHolding = false;
         this.anims.play('idle');
 
         // image
@@ -154,7 +156,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     public stop(): void {
         this.toolEquipped = 0;
-        this.holdingUpTool = 0;
+        setTimeout(() => this.holdingUpTool = 0, 1000); // to avoid race conditions
+        this.overrideHolding = true;
         this.applyVelocity(0);
     }
 
@@ -169,8 +172,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected applyVelocity(velocity): void {
         if (velocity !== 0) {
             this.anims.play('run', true);
-            this.holdingUpTool = 0;
-        } else if (!this.holdingUpTool) {
+            this.overrideHolding = true;
+        } else if (this.holdingUpTool <= 0 || this.overrideHolding) {
             this.anims.play('idle', true);
         }
         this.body.setVelocityX(velocity);
@@ -179,8 +182,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected pickTool(tool): void {
         this.anims.play(tool, false);
         this.holdingUpTool++;
+        this.overrideHolding = false;
         setTimeout(() => {
-            this.holdingUpTool = Math.max(this.holdingUpTool - 1, 0);
+            this.holdingUpTool--;
         }, 1000);
     }
 
