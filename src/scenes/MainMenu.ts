@@ -27,13 +27,16 @@ export class MainMenu extends Phaser.Scene {
         bg.displayWidth = 1024;
         bg.displayHeight = 768;
 
-        // start playing music
-        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 1});
+        // set up sound effects. don't pause on blur. start playing music.
+        this.sound.pauseOnBlur = false;
+        this.music = this.sound.add('riff', {loop: true, volume: 1});
         this.music.play();
 
         // Listen for when the camera is done fading after a selection has been chosen
         this.cameras.main.once('camerafadeoutcomplete', (camera) => {
-            // this.music.stop();
+            // stop playing music
+            this.music.stop();
+
             this.scene.start('LevelIntro');
         });
     }
@@ -45,6 +48,14 @@ export class MainMenu extends Phaser.Scene {
                 let fadeOutDuration: number = 2000;
                 this.cameras.main.fadeOut(fadeOutDuration, 255, 255, 255);
                 this.fading = true;
+
+                // fade out music
+                this.add.tween({
+                    targets: this.music,
+                    volume: 0,
+                    ease: 'Linear',
+                    duration: fadeOutDuration
+                });
             }
         }
     }

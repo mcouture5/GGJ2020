@@ -187,11 +187,10 @@ export class GameScene extends Phaser.Scene {
         
         this.loadLevel(this.currentLevel);
 
-        // set up sound effects. don't pause on blur. start playing music.
+        // set up sound effects. don't pause on blur. start playing music at 0 volume. will fade in shortly.
         this.sound.pauseOnBlur = false;
-        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
         this.music.play();
-
 
         this.events.emit('pick_tool', undefined);
     }
@@ -202,6 +201,12 @@ export class GameScene extends Phaser.Scene {
             let fadeInDuration: number = 1300;
             this.cameras.main.fadeIn(fadeInDuration, 255, 255, 255);
             this.fading = false;
+            this.add.tween({
+                targets: this.music,
+                volume: 0.05,
+                ease: 'Linear',
+                duration: 2000
+            });
         }
         this.runGame();
     }
@@ -366,8 +371,16 @@ export class GameScene extends Phaser.Scene {
             }
         });
 
-        // stop playing music
-        this.music.stop();
+        // fade out music
+        this.add.tween({
+            targets: this.music,
+            volume: 0,
+            ease: 'Linear',
+            duration: 2000,
+            onComplete: () => {
+                this.music.stop();
+            }
+        });
     }
 
     private showInvoice() {
