@@ -58,6 +58,16 @@
             },
             {
                 "type": "image",
+                "key": "ants",
+                "url": "assets/images/ants.png"
+            },
+            {
+                "type": "image",
+                "key": "entrance",
+                "url": "assets/images/entrance.png"
+            },
+            {
+                "type": "image",
                 "key": "toilet_active",
                 "url": "assets/images/hazards/active/toilet.png"
             },

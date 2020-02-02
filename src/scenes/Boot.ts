@@ -57,12 +57,14 @@ export class Boot extends Phaser.Scene {
         this.load.json('level_9', './assets/levels/level_1.json');
         this.load.json('level_10', './assets/levels/level_1.json');
         this.load.spritesheet('beetle', 'assets/images/beetle.png', {frameWidth: 245, frameHeight: 252});
+
+        this.load.json('intro_layout', './assets/intro_layout.json');
     }
 
     update() {
         // Immediately start the main menu
         // this.scene.start('MainMenu');
-        this.scene.start('GameScene');
+        this.scene.start('LevelIntro');
     }
 
     private createLoadingbar() {

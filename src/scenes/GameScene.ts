@@ -57,7 +57,7 @@ export class GameScene extends Phaser.Scene {
         });
     }
 
-    init(): void {
+    init(config): void {
         // Starting level
         this.state = GameState.STARTING_LEVEL;
         // starts fading
@@ -69,13 +69,15 @@ export class GameScene extends Phaser.Scene {
         this.rooms = {};
         this.currentRoom = null;
         this.level = null;
-        this.currentLevel = 1;
+        this.currentLevel = config['currentLevel'] || 1;
 
         // References
         this.camera = this.cameras.main;
     }
 
     create(): void {
+
+
         // Create the background and main scene
         let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
         bg.displayWidth = 1024;
@@ -115,7 +117,7 @@ export class GameScene extends Phaser.Scene {
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             // Load the first level
-            this.loadLevel(1);
+            this.startCurrentLevel();
         });
         this.beetle = new Beetle({
             scene: this,
@@ -126,6 +128,12 @@ export class GameScene extends Phaser.Scene {
             roomCoords: {x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y}
         });
         this.add.existing(this.beetle);
+        
+        this.loadLevel(1);
+
+        // start playing music
+        let music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
+        music.play();
     }
 
     update(): void {
@@ -146,6 +154,15 @@ export class GameScene extends Phaser.Scene {
             let room = this.rooms[key];
             room.loadHazards(rooms[key])
         }
+    }
+
+    private startCurrentLevel() {
+        // Create timer event
+        this.timer = this.time.addEvent({
+            delay: this.level.time_limit,
+            callback: this.setGameOver,
+        });
+
         // Zoom and pan to begin
         setTimeout(() => {
             this.camera.zoomTo(2.7, 800, 'Linear', true);
@@ -222,16 +239,14 @@ export class GameScene extends Phaser.Scene {
 
     private levelComplete() {
         this.gameStarted = false;
+        this.beetle.stop();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
         this.currentLevel++;
         this.camera.pan(512, 384, 800, 'Linear', true);
         this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
-                setTimeout(() => {
-                    this.beetle.initializeToRoom({x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y});
-                    this.loadLevel(this.currentLevel);
-                }, 1000);
+                this.scene.start('LevelIntro', {currentLevel: this.currentLevel});``
             }
         });
     }
