@@ -1,4 +1,3 @@
-import { FubarObject, IFubarObject } from "./FubarObject";
 import { Scene } from "phaser";
 
 export class ProgressBar extends Phaser.GameObjects.Container {
@@ -28,13 +27,13 @@ export class ProgressBar extends Phaser.GameObjects.Container {
     update(): void {
 	}
 	
-	reset(): void {
+	public reset(): void {
         this.updateProgressBar(0);
 	}
 
     private updateProgressBar(progress: number) {
         this.progressBar.clear();
         this.progressBar.fillStyle(0xF93208, 1);
-        this.progressBar.fillRect(100, 50, 150 * progress, 15);
+        this.progressBar.fillRect(0, 0, 150 * progress, 15);
     }
 }

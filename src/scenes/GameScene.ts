@@ -153,6 +153,7 @@ export class GameScene extends Phaser.Scene {
     private loadLevel(level: number) {
         this.level = this.cache.json.get('level_' + level);
         let rooms = this.level['hazards'];
+        this.events.emit('load_level', this.currentLevel);
         // Apply the level to each room
         for (let key in rooms) {
             let room = this.rooms[key];
@@ -174,7 +175,7 @@ export class GameScene extends Phaser.Scene {
             this.currentRoom = this.rooms[FAMILY_ROOM];
             this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
                 if (progress >= 1) {
-                    this.events.emit('begin_level');
+                    this.events.emit('begin_level', this.currentLevel);
                     // Create timer event
                     this.timer = this.time.addEvent({
                         delay: this.level.time_limit,
