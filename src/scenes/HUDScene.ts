@@ -13,6 +13,7 @@ export class HUDScene extends Phaser.Scene {
     create() {
         this.gameScene = this.scene.get('GameScene');
         this.gameScene.events.on('begin_level', () => { this.renderProgressBar(); });
+        this.gameScene.events.on('end_level', () => { this.destroyProgressBar(); });
         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
     }
 

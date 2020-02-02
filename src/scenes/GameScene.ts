@@ -2,7 +2,6 @@ import { Scene, Game } from 'phaser';
 import { Room, IRoom } from '../objects/Room';
 import { IFubarObject } from '../objects/FubarObject';
 import { Beetle } from '../objects/Beetle';
-import { HUDGroup } from '../groups/HUDGroup';
 
 enum GameState {
     STARTING_LEVEL,
@@ -47,8 +46,6 @@ export class GameScene extends Phaser.Scene {
     // Levels
     private level: ILevel;
     private currentLevel: number;
-
-    private hud: HUDGroup;
 
     private beetleSprite;
     private beetle: Beetle;
@@ -216,18 +213,23 @@ export class GameScene extends Phaser.Scene {
             }
         }
         if (allClear) {
-            this.state = GameState.ANIMATING;
-            this.currentLevel++;
-            this.camera.pan(512, 384, 800, 'Linear', true);
-            this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
-                if (progress >= 1) {
-                    setTimeout(() => {
-                        this.beetle.initializeToRoom({x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y});
-                        this.loadLevel(this.currentLevel);
-                    }, 1000);
-                }
-            });
+            this.levelComplete();
         }
+    }
+
+    private levelComplete() {
+        this.state = GameState.ANIMATING;
+        this.events.emit('end_level');
+        this.currentLevel++;
+        this.camera.pan(512, 384, 800, 'Linear', true);
+        this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
+            if (progress >= 1) {
+                setTimeout(() => {
+                    this.beetle.initializeToRoom({x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y});
+                    this.loadLevel(this.currentLevel);
+                }, 1000);
+            }
+        });
     }
 
     private setGameOver() {
