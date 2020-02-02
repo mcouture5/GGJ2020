@@ -85,23 +85,25 @@ export class Room extends Phaser.GameObjects.Container {
     public checkInteraction(tool, x) {
         // Filter out hazards that are fixed here
         this.activeHazards = this.activeHazards.filter(hazard => {
-            if (hazard.tool === tool && Math.abs(this.x + hazard.x - x) < 25) {
-                this.playToolSound(tool);
-                hazard.actionsUntilFixed--;
-                if (hazard.actionsUntilFixed === 0) {
-                    // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
-                    // If so, do more fancies with the hazard
-                    let duration = 200;
-                    let remaining = (this.scene as GameScene).roomsRemaining();
-                    if (remaining === 1 && this.activeHazards.length === 1) {
-                        duration = 1800;
+            if (Math.abs(this.x + hazard.x - x) < 25) {
+                if (hazard.tool === tool) {
+                    this.playToolSound(tool);
+                    hazard.actionsUntilFixed--;
+                    if (hazard.actionsUntilFixed === 0) {
+                        // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
+                        // If so, do more fancies with the hazard
+                        let duration = 200;
+                        let remaining = (this.scene as GameScene).roomsRemaining();
+                        if (remaining === 1 && this.activeHazards.length === 1) {
+                            duration = 1800;
+                        }
+                        hazard.fix(duration);
+                        return false;
                     }
-                    hazard.fix(duration);
-                    return false;
                 }
-            }
-            else {
-                this.wrongToolSound.play();
+                else {
+                    this.wrongToolSound.play();
+                }
             }
             return true;
         });
