@@ -46,7 +46,7 @@
             {
                 "position": "right",
                 "target": "family_room",
-                "key": "1"
+                "key": "doorside"
             }
         ]
     },
@@ -85,12 +85,12 @@
             {
                 "position": "left",
                 "target": "kitchen",
-                "key": "1"
+                "key": "doorside"
             },
             {
                 "position": "right",
                 "target": "dining_room",
-                "key": "1"
+                "key": "doorside"
             },
             {
                 "position": "center",
@@ -146,7 +146,7 @@
             {
                 "position": "left",
                 "target": "family_room",
-                "key": "1"
+                "key": "doorside"
             }
         ]
     },
@@ -197,7 +197,7 @@
             {
                 "position": "right",
                 "target": "living_room",
-                "key": "1"
+                "key": "doorside"
             }
         ]
     },
@@ -236,12 +236,12 @@
             {
                 "position": "left",
                 "target": "bedroom",
-                "key": "1"
+                "key": "doorside"
             },
             {
                 "position": "right",
                 "target": "bathroom",
-                "key": "1"
+                "key": "doorside"
             },
             {
                 "position": "center",
@@ -297,7 +297,7 @@
             {
                 "position": "left",
                 "target": "living_room",
-                "key": "1"
+                "key": "doorside"
             }
         ]
     }
