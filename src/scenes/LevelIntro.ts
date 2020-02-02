@@ -58,12 +58,7 @@ export class LevelIntro extends Phaser.Scene {
             this.add.existing(roomContainer);
             this.rooms[room_key] = roomContainer;
 		}
-		
-		// // Create and add the fam
-		// let room = this.layout['intro_room'];
-		// let roomContainer = new Room(this, 512, 384, room);
-		// this.add.existing(roomContainer);
-		
+
 		let fubarParams: IFubarObject = {
 			scene: this,
 			x: 425,
