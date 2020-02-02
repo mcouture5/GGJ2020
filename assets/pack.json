@@ -233,6 +233,11 @@
             },
             {
                 "type": "audio",
+                "key": "not-a-tool-area",
+                "url": "assets/sound/not-a-tool-area.mp3"
+            },
+            {
+                "type": "audio",
                 "key": "plunger",
                 "url": "assets/sound/plunger.mp3"
             },

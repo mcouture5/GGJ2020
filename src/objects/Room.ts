@@ -26,6 +26,7 @@ export class Room extends Phaser.GameObjects.Container {
     private wrenchSound: Phaser.Sound.BaseSound;
     private rightToolSound: Phaser.Sound.BaseSound;
     private wrongToolSound: Phaser.Sound.BaseSound;
+    private notAToolAreaSound: Phaser.Sound.BaseSound;
 
     constructor(scene: Phaser.Scene, x: number, y: number, room: IRoom) {
 
@@ -64,6 +65,7 @@ export class Room extends Phaser.GameObjects.Container {
         this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
         this.rightToolSound = this.scene.sound.add('right-tool-2', {volume: 0.3});
         this.wrongToolSound = this.scene.sound.add('wrong-tool-1', {volume: 0.2});
+        this.notAToolAreaSound = this.scene.sound.add('not-a-tool-area', {volume: 0.3});
     }
 
     update(): void {
@@ -110,6 +112,9 @@ export class Room extends Phaser.GameObjects.Container {
                     hazard.actionsUntilFixed += 0.5;
                     this.wrongToolSound.play();
                 }
+            }
+            else {
+                //this.notAToolAreaSound.play();
             }
             return true;
         });
