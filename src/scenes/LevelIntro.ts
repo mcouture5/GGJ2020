@@ -100,9 +100,9 @@ export class LevelIntro extends Phaser.Scene {
 
 		// set up sound effects. don't pause on blur.
 		this.sound.pauseOnBlur = false;
-		this.stompSound = this.sound.add('stomp', {volume: 0.2});
-		this.antsYikes = this.sound.add('ants-yikes', {volume: 0.5});
-		this.antsGoodThing = this.sound.add('ants-good-thing', {volume: 0.5});
+		this.stompSound = this.sound.add('stomp', {volume: 1});
+		this.antsYikes = this.sound.add('ants-yikes', {volume: 1});
+		this.antsGoodThing = this.sound.add('ants-good-thing', {volume: 1});
 	}
 
     update(): void {

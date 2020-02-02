@@ -32,8 +32,8 @@ export class ProgressBar extends Phaser.GameObjects.Container {
         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
 
         // set up sound effects
-        this.antsGrumbleSound = this.scene.sound.add('ants-grumble', {volume: 0.5});
-        this.antsBooSound = this.scene.sound.add('ants-boo', {volume: 0.5});
+        this.antsGrumbleSound = this.scene.sound.add('ants-grumble', {volume: 1});
+        this.antsBooSound = this.scene.sound.add('ants-boo', {volume: 1});
         this.antsDispleasedLevel = 0;
     }
 
