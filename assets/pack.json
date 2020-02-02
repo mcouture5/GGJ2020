@@ -8,6 +8,16 @@
             },
             {
                 "type": "image",
+                "key": "selected-menu-option",
+                "url": "assets/images/selectedmenuoption.png"
+            },
+            {
+                "type": "image",
+                "key": "credits",
+                "url": "assets/images/credits.png"
+            },
+            {
+                "type": "image",
                 "key": "game_bg",
                 "url": "assets/images/game_bg.png"
             },
