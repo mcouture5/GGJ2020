@@ -230,6 +230,16 @@
                 "type": "audio",
                 "key": "wrench",
                 "url": "assets/sound/wrench.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "wrong-tool-1",
+                "url": "assets/sound/wrong-tool-1.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "wrong-tool-2",
+                "url": "assets/sound/wrong-tool-2.mp3"
             }
         ]
     }
