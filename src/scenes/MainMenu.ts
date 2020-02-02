@@ -63,7 +63,7 @@ export class MainMenu extends Phaser.Scene {
 
         // Listen for when the camera is done fading after a selection has been chosen
         this.cameras.main.once('camerafadeoutcomplete', (camera) => {
-            this.scene.start('LevelIntro');
+            this.scene.start('GameScene');
         });
     }
 

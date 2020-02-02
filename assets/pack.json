@@ -8,6 +8,11 @@
             },
             {
                 "type": "image",
+                "key": "hazardprogress",
+                "url": "assets/images/hazardprogress.png"
+            },
+            {
+                "type": "image",
                 "key": "selected-menu-option",
                 "url": "assets/images/selectedmenuoption.png"
             },

@@ -26,13 +26,11 @@ export class Hazard extends FubarObject {
     private static playThankYou: boolean = true;
 
     private progressBox: Phaser.GameObjects.Sprite;
-    private hazardProgressBar: Phaser.GameObjects.Graphics;
+    private hazardProgressBar: Phaser.GameObjects.Sprite;
     private progressBarX: integer;
     private progressBarY: integer;
+    private progressWidth: number;
     
-    private red: number;
-    private green: number;
-
     constructor(params: IFubarObject, hazard: IHazard, room: Room) {
         super(params);
 
@@ -51,19 +49,22 @@ export class Hazard extends FubarObject {
 
         this.progressBarX = this.room.x + hazard.position.x;
         this.progressBarY = this.room.y + hazard.position.y - this.displayHeight / 2;
-        this.red = 0;
-        this.green = 255;
 
         // The timer bar
-        this.hazardProgressBar = new Phaser.GameObjects.Graphics(this.scene);
+        this.hazardProgressBar = new Phaser.GameObjects.Sprite(this.scene, this.progressBarX, this.progressBarY, 'hazardprogress');
+        this.hazardProgressBar.setScale(0.3);
+        this.hazardProgressBar.setOrigin(0, 0);
         this.hazardProgressBar.setDepth(1000);
+        this.hazardProgressBar.setPosition(this.hazardProgressBar.x - (this.hazardProgressBar.displayWidth / 2), this.hazardProgressBar.y);
+        this.progressWidth = this.hazardProgressBar.displayWidth;
         
         this.progressBox = new Phaser.GameObjects.Sprite(this.scene, this.progressBarX, this.progressBarY, 'hazard-meter');
-        this.progressBox.setSize(100, 15);
+        this.progressBox.setScale(0.3);
+        this.progressBox.setOrigin(0, 0);
         this.progressBox.setDepth(1000);
+        this.progressBox.setPosition(this.progressBox.x - (this.progressBox.displayWidth / 2), this.progressBox.y);
         
         this.actionsUntilFixed = 5;
-        this.hazardProgressBar.clear();
 
         // Active key is the same name as the key with _active
         this.activeKey = params.key + '_active';
@@ -79,17 +80,17 @@ export class Hazard extends FubarObject {
     update(): void {
     }
 
-    public updateProgressBar(progress: number) {
-        this.hazardProgressBar.clear();
+    public updateHazardProgressBar(progress: number) {
+        this.hazardProgressBar.visible = true;
         this.progressBox.visible = true;
-        this.hazardProgressBar.fillRect(this.progressBarX - 50, this.progressBarY - 8, 100 * Math.min(progress, 1), 15);
-        this.red = Math.ceil(255 * progress);
+        this.hazardProgressBar.displayWidth = this.hazardProgressBar.displayWidth * Math.min(progress, 1);
+        let red = Math.ceil(255 * progress);
         if (progress > 1) {
-            this.red /= 2 * progress; //make it darker if it's past the end
+            red /= 2 * progress; //make it darker if it's past the end
         }
-        this.green = 255 - Math.ceil(255 * progress);
-        console.log(this.red);
-        this.hazardProgressBar.fillStyle(parseInt(this.rgbToHex(this.red, this.green, 0)), 1);
+        let green = 255 - Math.ceil(255 * progress);
+        let color = parseInt(this.rgbToHex(red, green, 0));
+        this.hazardProgressBar.setTint(color, color, color, color);
     }
 
     private toHex(c) {
@@ -103,7 +104,7 @@ export class Hazard extends FubarObject {
 
     public set actionsUntilFixed(newNum) {
         this.actionsUntilFixedInternal = newNum;
-        this.updateProgressBar(this.actionsUntilFixedInternal / 5);
+        this.updateHazardProgressBar(this.actionsUntilFixedInternal / 5);
     }
 
     public get actionsUntilFixed(): integer {
@@ -137,6 +138,7 @@ export class Hazard extends FubarObject {
                             this.scene.add.existing(this.hazardProgressBar);
                             this.scene.add.existing(this.progressBox);
                             this.progressBox.visible = false;
+                            this.hazardProgressBar.visible = false;
                         }
                     });
                 }
@@ -167,8 +169,8 @@ export class Hazard extends FubarObject {
 
     public fix(duration: number) {
         this.tooltip && this.tooltip.destroy();
-        this.progressBox.visible = false;
-        this.hazardProgressBar.clear();
+        this.progressBox.destroy();
+        this.hazardProgressBar.destroy();
         // shrink, spin, and fade out the "active sprite" covering this object. afterwards, destroy it.
         this.scene.add.tween({
             targets: this.activeSprite,

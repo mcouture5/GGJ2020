@@ -5,16 +5,10 @@ export class ProgressBar extends Phaser.GameObjects.Container {
 	private progressBar: Phaser.GameObjects.Graphics;
     private gameScene: Scene;
     
-    private red: number;
-    private green: number;
-
     constructor(scene: Phaser.Scene, x: number, y: number, gameScene: Phaser.Scene) {
 		super(scene, x, y, []);
 		this.setSize(150,15);
         
-        this.red = 0;
-        this.green = 255;
-
         // The timer bar
         this.progressBar = new Phaser.GameObjects.Graphics(scene);
         this.progressBar.setY(10);
@@ -40,9 +34,9 @@ export class ProgressBar extends Phaser.GameObjects.Container {
     private updateProgressBar(progress: number) {
         this.progressBar.clear();
         this.progressBar.fillRect(0, 0, 380 * progress, 35);
-        this.red = Math.ceil(255 * progress);
-        this.green = 255 - Math.ceil(255 * progress);
-        this.progressBar.fillStyle(parseInt(this.rgbToHex(this.red, this.green, 0)), 1);
+        let red = Math.ceil(255 * progress);
+        let green = 255 - Math.ceil(255 * progress);
+        this.progressBar.fillStyle(parseInt(this.rgbToHex(red, green, 0)), 1);
     }
 
     private toHex(c) {
