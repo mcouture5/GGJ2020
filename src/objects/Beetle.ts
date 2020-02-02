@@ -74,7 +74,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.doorSound = this.scene.sound.add('door', {volume: 0.25});
         this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
         this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
-        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.75});
+        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.5});
         this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
     }
 	
