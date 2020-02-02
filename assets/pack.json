@@ -188,12 +188,12 @@
             },
             {
                 "type": "audio",
-                "key": "ants-displeased-1",
+                "key": "ants-displeased-2",
                 "url": "assets/sound/ants-displeased-2.mp3"
             },
             {
                 "type": "audio",
-                "key": "ants-displeased-1",
+                "key": "ants-displeased-3",
                 "url": "assets/sound/ants-displeased-3.mp3"
             },
             {
@@ -235,6 +235,11 @@
                 "type": "audio",
                 "key": "level-complete",
                 "url": "assets/sound/level-complete.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "not-a-tool-area",
+                "url": "assets/sound/not-a-tool-area.mp3"
             },
             {
                 "type": "audio",

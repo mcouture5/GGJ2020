@@ -194,7 +194,7 @@ export class GameScene extends Phaser.Scene {
         this.sound.pauseOnBlur = false;
         this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
         this.music.play();
-        this.levelCompleteSound = this.sound.add('level-complete', {volume: 0.5});
+        this.levelCompleteSound = this.sound.add('level-complete', {volume: 0.1});
         this.gameOverSound = this.sound.add('game-over', {volume: 0.1});
 
         this.events.emit('pick_tool', undefined);
