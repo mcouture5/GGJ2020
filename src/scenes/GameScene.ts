@@ -27,6 +27,7 @@ let KITCHEN = "kitchen";
 export class GameScene extends Phaser.Scene {
     // variables
     private fading: boolean;
+    private gameStarted: boolean;
 
     private hudScene: Phaser.Scene;
     // Game state
@@ -159,6 +160,7 @@ export class GameScene extends Phaser.Scene {
                         callback: this.setGameOver,
                     });
                     this.state = GameState.AWAITING_INPUT;
+                    this.gameStarted = true;
                 }
             });
         }, 1000);
@@ -171,11 +173,6 @@ export class GameScene extends Phaser.Scene {
                 // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
-                // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
-                if (this.timer) {
-                    let timerProgress: number = this.timer.getProgress();
-                    this.events.emit('timer_update', timerProgress);
-                }
                 this.beetle.update();
                 this.currentRoom && this.currentRoom.update();
                 this.checkRooms();
@@ -184,6 +181,12 @@ export class GameScene extends Phaser.Scene {
                 // TODO: Create this scene.
                 this.scene.start('GameOver');
                 break;
+        }
+
+        // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
+        if (this.timer && this.gameStarted) {
+            let timerProgress: number = this.timer.getProgress();
+            this.events.emit('timer_update', timerProgress);
         }
     }
 
@@ -218,6 +221,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        this.gameStarted = false;
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
         this.currentLevel++;
@@ -233,6 +237,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private setGameOver() {
+        this.gameStarted = false;
         this.state = GameState.GAME_OVER;
     }
 }
