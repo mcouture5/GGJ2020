@@ -230,6 +230,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        this.beetle.stop();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
         this.currentLevel++;
