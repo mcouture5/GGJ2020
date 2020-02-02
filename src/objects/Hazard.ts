@@ -83,13 +83,15 @@ export class Hazard extends FubarObject {
     public updateHazardProgressBar(progress: number) {
         this.hazardProgressBar.visible = true;
         this.progressBox.visible = true;
-        this.hazardProgressBar.displayWidth = this.hazardProgressBar.displayWidth * Math.min(progress, 1);
+        this.hazardProgressBar.displayWidth = this.progressBox.displayWidth * Math.min(progress, 1);
         let red = Math.ceil(255 * progress);
         if (progress > 1) {
-            red /= 2 * progress; //make it darker if it's past the end
+            red = Math.ceil(255 / progress); //make it darker if it's past the end
         }
-        let green = 255 - Math.ceil(255 * progress);
+        let green = Math.max(255 - Math.ceil(255 * progress), 0);
+        console.log(red, green)
         let color = parseInt(this.rgbToHex(red, green, 0));
+        console.log(this.rgbToHex(red, green, 0));
         this.hazardProgressBar.setTint(color, color, color, color);
     }
 
