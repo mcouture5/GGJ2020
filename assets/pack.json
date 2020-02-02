@@ -114,22 +114,27 @@
             {
                 "type": "image",
                 "key": "hammer",
-                "url": "assets/images/hammer.png"
+                "url": "assets/images/hammerbutton.png"
             },
             {
                 "type": "image",
-                "key": "driver",
-                "url": "assets/images/driver.png"
+                "key": "screwdriver",
+                "url": "assets/images/screwdriverbutton.png"
             },
             {
                 "type": "image",
                 "key": "plunger",
-                "url": "assets/images/plunger.png"
+                "url": "assets/images/plungerbutton.png"
             },
             {
                 "type": "image",
                 "key": "wrench",
-                "url": "assets/images/wrench.png"
+                "url": "assets/images/wrenchbutton.png"
+            },
+            {
+                "type": "image",
+                "key": "meter",
+                "url": "assets/images/meter.png"
             },
             {
                 "type": "audio",

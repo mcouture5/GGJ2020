@@ -1,7 +1,7 @@
 import { Scene } from "phaser";
 
 export class ProgressBar extends Phaser.GameObjects.Container {
-    private progressBox: Phaser.GameObjects.Graphics;
+    private progressBox: Phaser.GameObjects.Sprite;
 	private progressBar: Phaser.GameObjects.Graphics;
 	private gameScene: Scene;
 
@@ -9,16 +9,17 @@ export class ProgressBar extends Phaser.GameObjects.Container {
 		super(scene, x, y, []);
 		this.setSize(150,15);
 		
-        this.progressBox = new Phaser.GameObjects.Graphics(scene);
-        this.progressBox.fillStyle(0x000000, 1);
-        this.progressBox.fillRect(0, 0, 150, 15);
-        this.progressBox.setScrollFactor(0);
-        this.add(this.progressBox);
 
         // The timer bar
         this.progressBar = new Phaser.GameObjects.Graphics(scene);
+        this.progressBar.setY(10);
+        this.progressBar.setX(5);
         this.progressBar.setScrollFactor(0);
-		this.add(this.progressBar);
+        this.add(this.progressBar);
+        
+        this.progressBox = new Phaser.GameObjects.Sprite(scene, 200, 5, 'meter');
+        this.progressBox.setScrollFactor(0);
+        this.add(this.progressBox);
 		
 		this.gameScene = gameScene;
         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
@@ -34,6 +35,6 @@ export class ProgressBar extends Phaser.GameObjects.Container {
     private updateProgressBar(progress: number) {
         this.progressBar.clear();
         this.progressBar.fillStyle(0xF93208, 1);
-        this.progressBar.fillRect(0, 0, 150 * progress, 15);
+        this.progressBar.fillRect(0, 0, 380 * progress, 35);
     }
 }

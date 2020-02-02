@@ -3,7 +3,7 @@ import { ToolIcon } from "./ToolIcon";
 
 export class ToolBar extends Phaser.GameObjects.Container {
     private toolIcons: ToolIcon[] = [];
-    private tools = ['hammer', 'driver', 'plunger', 'wrench'];
+    private tools = ['hammer', 'plunger', 'screwdriver', 'wrench'];
     private gameScene: Scene;
     private selectedTool: ToolIcon;
 
@@ -18,19 +18,18 @@ export class ToolBar extends Phaser.GameObjects.Container {
             this.add(toolIcon);
             iconx += 115;
         }
-        this.selectTool(0);
 
-        this.gameScene.events.on('timer_update', (toolIndex) => { this.selectTool(toolIndex); });
+        this.gameScene.events.on('pick_tool', (tool) => { this.selectTool(tool); });
     }
 
     update(): void {
     }
     
-    selectTool(toolIndex): void {
+    selectTool(tool): void {
         if (this.selectedTool) {
             this.selectedTool.setSelected(false);
         }
-        this.selectedTool = this.toolIcons[toolIndex];
+        this.selectedTool = this.toolIcons[this.tools.indexOf(tool)];
         this.selectedTool.setSelected(true);
     }
 }

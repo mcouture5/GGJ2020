@@ -22,7 +22,7 @@ export class ToolIcon extends Phaser.GameObjects.Container {
 		if (selected) {
 			this.icon.setTint(0xFFFFFF);
 		} else {
-			this.icon.setTint(0x000000);
+			this.icon.setTint(0x555555);
 		}
 	}
 }

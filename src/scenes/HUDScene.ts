@@ -31,8 +31,9 @@ export class HUDScene extends Phaser.Scene {
         this.add.existing(this.progressBar);
 
         // level text
-        this.levelText = this.add.text(10, 10, `Level: ${this.gameScene['currentLevel']}`);
+        this.levelText = this.add.text(137, 20, `Level: ${this.gameScene['currentLevel']}`);
         this.levelText.setColor('#000000');
+        this.levelText.setFontSize(30);
 
         // toolbar
         this.toolBar = new ToolBar(this, 325, 700, this.gameScene);
@@ -65,10 +66,13 @@ export class HUDScene extends Phaser.Scene {
         this.textAnim = this.add.tween({
             targets: this.levelText,
             duration: 1000,
-            y: 10,
-            x: 10,
+            y: 20,
+            x: 137,
             scaleX: 1,
-            scaleY: 1
+            scaleY: 1,
+            onComplete: () => {
+                this.progressBar.visible = true;
+            }
         })
     }
 }
