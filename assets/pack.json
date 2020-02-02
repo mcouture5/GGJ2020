@@ -75,6 +75,71 @@
                 "type": "image",
                 "key": "door",
                 "url": "assets/images/doors/door.png"
+            },
+            {
+                "type": "audio",
+                "key": "riff",
+                "url": "assets/sound/riff.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "beetle-beetle-song",
+                "url": "assets/sound/beetle-beetle-song.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-displeased-1",
+                "url": "assets/sound/ants-displeased-1.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-displeased-1",
+                "url": "assets/sound/ants-displeased-2.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-displeased-1",
+                "url": "assets/sound/ants-displeased-3.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-great-job",
+                "url": "assets/sound/ants-great-job.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-thank-you",
+                "url": "assets/sound/ants-thank-you.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "door",
+                "url": "assets/sound/door.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "hammer",
+                "url": "assets/sound/hammer.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "plunger",
+                "url": "assets/sound/plunger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "screwdriver",
+                "url": "assets/sound/screwdriver.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "stomp",
+                "url": "assets/sound/stomp.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "wrench",
+                "url": "assets/sound/wrench.mp3"
             }
         ]
     }
