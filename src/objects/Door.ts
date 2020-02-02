@@ -13,6 +13,8 @@ export class Door extends FubarObject {
     public key: string;
     private openSprite: Phaser.GameObjects.Sprite;
     private room: Room;
+    // sound effects
+    protected doorSound: Phaser.Sound.BaseSound;
 
     constructor(params: IFubarObject, door: IDoor, room: Room) {
         super(params);
@@ -24,6 +26,8 @@ export class Door extends FubarObject {
         // image
         this.setOrigin(0.5, 0.5);
         this.setScale(0.3, 0.3);
+
+        this.doorSound = this.scene.sound.add('door', {volume: 0.25});
     }
 
     update(): void {
@@ -53,6 +57,9 @@ export class Door extends FubarObject {
         this.openSprite = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x + offset, this.room.y + this.y, openKey);
         this.openSprite.setScale(0.3)
         this.scene.add.existing(this.openSprite);
+
+        // play door sound
+        this.doorSound.play();
 
         // Quick timeout then close the door
         setTimeout(() => {
