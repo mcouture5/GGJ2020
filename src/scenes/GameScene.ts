@@ -27,6 +27,7 @@ let KITCHEN = "kitchen";
 export class GameScene extends Phaser.Scene {
     // variables
     private fading: boolean;
+    private gameStarted: boolean;
 
     private hudScene: Phaser.Scene;
     // Game state
@@ -49,6 +50,9 @@ export class GameScene extends Phaser.Scene {
 
     private beetleSprite;
     private beetle: Beetle;
+
+    // sound effects
+    private music: Phaser.Sound.BaseSound;
 
     constructor() {
         super({
@@ -75,6 +79,8 @@ export class GameScene extends Phaser.Scene {
     }
 
     create(): void {
+
+
         // Create the background and main scene
         let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
         bg.displayWidth = 1024;
@@ -127,6 +133,11 @@ export class GameScene extends Phaser.Scene {
         this.add.existing(this.beetle);
         
         this.loadLevel(1);
+
+        // set up sound effects. don't pause on blur. start playing music.
+        this.sound.pauseOnBlur = false;
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
+        this.music.play();
     }
 
     update(): void {
@@ -170,6 +181,7 @@ export class GameScene extends Phaser.Scene {
                         callback: this.setGameOver,
                     });
                     this.state = GameState.AWAITING_INPUT;
+                    this.gameStarted = true;
                 }
             });
         }, 1000);
@@ -182,11 +194,6 @@ export class GameScene extends Phaser.Scene {
                 // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
-                // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
-                if (this.timer) {
-                    let timerProgress: number = this.timer.getProgress();
-                    this.events.emit('timer_update', timerProgress);
-                }
                 this.beetle.update();
                 this.currentRoom && this.currentRoom.update();
                 this.checkRooms();
@@ -195,6 +202,12 @@ export class GameScene extends Phaser.Scene {
                 // TODO: Create this scene.
                 this.scene.start('GameOver');
                 break;
+        }
+
+        // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
+        if (this.timer && this.gameStarted) {
+            let timerProgress: number = this.timer.getProgress();
+            this.events.emit('timer_update', timerProgress);
         }
     }
 
@@ -229,6 +242,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        this.gameStarted = false;
         this.beetle.stop();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
@@ -239,9 +253,13 @@ export class GameScene extends Phaser.Scene {
                 this.scene.start('LevelIntro', {currentLevel: this.currentLevel});``
             }
         });
+
+        // stop playing music
+        this.music.stop();
     }
 
     private setGameOver() {
+        this.gameStarted = false;
         this.state = GameState.GAME_OVER;
     }
 }

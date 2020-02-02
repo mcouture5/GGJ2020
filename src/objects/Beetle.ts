@@ -12,6 +12,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     protected roomCoords;
 
+    // sound effects
+    protected doorSound: Phaser.Sound.BaseSound;
+
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
         this.beetleEvents = params.eventEmitter;
@@ -54,6 +57,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.actionKey = params.scene.input.keyboard.addKey(
             Phaser.Input.Keyboard.KeyCodes.SPACE
         );
+
+        // set up sound effects
+        this.doorSound = this.scene.sound.add('door', {volume: 0.25});
     }
 	
     update(): void {
@@ -96,6 +102,9 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.x = this.roomCoords.x + (this.displayWidth / 2) - 140;
         }
         this.y = this.roomCoords.y + 100;
+
+        // play door sound
+        this.doorSound.play();
     }
 
     protected isOnLeft(): boolean {
