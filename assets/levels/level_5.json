@@ -15,5 +15,6 @@
             "toilet"
         ]
     },
-    "time_limit": 5000
+    "time_limit": 14000,
+    "tooltips": ["sink", "toilet"]
 }

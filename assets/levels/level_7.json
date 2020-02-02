@@ -3,14 +3,12 @@
         "kitchen": [
             "sink"
         ],
-        "family_room": [
-            "lamp"
-        ],
+        "family_room": [],
         "dining_room": [
             "chair"
         ],
         "bedroom": [
-            "lamp"
+            "bed"
         ],
         "living_room": [
             "hole"
@@ -20,6 +18,5 @@
             "toilet"
         ]
     },
-    "time_limit": 34000,
-    "tooltips": ["sink", "hole"]
+    "time_limit": 21000
 }

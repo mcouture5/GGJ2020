@@ -5,13 +5,17 @@
             "fridge"
         ],
         "family_room": [
-            "lamp"
+            "lamp",
+            "dresser"
         ],
         "dining_room": [
-            "chair"
+            "chair",
+            "shelf"
         ],
         "bedroom": [
-            "lamp"
+            "bed",
+            "lamp",
+            "dresser"
         ],
         "living_room": [
             "hole",
@@ -19,9 +23,9 @@
         ],
         "bathroom": [
             "shower",
-            "toilet"
+            "toilet",
+            "sink"
         ]
     },
-    "time_limit": 34000,
-    "tooltips": ["fridge"]
+    "time_limit": 40000
 }

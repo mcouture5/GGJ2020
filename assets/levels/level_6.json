@@ -3,15 +3,11 @@
         "kitchen": [
             "sink"
         ],
-        "family_room": [
-            "lamp"
-        ],
+        "family_room": [],
         "dining_room": [
             "chair"
         ],
-        "bedroom": [
-            "lamp"
-        ],
+        "bedroom": [],
         "living_room": [
             "hole"
         ],

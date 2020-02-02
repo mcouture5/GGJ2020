@@ -9,14 +9,15 @@
             "chair"
         ],
         "bedroom": [
-            "lamp"
         ],
         "living_room": [
+            "hole"
         ],
         "bathroom": [
             "shower",
             "toilet"
         ]
     },
-    "time_limit": 30000
+    "time_limit": 30000,
+    "tooltips": ["lamp", "hole"]
 }
