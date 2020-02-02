@@ -13,6 +13,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     protected moveSpeed: integer;
     protected toolEquipped: integer; // 0=none,1=hammer,2=plunger,3=screwdriver,4=wrench
+    protected holdingUpTool: integer; // 0 means not holding up, n means n setTimeouts are waiting to put the tool back down
 
     protected roomCoords;
 
@@ -28,6 +29,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.initializeToRoom(params.roomCoords);
 
         this.toolEquipped = 0;
+        this.holdingUpTool = 0;
         this.anims.play('idle');
 
         // image
@@ -82,21 +84,28 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.scene.events.emit("enterDoor", "center");
         } else if (Phaser.Input.Keyboard.JustDown(this.actionKey)) {
-            this.scene.events.emit("action");
             if (this.toolEquipped === 1) {
+                this.pickTool('hammer');
                 this.anims.play('use-hammer', false);
+                this.scene.events.emit("action", "hammer", this.x);
                 this.hammerSound.play();
             }
             if (this.toolEquipped === 2) {
+                this.pickTool('plunger');
                 this.anims.play('use-plunger', false);
+                this.scene.events.emit("action", "plunger", this.x);
                 this.plungerSound.play();
             }
             if (this.toolEquipped === 3) {
+                this.pickTool('screwdriver');
                 this.anims.play('use-screwdriver', false);
+                this.scene.events.emit("action", "screwdriver", this.x);
                 this.screwdriverSound.play();
             }
             if (this.toolEquipped === 4) {
+                this.pickTool('wrench');
                 this.anims.play('use-wrench', false);
+                this.scene.events.emit("action", "wrench", this.x);
                 this.wrenchSound.play();
             }
         }
@@ -145,6 +154,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     public stop(): void {
         this.toolEquipped = 0;
+        this.holdingUpTool = 0;
         this.applyVelocity(0);
     }
 
@@ -159,11 +169,19 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected applyVelocity(velocity): void {
         if (velocity !== 0) {
             this.anims.play('run', true);
-            this.toolEquipped = 0;
-        } else if (this.toolEquipped === 0) {
-            this.anims.play('idle');
+            this.holdingUpTool = 0;
+        } else if (!this.holdingUpTool) {
+            this.anims.play('idle', true);
         }
         this.body.setVelocityX(velocity);
+    }
+
+    protected pickTool(tool): void {
+        this.anims.play(tool, false);
+        this.holdingUpTool++;
+        setTimeout(() => {
+            this.holdingUpTool = Math.max(this.holdingUpTool - 1, 0);
+        }, 1000);
     }
 
     protected handleMove(): void {
@@ -180,16 +198,16 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.flipX = true;
         } else if (this.hammerKey.isDown) {
             this.toolEquipped = 1;
-            this.anims.play('hammer', false);
+            this.pickTool('hammer');
         } else if (this.plungerKey.isDown) {
             this.toolEquipped = 2;
-            this.anims.play('plunger', false);
+            this.pickTool('plunger');
         } else if (this.screwdriverKey.isDown) {
             this.toolEquipped = 3;
-            this.anims.play('screwdriver', false);
+            this.pickTool('screwdriver');
         } else if (this.wrenchKey.isDown) {
             this.toolEquipped = 4;
-            this.anims.play('wrench', false);
+            this.pickTool('wrench');
         }
         this.applyVelocity(velocity);
     }
