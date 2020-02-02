@@ -128,7 +128,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     public initializeToRoom(coords): void {
         this.roomCoords = coords;
         this.x = this.roomCoords.x;
-        this.y = this.roomCoords.y + 100;
+        this.y = this.roomCoords.y + 95;
     }
 
     public moveToRoom(newCoords): void {
@@ -140,7 +140,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         } else if (wasOnRight) {
             this.x = this.roomCoords.x + (this.displayWidth / 2) - 140;
         }
-        this.y = this.roomCoords.y + 100;
+        this.y = this.roomCoords.y + 95;
 
         // play door sound
         this.doorSound.play();

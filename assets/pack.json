@@ -3,6 +3,11 @@
         "files": [
             {
                 "type": "image",
+                "key": "main-menu",
+                "url": "assets/images/menu.png"
+            },
+            {
+                "type": "image",
                 "key": "game_bg",
                 "url": "assets/images/game_bg.png"
             },

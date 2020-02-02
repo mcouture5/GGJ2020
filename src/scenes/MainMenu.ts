@@ -5,6 +5,7 @@ export class MainMenu extends Phaser.Scene {
     private startKey: Phaser.Input.Keyboard.Key;
     private texts: Phaser.GameObjects.Text[] = [];
     private fading: boolean;
+    private music: Phaser.Sound.BaseSound;
 
     constructor() {
         super({
@@ -22,26 +23,13 @@ export class MainMenu extends Phaser.Scene {
 
     create() {
         // Load background image
-        // this.bg = this.add.sprite(0, 0, 'mainmenu-bg').setOrigin(0,0);
-
-        // Default a default bg color
-        this.cameras.main.setBackgroundColor(0xffffff);
-
-        // Start text (or others)
-        this.texts.push(
-            this.add.text(300,410,
-                'FixUp Bug - Always Reparing!',
-                {
-                    fontFamily: 'Digital',
-                    fontSize: 30,
-                    color: '#000'
-                }
-            )
-        );
+        let bg = this.add.sprite(0, 0, 'main-menu').setOrigin(0, 0);
+        bg.displayWidth = 1024;
+        bg.displayHeight = 768;
 
         // start playing music
-        // this.music = this.sound.add('bg-music', {loop: true, volume: 1});
-        // this.music.play();
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 1});
+        this.music.play();
 
         // Listen for when the camera is done fading after a selection has been chosen
         this.cameras.main.once('camerafadeoutcomplete', (camera) => {
