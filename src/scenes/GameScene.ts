@@ -8,6 +8,7 @@ enum GameState {
     GETTING_RECIPE,
     AWAITING_INPUT,
     AWAITING_MENU_INPUT,
+    AWAITING_GAME_OVER_INPUT,
     ANIMATING,
     GAME_OVER
 }
@@ -160,6 +161,7 @@ export class GameScene extends Phaser.Scene {
 
         // Get the HUD
         this.hudScene = this.scene.get('HUDScene');
+        this.scene.setVisible(true, 'HUDScene');
 
         // Create and add the rooms
         for (let room_key in this.layout) {
@@ -219,12 +221,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     private startCurrentLevel() {
-        // Create timer event
-        this.timer = this.time.addEvent({
-            delay: this.level.time_limit,
-            callback: this.setGameOver,
-        });
-
         // Zoom and pan to begin
         setTimeout(() => {
             this.camera.zoomTo(2.7, 800, 'Linear', true);
@@ -267,7 +263,7 @@ export class GameScene extends Phaser.Scene {
                     // Create timer event
                     this.timer = this.time.addEvent({
                         delay: this.level.time_limit,
-                        callback: this.setGameOver,
+                        callback: () => { this.setGameOver(); }
                     });
                     this.state = GameState.AWAITING_INPUT;
                     this.gameStarted = true;
@@ -293,8 +289,10 @@ export class GameScene extends Phaser.Scene {
                     this.scene.start('LevelIntro', {currentLevel: this.currentLevel});
                 }
                 break;
-            case GameState.GAME_OVER:
-                this.scene.start('GameOver');
+            case GameState.AWAITING_GAME_OVER_INPUT:
+                if (Phaser.Input.Keyboard.JustDown(this.menuKey)) {
+                    this.scene.restart({currentLevel: this.currentLevel});
+                }
                 break;
         }
 
@@ -423,7 +421,122 @@ export class GameScene extends Phaser.Scene {
     }
 
     private setGameOver() {
+        this.scene.setVisible(false, 'HUDScene');
         this.gameStarted = false;
-        this.state = GameState.GAME_OVER;
+        this.beetle.destroy();
+        this.state = GameState.ANIMATING;
+        // Overlay
+        let overlay = new Phaser.GameObjects.Graphics(this);
+        this.add.existing(overlay);
+        overlay.clear();
+        overlay.fillStyle(0xFFFFFF, 1);
+        overlay.fillRect(0, 0, 1024, 768);
+        overlay.setAlpha(0);
+        this.add.tween({
+            targets: [overlay],
+            duration: 4000,
+            alpha: 1
+        });
+
+        let texts = ['F', 'i', 'x', 'U', 'p', ' ', 'B', 'e', 'e', 't', 'l', 'e', ':', ' ', 'A', 'l', 'w', 'a', 'y', 's', ' ', 'R', 'e', 'p', 'a', 'i', 'r', 'i', 'n', 'g'];
+        let x = 60;
+        let textObjs = [], toBreak = [], toMove = [];
+        for (let text of texts) {
+            let textojb = this.add.text(x, 0, text, {
+                fontFamily: 'OneNine',
+                fontSize: 42,
+                color: '#000'
+            }).setOrigin(0.5, 0.5).setScale(1.2);
+            textObjs.push(textojb);
+            if (text !== ' ' && text === text.toLowerCase()) {
+                toBreak.push(textojb);
+            }
+            if (text !== ' ' && text !== ':' && text === text.toUpperCase()) {
+                toMove.push(textojb);
+            }
+            x += 30;
+        }
+        this.camera.pan(512, 384, 600, 'Linear', true);
+        this.camera.zoomTo(1, 600, 'Linear', true);
+        this.add.tween({
+            targets: textObjs,
+            y: 384,
+            duration: 800,
+            onComplete: () => {
+                setTimeout(() => {
+                    let delay = 100;
+                    // Break
+                    for (let text of toBreak) {
+                        this.add.tween({
+                            targets: [text],
+                            duration: Math.random() * 2000,
+                            delay: delay,
+                            y: 2000
+                        });
+                        delay += 100;
+                    }
+                    // Move together
+                    let f = toMove[0];
+                    let u = toMove[1];
+                    let b = toMove[2];
+                    let a = toMove[3];
+                    let r = toMove[4];
+                    this.add.tween({
+                        targets: [f],
+                        duration: 400,
+                        delay: 400,
+                        x: 440,
+                        onComplete: () => {
+                            this.add.tween({
+                                targets: [u],
+                                duration: 400,
+                                x: 480,
+                                onComplete: () => {
+                                    this.add.tween({
+                                        targets: [b],
+                                        duration: 400,
+                                        x: 520,
+                                        onComplete: () => {
+                                            this.add.tween({
+                                                targets: [a],
+                                                duration: 400,
+                                                x: 560,
+                                                onComplete: () => {
+                                                    this.add.tween({
+                                                        targets: [r],
+                                                        duration: 400,
+                                                        x: 600,
+                                                        onComplete: () => {
+                                                            this.add.tween({
+                                                                targets: toMove,
+                                                                duration: 800,
+                                                                scaleX: 1.6,
+                                                                scaleY: 1.6
+                                                            });
+                                                            let text = this.add.text(512, 560, 'Press Space', {
+                                                                fontFamily: 'Digital',
+                                                                fontSize: 30,
+                                                                color: '#000'
+                                                            }).setOrigin(0.5, 0.5);
+                                                            this.add.tween({
+                                                                targets: [text],
+                                                                duration: 1200,
+                                                                loop: -1,
+                                                                alpha: 0
+                                                            });
+                                                            this.state = GameState.AWAITING_GAME_OVER_INPUT;
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }, 700);
+            }
+        });
     }
 }
