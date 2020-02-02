@@ -239,9 +239,7 @@ export class GameScene extends Phaser.Scene {
                     (this.events.off as any)('enterDoor');
                     this.events.addListener('enterDoor', (doorString: string) => {
                         const doorToEnter = this.currentRoom.getDoors()[doorString];
-                        console.log(doorString);
                         if (doorToEnter) {
-                            console.log(doorToEnter);
                             this.beetle.stop();
                             // Stop all input!
                             this.state = GameState.ANIMATING;
@@ -344,6 +342,8 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        (this.events.off as any)('enterDoor');
+        (this.events.off as any)('action');
         this.gameStarted = false;
         this.beetle.stop();
         this.state = GameState.ANIMATING;
@@ -434,10 +434,12 @@ export class GameScene extends Phaser.Scene {
     }
 
     private setGameOver() {
+        (this.events.off as any)('enterDoor');
+        (this.events.off as any)('action');
         this.scene.setVisible(false, 'HUDScene');
         this.gameStarted = false;
-        this.beetle.destroy();
         this.state = GameState.ANIMATING;
+        this.beetle.destroy();
         // Overlay
         let overlay = new Phaser.GameObjects.Graphics(this);
         this.add.existing(overlay);
