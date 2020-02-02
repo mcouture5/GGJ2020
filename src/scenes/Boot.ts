@@ -48,14 +48,14 @@ export class Boot extends Phaser.Scene {
         this.load.json('layout', './assets/layout.json');
         this.load.json('level_1', './assets/levels/level_1.json');
         this.load.json('level_2', './assets/levels/level_2.json');
-        this.load.json('level_3', './assets/levels/level_1.json');
-        this.load.json('level_4', './assets/levels/level_1.json');
-        this.load.json('level_5', './assets/levels/level_1.json');
-        this.load.json('level_6', './assets/levels/level_1.json');
-        this.load.json('level_7', './assets/levels/level_1.json');
-        this.load.json('level_8', './assets/levels/level_1.json');
-        this.load.json('level_9', './assets/levels/level_1.json');
-        this.load.json('level_10', './assets/levels/level_1.json');
+        this.load.json('level_3', './assets/levels/level_3.json');
+        this.load.json('level_4', './assets/levels/level_4.json');
+        this.load.json('level_5', './assets/levels/level_5.json');
+        this.load.json('level_6', './assets/levels/level_6.json');
+        this.load.json('level_7', './assets/levels/level_7.json');
+        this.load.json('level_8', './assets/levels/level_8.json');
+        this.load.json('level_9', './assets/levels/level_9.json');
+        this.load.json('level_10', './assets/levels/level_10.json');
         this.load.spritesheet('beetle', 'assets/images/beetle.png', {frameWidth: 245, frameHeight: 252});
     }
 

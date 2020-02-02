@@ -1,0 +1,24 @@
+{
+    "hazards": {
+        "kitchen": [
+            "sink"
+        ],
+        "family_room": [
+            "lamp"
+        ],
+        "dining_room": [
+            "chair"
+        ],
+        "bedroom": [
+            "lamp"
+        ],
+        "living_room": [
+            "hole"
+        ],
+        "bathroom": [
+            "shower",
+            "toilet"
+        ]
+    },
+    "time_limit": 20000
+}

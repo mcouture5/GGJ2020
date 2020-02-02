@@ -123,6 +123,16 @@
             },
             {
                 "type": "image",
+                "key": "hole",
+                "url": "assets/images/hazards/hole.png"
+            },
+            {
+                "type": "image",
+                "key": "hole_active",
+                "url": "assets/images/hazards/active/hole.png"
+            },
+            {
+                "type": "image",
                 "key": "ants",
                 "url": "assets/images/ants.png"
             },
