@@ -21,7 +21,7 @@ export class LevelIntro extends Phaser.Scene {
 	private lastState: GameState;
 
 	private footAnim: Phaser.Tweens.Tween;
-	private antAnim: Phaser.Tweens.Tween;
+	private antAnim: Phaser.Tweens.Timeline;
 
     // Levels
     private level: ILevel;
@@ -162,40 +162,61 @@ export class LevelIntro extends Phaser.Scene {
 	}
 
 	private runAway() {
-		this.antAnim = this.add.tween({
+		this.antAnim = this.tweens.createTimeline({});
+
+		this.antAnim.add({
 			targets: this.family,
 			duration: 1000,
 			y: 265,
 			onComplete: () => {
 				this.family.visible = false;
-				this.antAnim = this.add.tween({
-					targets: this.family,
-					duration: 500,
-					y: 20,
-					onComplete: () => {
-						this.family.visible = true;
-						this.antAnim = this.add.tween({
-							targets: this.family,
-							duration: 500,
-							x: 50,
-							delay: 1000,
-							onComplete: () => {
-								this.family.visible = true;
-								this.antAnim = this.add.tween({
-									targets: this.family,
-									duration: 500,
-									x: 50,
-									delay: 1000,
-									onComplete: () => {
-										this.state = GameState.END;
-									},
-								})
-							},
-						})
-					},
-				})
 			}
-		})
+		});
+
+		if (this.currentLevel === 1) {
+			this.antAnim.add({
+				targets: this.family,
+				duration: 500,
+				y: 20,
+				onComplete: () => {
+					this.family.visible = true;
+				},
+			})
+	
+			this.antAnim.add({
+				targets: this.family,
+				duration: 500,
+				x: 50,
+				delay: 1000,
+				onComplete: () => {
+					this.family.visible = true;
+				},
+			})
+	
+			this.antAnim.add({
+				targets: this.family,
+				duration: 500,
+				x: 50,
+				delay: 1000,
+				onComplete: () => {
+					this.state = GameState.END;
+				},
+			})
+		} else {
+			this.antAnim.add({
+				targets: this.family,
+				duration: 1,
+				x: 50,
+				y: 20,
+				onComplete: () => {
+					this.family.visible = true;
+					this.state = GameState.END;
+				},
+			})
+		}
+		
+
+		this.antAnim.play();
 	}
 
 	private bye() {

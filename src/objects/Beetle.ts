@@ -155,7 +155,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     }
 
     public stop(): void {
-        this.toolEquipped = 0;
         setTimeout(() => this.holdingUpTool = 0, 1000); // to avoid race conditions
         this.overrideHolding = true;
         this.applyVelocity(0);

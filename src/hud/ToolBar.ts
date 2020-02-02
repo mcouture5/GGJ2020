@@ -30,6 +30,8 @@ export class ToolBar extends Phaser.GameObjects.Container {
             this.selectedTool.setSelected(false);
         }
         this.selectedTool = this.toolIcons[this.tools.indexOf(tool)];
-        this.selectedTool.setSelected(true);
+        if (this.selectedTool) {
+            this.selectedTool.setSelected(true);
+        }
     }
 }
