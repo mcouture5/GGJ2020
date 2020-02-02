@@ -58,7 +58,7 @@ export class GameScene extends Phaser.Scene {
         });
     }
 
-    init(): void {
+    init(config): void {
         // Starting level
         this.state = GameState.STARTING_LEVEL;
         // starts fading
@@ -70,7 +70,7 @@ export class GameScene extends Phaser.Scene {
         this.rooms = {};
         this.currentRoom = null;
         this.level = null;
-        this.currentLevel = 1;
+        this.currentLevel = config['currentLevel'] || 1;
 
         // References
         this.camera = this.cameras.main;
@@ -224,7 +224,7 @@ export class GameScene extends Phaser.Scene {
             this.camera.pan(512, 384, 1000, 'Linear', true);
             this.camera.zoomTo(1, 1000, 'Linear', true, (camera, progress) => {
                 if (progress >= 1) {
-                    this.scene.start('LevelIntro');
+                    this.scene.start('LevelIntro', {currentLevel: this.currentLevel});
                 }
             });
         }

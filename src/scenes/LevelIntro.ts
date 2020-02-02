@@ -33,7 +33,7 @@ export class LevelIntro extends Phaser.Scene {
         });
     }
 
-    init(): void {
+    init(config): void {
         this.state = GameState.EVERYTHING_IS_FINE;
 		
         // Get the rooms layout
@@ -42,7 +42,7 @@ export class LevelIntro extends Phaser.Scene {
         // Create new rooms using the layout config
 		this.rooms = {};
 		this.level = null;
-		this.currentLevel = 1;
+		this.currentLevel = config['currentLevel'] || 1;
     }
 
     create(): void {
@@ -196,7 +196,7 @@ export class LevelIntro extends Phaser.Scene {
 	private bye() {
         this.cameras.main.fadeOut(2000, 255, 255, 255);
 		this.cameras.main.once('camerafadeoutcomplete', (camera) => {
-            this.scene.start('GameScene');
+            this.scene.start('GameScene', {currentLevel: this.currentLevel});
         });
 	}
 
