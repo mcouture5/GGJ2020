@@ -59,7 +59,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         );
 
         // set up sound effects
-        this.doorSound = this.scene.sound.add('door');
+        this.doorSound = this.scene.sound.add('door', {volume: 0.25});
     }
 	
     update(): void {

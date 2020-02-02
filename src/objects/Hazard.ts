@@ -14,6 +14,11 @@ export class Hazard extends FubarObject {
     private activeKey: string;
     private activeSprite: Phaser.GameObjects.Sprite;
 
+    // sound effects
+    private antsThankYouSound: Phaser.Sound.BaseSound;
+    private antsGreatJobSound: Phaser.Sound.BaseSound;
+    private static playThankYou: boolean = true;
+
     constructor(params: IFubarObject, hazard: IHazard, room: Room) {
         super(params);
 
@@ -29,6 +34,10 @@ export class Hazard extends FubarObject {
         this.activeKey = params.key + '_active';
 
         this.room = room;
+
+        // set up sound effects
+        this.antsThankYouSound = this.scene.sound.add('ants-thank-you', {volume: 0.5});
+        this.antsGreatJobSound = this.scene.sound.add('ants-great-job', {volume: 0.5});
     }
 
     update(): void {
@@ -43,5 +52,13 @@ export class Hazard extends FubarObject {
 
     public fix() {
         this.activeSprite.destroy();
+
+        // play appropriate sound effect (alternating between thank you and great job)
+        if (Hazard.playThankYou) {
+            this.antsThankYouSound.play();
+        } else {
+            this.antsGreatJobSound.play();
+        }
+        Hazard.playThankYou = !Hazard.playThankYou;
     }
 }

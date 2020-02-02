@@ -27,6 +27,9 @@ export class LevelIntro extends Phaser.Scene {
     private level: ILevel;
 	private currentLevel: number;
 
+	// sound effects
+	private stompSound: Phaser.Sound.BaseSound;
+
     constructor() {
         super({
             key: 'LevelIntro'
@@ -58,12 +61,7 @@ export class LevelIntro extends Phaser.Scene {
             this.add.existing(roomContainer);
             this.rooms[room_key] = roomContainer;
 		}
-		
-		// // Create and add the fam
-		// let room = this.layout['intro_room'];
-		// let roomContainer = new Room(this, 512, 384, room);
-		// this.add.existing(roomContainer);
-		
+
 		let fubarParams: IFubarObject = {
 			scene: this,
 			x: 425,
@@ -97,6 +95,10 @@ export class LevelIntro extends Phaser.Scene {
 		};
 		this.foot = new Foot(fubarParams);
 		this.add.existing(this.foot);
+
+		// set up sound effects. don't pause on blur.
+		this.sound.pauseOnBlur = false;
+		this.stompSound = this.sound.add('stomp', {volume: 0.2});
 	}
 
     update(): void {
@@ -131,6 +133,9 @@ export class LevelIntro extends Phaser.Scene {
             duration: 1000,
 			y: -100,
             onComplete: () => {
+				// play stomp sound
+				this.stompSound.play();
+
 				//shake cam
 				this.cameras.main.shake(1000,0.02,undefined, (cam, prog) => {
 					if (prog === 1){
@@ -153,7 +158,7 @@ export class LevelIntro extends Phaser.Scene {
 				})
 				this.loadLevel(this.currentLevel);
 			}
-		})
+		});
 	}
 
 	private runAway() {
