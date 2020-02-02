@@ -101,7 +101,8 @@ export class LevelIntro extends Phaser.Scene {
 		this.foot = new Foot(fubarParams);
 		this.add.existing(this.foot);
 
-		// set up sound effects
+		// set up sound effects. don't pause on blur.
+		this.sound.pauseOnBlur = false;
 		this.stompSound = this.sound.add('stomp', {volume: 0.2});
 	}
 

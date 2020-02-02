@@ -51,6 +51,9 @@ export class GameScene extends Phaser.Scene {
     private beetleSprite;
     private beetle: Beetle;
 
+    // sound effects
+    private music: Phaser.Sound.BaseSound;
+
     constructor() {
         super({
             key: 'GameScene'
@@ -131,9 +134,10 @@ export class GameScene extends Phaser.Scene {
         
         this.loadLevel(1);
 
-        // start playing music
-        let music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
-        music.play();
+        // set up sound effects. don't pause on blur. start playing music.
+        this.sound.pauseOnBlur = false;
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
+        this.music.play();
     }
 
     update(): void {
@@ -249,6 +253,9 @@ export class GameScene extends Phaser.Scene {
                 this.scene.start('LevelIntro', {currentLevel: this.currentLevel});``
             }
         });
+
+        // stop playing music
+        this.music.stop();
     }
 
     private setGameOver() {
