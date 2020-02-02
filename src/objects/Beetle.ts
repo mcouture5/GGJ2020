@@ -82,21 +82,24 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
             this.scene.events.emit("enterDoor", "center");
         } else if (Phaser.Input.Keyboard.JustDown(this.actionKey)) {
-            this.scene.events.emit("action");
             if (this.toolEquipped === 1) {
                 this.anims.play('use-hammer', false);
+                this.beetleEvents.emit("action", "hammer", this.x);
                 this.hammerSound.play();
             }
             if (this.toolEquipped === 2) {
                 this.anims.play('use-plunger', false);
+                this.beetleEvents.emit("action", "plunger", this.x);
                 this.plungerSound.play();
             }
             if (this.toolEquipped === 3) {
                 this.anims.play('use-screwdriver', false);
+                this.beetleEvents.emit("action", "screwdriver", this.x);
                 this.screwdriverSound.play();
             }
             if (this.toolEquipped === 4) {
                 this.anims.play('use-wrench', false);
+                this.beetleEvents.emit("action", "wrench", this.x);
                 this.wrenchSound.play();
             }
         }

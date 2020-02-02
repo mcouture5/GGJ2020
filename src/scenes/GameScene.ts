@@ -255,8 +255,8 @@ export class GameScene extends Phaser.Scene {
 
                     // Listen for when the hero interacts with a hazard
                     (this.events.off as any)('action');
-                    this.events.addListener('action', () => {
-                        this.currentRoom.checkInteraction();
+                    this.events.addListener('action', (tool, x) => {
+                        this.currentRoom.checkInteraction(tool, x);
                     });
 
                     // Create timer event

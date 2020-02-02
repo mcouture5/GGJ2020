@@ -13,6 +13,8 @@ export class Hazard extends FubarObject {
     private room: Room;
     private activeKey: string;
     private activeSprite: Phaser.GameObjects.Sprite;
+    public tool: string;
+    public actionsUntilFixed: integer;
 
     // sound effects
     private antsThankYouSound: Phaser.Sound.BaseSound;
@@ -29,6 +31,8 @@ export class Hazard extends FubarObject {
         this.setScale(hazard.display_ratio.width, hazard.display_ratio.height);
         this.setX(hazard.position.x);
         this.setY(hazard.position.y);
+        this.tool = hazard.tool;
+        this.actionsUntilFixed = 5;
 
         // Active key is the same name as the key with _active
         this.activeKey = params.key + '_active';
