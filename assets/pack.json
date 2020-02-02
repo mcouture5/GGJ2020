@@ -48,6 +48,31 @@
             },
             {
                 "type": "image",
+                "key": "bed",
+                "url": "assets/images/hazards/bed.png"
+            },
+            {
+                "type": "image",
+                "key": "ceilinglamp",
+                "url": "assets/images/hazards/ceilinglamp.png"
+            },
+            {
+                "type": "image",
+                "key": "dresser",
+                "url": "assets/images/hazards/dresser.png"
+            },
+            {
+                "type": "image",
+                "key": "fridge",
+                "url": "assets/images/hazards/fridge.png"
+            },
+            {
+                "type": "image",
+                "key": "shelf",
+                "url": "assets/images/hazards/shelf.png"
+            },
+            {
+                "type": "image",
                 "key": "foot",
                 "url": "assets/images/foot.png"
             },

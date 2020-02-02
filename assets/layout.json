@@ -36,8 +36,8 @@
                     "y": 0
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.3
                 },
                 "tool": "screwdriver"
             }
@@ -130,6 +130,18 @@
                 "tool": "hammer"
             },
             {
+                "key": "ceilinglamp",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "display_ratio": {
+                    "width": 0.5,
+                    "height": 0.5
+                },
+                "tool": "hammer"
+            },
+            {
                 "key": "wetbar",
                 "position": {
                     "x": 0,
@@ -181,7 +193,7 @@
                 "tool": "screwdriver"
             },
             {
-                "key": "closet",
+                "key": "dresser",
                 "position": {
                     "x": 0,
                     "y": 0
