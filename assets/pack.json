@@ -13,6 +13,31 @@
             },
             {
                 "type": "image",
+                "key": "invoice",
+                "url": "assets/images/invoice.png"
+            },
+            {
+                "type": "image",
+                "key": "paid",
+                "url": "assets/images/paid.png"
+            },
+            {
+                "type": "image",
+                "key": "ant_1",
+                "url": "assets/images/ant1.png"
+            },
+            {
+                "type": "image",
+                "key": "ant_2",
+                "url": "assets/images/ant2.png"
+            },
+            {
+                "type": "image",
+                "key": "ant_3",
+                "url": "assets/images/ant3.png"
+            },
+            {
+                "type": "image",
                 "key": "chair",
                 "url": "assets/images/hazards/chair.png"
             },

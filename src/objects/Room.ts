@@ -16,6 +16,7 @@ export class Room extends Phaser.GameObjects.Container {
     private doors: { [key: string]: Door };
     private hazards: { [key: string]: Hazard };
     private activeHazards: Hazard[];
+    private ant: Phaser.GameObjects.Sprite;
 
     constructor(scene: Phaser.Scene, x: number, y: number, room: IRoom) {
 
@@ -39,6 +40,13 @@ export class Room extends Phaser.GameObjects.Container {
 
         // Create the doors
         this.createDoors(room.doors);
+
+        // Random dancing ant
+        let randAntIndex = Math.floor(Math.random() * 3) + 1;
+        let randX = -100 + Math.floor(Math.random() * 200);
+        this.ant = new Phaser.GameObjects.Sprite(this.scene, randX, 60, 'ant_' + randAntIndex);
+        this.ant.setOrigin(0.5, 0.5);
+        this.ant.setScale(0.5);
     }
 
     update(): void {
@@ -82,6 +90,21 @@ export class Room extends Phaser.GameObjects.Container {
 
     public allHazardsFixed(): boolean {
         return this.activeHazards.length === 0;
+    }
+
+    public danceParty() {
+        this.add(this.ant);
+        this.bringToTop(this.ant);
+        this.dance();
+    }
+
+    private dance() {
+        if (this.ant) {
+            this.ant.setScale(this.ant.scaleX * -1, this.ant.scaleY);
+            setTimeout(() => {
+                this.dance();
+            }, Math.floor(Math.random() * 800) + 800);
+        }
     }
 
     private createHazards(hazards: IHazard[]) {
