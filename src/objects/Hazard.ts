@@ -63,7 +63,7 @@ export class Hazard extends FubarObject {
         this.setAlpha(0);
     }
 
-    public fix() {
+    public fix(duration: number) {
         // shrink, spin, and fade out the "active sprite" covering this object. afterwards, destroy it.
         this.scene.add.tween({
             targets: this.activeSprite,
@@ -72,7 +72,7 @@ export class Hazard extends FubarObject {
             angle: 180,
             alpha: 0,
             ease: 'Linear',
-            duration: 200,
+            duration: duration,
             onComplete: () => {
                 this.activeSprite.destroy();
             }
@@ -85,7 +85,7 @@ export class Hazard extends FubarObject {
             scaleY: this.originalScaleY + 0.05,
             alpha: 1,
             ease: 'Linear',
-            duration: 200,
+            duration: duration,
             onComplete: () => {
                 // snap this object back to its correct scale
                 this.scene.add.tween({

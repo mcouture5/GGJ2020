@@ -1,6 +1,7 @@
 import { IHazard, Hazard } from "./Hazard";
 import { FubarObject, IFubarObject } from "./FubarObject";
 import { IDoor, Door } from "./Door";
+import { GameScene } from "../scenes/GameScene";
 
 export interface IRoom {
     key: string;
@@ -73,19 +74,19 @@ export class Room extends Phaser.GameObjects.Container {
             if (hazard.tool === tool && Math.abs(this.x + hazard.x - x) < 25) {
                 hazard.actionsUntilFixed--;
                 if (hazard.actionsUntilFixed === 0) {
-                    hazard.fix();
+                    // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
+                    // If so, do more fancies with the hazard
+                    let duration = 200;
+                    let remaining = (this.scene as GameScene).roomsRemaining();
+                    if (remaining === 1 && this.activeHazards.length === 1) {
+                        duration = 1800;
+                    }
+                    hazard.fix(duration);
                     return false;
                 }
             }
             return true;
         });
-    }
-
-    public fixHazard(key: string) {
-        let hazard = this.hazards[key];
-        hazard.fix();
-        let index = this.activeHazards.indexOf(hazard);
-        this.activeHazards.splice(index, 1);
     }
 
     public allHazardsFixed(): boolean {
