@@ -75,6 +75,8 @@ export class GameScene extends Phaser.Scene {
     }
 
     create(): void {
+
+
         // Create the background and main scene
         let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
         bg.displayWidth = 1024;
@@ -127,6 +129,10 @@ export class GameScene extends Phaser.Scene {
         this.add.existing(this.beetle);
         
         this.loadLevel(1);
+
+        // start playing music
+        let music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.05});
+        music.play();
     }
 
     update(): void {
