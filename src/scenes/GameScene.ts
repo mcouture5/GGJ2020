@@ -60,6 +60,7 @@ export class GameScene extends Phaser.Scene {
 
     // sound effects
     private music: Phaser.Sound.BaseSound;
+    private levelCompleteSound: Phaser.Sound.BaseSound;
     private gameOverSound: Phaser.Sound.BaseSound;
 
     constructor() {
@@ -192,6 +193,7 @@ export class GameScene extends Phaser.Scene {
         this.sound.pauseOnBlur = false;
         this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
         this.music.play();
+        this.levelCompleteSound = this.sound.add('level-complete', {volume: 0.5});
         this.gameOverSound = this.sound.add('game-over', {volume: 0.1});
 
         this.events.emit('pick_tool', undefined);
@@ -405,6 +407,8 @@ export class GameScene extends Phaser.Scene {
             angle: 720,
             ease: 'Linear',
             onComplete: () => {
+                // play level complete sound
+                this.levelCompleteSound.play();
                 this.paid = new Phaser.GameObjects.Sprite(this, 512, 384, 'paid');
                 this.paid.setOrigin(0.5, 0.5);
                 this.paid.setAlpha(0);
@@ -438,7 +442,6 @@ export class GameScene extends Phaser.Scene {
     private setGameOver() {
         // abruptly stop music
         this.music.stop();
-
         // play game over sound
         this.gameOverSound.play();
 

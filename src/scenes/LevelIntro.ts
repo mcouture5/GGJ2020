@@ -29,6 +29,8 @@ export class LevelIntro extends Phaser.Scene {
 
 	// sound effects
 	private stompSound: Phaser.Sound.BaseSound;
+	private antsYikes: Phaser.Sound.BaseSound;
+	private antsGoodThing: Phaser.Sound.BaseSound;
 
     constructor() {
         super({
@@ -99,6 +101,8 @@ export class LevelIntro extends Phaser.Scene {
 		// set up sound effects. don't pause on blur.
 		this.sound.pauseOnBlur = false;
 		this.stompSound = this.sound.add('stomp', {volume: 0.2});
+		this.antsYikes = this.sound.add('ants-yikes', {volume: 0.5});
+		this.antsGoodThing = this.sound.add('ants-good-thing', {volume: 0.5});
 	}
 
     update(): void {
@@ -149,6 +153,9 @@ export class LevelIntro extends Phaser.Scene {
 							y: 250,
 							yoyo: true
 						});
+
+						// play ants yikes sound
+						this.antsYikes.play();
 					}
 				});
 				this.footAnim = this.add.tween({
@@ -189,6 +196,8 @@ export class LevelIntro extends Phaser.Scene {
 				x: 50,
 				delay: 1000,
 				onComplete: () => {
+					// play ants good thing sound
+					this.antsGoodThing.play();
 					this.family.visible = true;
 				},
 			})

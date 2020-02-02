@@ -24,6 +24,7 @@ export class Room extends Phaser.GameObjects.Container {
     private plungerSound: Phaser.Sound.BaseSound;
     private screwdriverSound: Phaser.Sound.BaseSound;
     private wrenchSound: Phaser.Sound.BaseSound;
+    private rightToolSound: Phaser.Sound.BaseSound;
     private wrongToolSound: Phaser.Sound.BaseSound;
 
     constructor(scene: Phaser.Scene, x: number, y: number, room: IRoom) {
@@ -59,8 +60,9 @@ export class Room extends Phaser.GameObjects.Container {
         // set up sound effects
         this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
         this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
-        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.75});
+        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.4});
         this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
+        this.rightToolSound = this.scene.sound.add('right-tool-2', {volume: 0.3});
         this.wrongToolSound = this.scene.sound.add('wrong-tool-1', {volume: 0.2});
     }
 
@@ -87,6 +89,7 @@ export class Room extends Phaser.GameObjects.Container {
         this.activeHazards = this.activeHazards.filter(hazard => {
             if (Math.abs(this.x + hazard.x - x) < 25) {
                 if (hazard.tool === tool) {
+                    this.rightToolSound.play();
                     hazard.actionsUntilFixed--;
                     if (hazard.actionsUntilFixed <= 0) {
                         // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.

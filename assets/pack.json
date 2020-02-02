@@ -188,6 +188,11 @@
             },
             {
                 "type": "audio",
+                "key": "ants-good-thing",
+                "url": "assets/sound/ants-good-thing.mp3"
+            },
+            {
+                "type": "audio",
                 "key": "ants-great-job",
                 "url": "assets/sound/ants-great-job.mp3"
             },
@@ -195,6 +200,11 @@
                 "type": "audio",
                 "key": "ants-thank-you",
                 "url": "assets/sound/ants-thank-you.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-yikes",
+                "url": "assets/sound/ants-yikes.mp3"
             },
             {
                 "type": "audio",
@@ -213,8 +223,23 @@
             },
             {
                 "type": "audio",
+                "key": "level-complete",
+                "url": "assets/sound/level-complete.mp3"
+            },
+            {
+                "type": "audio",
                 "key": "plunger",
                 "url": "assets/sound/plunger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "right-tool",
+                "url": "assets/sound/right-tool.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "right-tool-2",
+                "url": "assets/sound/right-tool-2.mp3"
             },
             {
                 "type": "audio",
