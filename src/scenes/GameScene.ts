@@ -16,6 +16,7 @@ enum GameState {
 export interface ILevel {
     hazards: { [room: string]: string[] };
     time_limit: number;
+    tooltips: string[];
 }
 
 // All of the rooms
@@ -218,12 +219,13 @@ export class GameScene extends Phaser.Scene {
     private loadLevel(level: number) {
         let brokenRoomCount = 0;
         this.level = this.cache.json.get('level_' + level);
-        let rooms = this.level['hazards'];
+        let rooms = this.level.hazards;
+        let tooltips = this.level.tooltips;
         this.events.emit('load_level', this.currentLevel);
         // Apply the level to each room
         for (let key in rooms) {
             let room = this.rooms[key];
-            room.loadHazards(rooms[key])
+            room.loadHazards(rooms[key], tooltips)
             brokenRoomCount++;
         }
         this.fixedRoomCount = 6 - brokenRoomCount;
@@ -266,6 +268,11 @@ export class GameScene extends Phaser.Scene {
                     this.events.addListener('action', (tool, x) => {
                         this.currentRoom.checkInteraction(tool, x);
                     });
+
+                    // Tell the rooms the game has started
+                    for (let key in this.rooms) {
+                        this.rooms[key].gameStart();
+                    }
 
                     // Create timer event
                     this.timer = this.time.addEvent({
@@ -346,6 +353,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private levelComplete() {
+        this.timer.destroy();
         (this.events.off as any)('enterDoor');
         (this.events.off as any)('action');
         this.gameStarted = false;

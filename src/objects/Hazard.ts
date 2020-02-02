@@ -17,6 +17,8 @@ export class Hazard extends FubarObject {
     private activeSprite: Phaser.GameObjects.Sprite;
     public tool: string;
     public actionsUntilFixed: integer;
+    private hasTooltip: boolean;
+    private tooltip: Phaser.GameObjects.Sprite;
 
     // sound effects
     private antsThankYouSound: Phaser.Sound.BaseSound;
@@ -42,6 +44,8 @@ export class Hazard extends FubarObject {
         this.activeKey = params.key + '_active';
 
         this.room = room;
+        this.hasTooltip = false;
+        this.tooltip = null;
 
         // set up sound effects
         this.antsThankYouSound = this.scene.sound.add('ants-thank-you', {volume: 0.5});
@@ -51,7 +55,8 @@ export class Hazard extends FubarObject {
     update(): void {
     }
 
-    public activate() {
+    public activate(hasTooltip: boolean) {
+        this.hasTooltip = hasTooltip;
         // Cover this object with the active key
         this.activeSprite = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x, this.room.y + this.y, this.activeKey);
         this.activeSprite.setScale(0.3)
@@ -78,13 +83,30 @@ export class Hazard extends FubarObject {
             });
         }, 900);
 
+
         // shrink this object down to zero and make it completely transparent. this will make for an awesome tween
         // later and ensure this object is completely covered by the "active sprite".
         this.setScale(0, 0);
         this.setAlpha(0);
     }
 
+    public showTooltip() {
+        // If the level says to show a tooltip, do it
+        if (this.hasTooltip) {
+            this.tooltip = new Phaser.GameObjects.Sprite(this.scene, this.room.x + this.x, (this.activeSprite.y - (this.activeSprite.displayHeight / 2) - 15), this.tool);
+            this.tooltip.setScale(0.3, 0.3);
+            this.scene.add.tween({
+                targets: [this.tooltip],
+                duration: 700,
+                loop: -1,
+                alpha: 0
+            });
+            this.scene.add.existing(this.tooltip);
+        }
+    }
+
     public fix(duration: number) {
+        this.tooltip && this.tooltip.destroy();
         // shrink, spin, and fade out the "active sprite" covering this object. afterwards, destroy it.
         this.scene.add.tween({
             targets: this.activeSprite,

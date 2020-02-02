@@ -73,13 +73,16 @@ export class Room extends Phaser.GameObjects.Container {
         return this.doors;
     }
 
-    public loadHazards(hazards: string[]) {
+    public loadHazards(hazards: string[], tooltips: string[]) {
+        tooltips = tooltips || [];
         // Find each hazard and add a bad hazard
         for (let key in hazards) {
             let hazard = hazards[key];
             // Find it and make it active
             let thisHazard = this.hazards[hazard];
-            thisHazard.activate();
+            // Should there be a tooltip?
+            let showTooltip = tooltips.indexOf(hazard) > -1;
+            thisHazard.activate(showTooltip);
             this.activeHazards.push(thisHazard);
         }
     }
@@ -110,6 +113,14 @@ export class Room extends Phaser.GameObjects.Container {
             }
             return true;
         });
+    }
+
+    public gameStart() {
+        // Add tooltips to hazards, if applicable
+        for (let key in this.hazards) {
+            let hazard = this.hazards[key];
+            hazard && hazard.showTooltip();
+        }
     }
 
     public allHazardsFixed(): boolean {

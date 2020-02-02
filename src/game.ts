@@ -11,7 +11,7 @@ import { HUDScene } from './scenes/HUDScene';
 
 // main game configuration
 const config: GameConfig = {
-  title: 'GGJ2020',
+  title: 'FUBAR',
   width: 1024,
   height: 768,
   type: Phaser.WEBGL,
@@ -30,7 +30,7 @@ const config: GameConfig = {
       debug: false
     }
   },
-  backgroundColor: '#fff',
+  backgroundColor: '#a8a8a8',
   render: { pixelArt: false, antialias: true, autoResize: false }
 };
 

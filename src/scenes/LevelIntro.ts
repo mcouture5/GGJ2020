@@ -229,7 +229,7 @@ export class LevelIntro extends Phaser.Scene {
 	}
 
 	private bye() {
-        this.cameras.main.fadeOut(2000, 255, 255, 255);
+        this.cameras.main.fadeOut(1300, 168, 168, 168);
 		this.cameras.main.once('camerafadeoutcomplete', (camera) => {
             this.scene.start('GameScene', {currentLevel: this.currentLevel});
         });
@@ -242,7 +242,7 @@ export class LevelIntro extends Phaser.Scene {
         // Apply the level to each room
         for (let key in rooms) {
             let room = this.rooms[key];
-            room.loadHazards(rooms[key])
+            room.loadHazards(rooms[key], [])
         }
     }
 }
