@@ -73,7 +73,7 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         }
 	}
 
-    protected moveToRoom(newCoords): void {
+    public moveToRoom(newCoords): void {
         const wasOnLeft = this.isOnLeft();
         const wasOnRight = this.isOnRight();
         this.roomCoords = newCoords;

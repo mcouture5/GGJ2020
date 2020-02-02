@@ -29,6 +29,7 @@ export class GameScene extends Phaser.Scene {
     // variables
     private fading: boolean;
 
+    private hudScene: Phaser.Scene;
     // Game state
     private state: GameState;
 
@@ -50,7 +51,7 @@ export class GameScene extends Phaser.Scene {
     private hud: HUDGroup;
 
     private beetleSprite;
-    private beetle;
+    private beetle: Beetle;
 
     constructor() {
         super({
@@ -82,6 +83,9 @@ export class GameScene extends Phaser.Scene {
         bg.displayWidth = 1024;
         bg.displayHeight = 768;
 
+        // Get the HUD
+        this.hudScene = this.scene.get('HUDScene');
+
         // Create and add the rooms
         for (let room_key in this.layout) {
             let room = this.layout[room_key];
@@ -112,8 +116,6 @@ export class GameScene extends Phaser.Scene {
 
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
-            this.state = GameState.AWAITING_INPUT;
-
             // Load the first level
             this.loadLevel(1);
         });
@@ -136,13 +138,6 @@ export class GameScene extends Phaser.Scene {
             this.fading = false;
         }
         this.runGame();
-        // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
-        if (this.timer) {
-            let timerProgress: number = this.timer.getProgress();
-            dispatchEvent(new CustomEvent('timer_update', {
-                detail: timerProgress
-            }));
-        }
     }
 
     private loadLevel(level: number) {
@@ -153,21 +148,23 @@ export class GameScene extends Phaser.Scene {
             let room = this.rooms[key];
             room.loadHazards(rooms[key])
         }
-        if (true) {
-            // Zoom and pan to begin
-            setTimeout(() => {
-                this.camera.zoomTo(2.7, 1000, 'Linear', true);
-                // Begin in the living room
-                this.moveToRoom(FAMILY_ROOM);
-            }, 1000);
-        }
-        // Create timer event
-        this.timer = this.time.addEvent({
-            delay: this.level.time_limit,
-            callback: this.setGameOver,
-        });
-        // Create the HUD
-        this.hud = new HUDGroup(this.scene);
+        // Zoom and pan to begin
+        setTimeout(() => {
+            this.camera.zoomTo(2.7, 800, 'Linear', true);
+            // Begin in the living room
+            this.currentRoom = this.rooms[FAMILY_ROOM];
+            this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
+                if (progress >= 1) {
+                    this.events.emit('begin_level');
+                    // Create timer event
+                    this.timer = this.time.addEvent({
+                        delay: this.level.time_limit,
+                        callback: this.setGameOver,
+                    });
+                    this.state = GameState.AWAITING_INPUT;
+                }
+            });
+        }, 1000);
     }
 
     private runGame() {
@@ -177,6 +174,11 @@ export class GameScene extends Phaser.Scene {
                 // Let the fade and animations complete
                 break;
             case GameState.AWAITING_INPUT:
+                // Dispatch an event indicating timer progress. Used by the HUD to indicate progress to the player.
+                if (this.timer) {
+                    let timerProgress: number = this.timer.getProgress();
+                    this.events.emit('timer_update', timerProgress);
+                }
                 this.beetle.update();
                 this.currentRoom && this.currentRoom.update();
                 this.checkRooms();
@@ -194,7 +196,7 @@ export class GameScene extends Phaser.Scene {
 
     private moveToRoom(key: string) {
         this.currentRoom = this.rooms[key];
-        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 1000, 'Power2', true, (camera, progress) => {
+        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
             if (progress >= 1) {
                 this.state = GameState.AWAITING_INPUT;
             }
@@ -216,8 +218,8 @@ export class GameScene extends Phaser.Scene {
         if (allClear) {
             this.state = GameState.ANIMATING;
             this.currentLevel++;
-            this.camera.pan(512, 384, 1000, 'Linear', true);
-            this.camera.zoomTo(1, 1000, 'Linear', true, (camera, progress) => {
+            this.camera.pan(512, 384, 800, 'Linear', true);
+            this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
                 if (progress >= 1) {
                     setTimeout(() => { this.loadLevel(this.currentLevel); }, 1000);
                 }
