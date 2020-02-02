@@ -7,6 +7,7 @@ enum GameState {
     STARTING_LEVEL,
     GETTING_RECIPE,
     AWAITING_INPUT,
+    AWAITING_MENU_INPUT,
     ANIMATING,
     GAME_OVER
 }
@@ -50,6 +51,10 @@ export class GameScene extends Phaser.Scene {
 
     private beetleSprite;
     private beetle: Beetle;
+
+    private invoice: Phaser.GameObjects.Sprite;
+    private paid: Phaser.GameObjects.Sprite;
+    private menuKey: Phaser.Input.Keyboard.Key;
 
     // sound effects
     private music: Phaser.Sound.BaseSound;
@@ -151,6 +156,10 @@ export class GameScene extends Phaser.Scene {
             frameRate: 8,
             repeat: 0,
         });
+
+        this.menuKey = this.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
     }
 
     create(): void {
@@ -282,8 +291,13 @@ export class GameScene extends Phaser.Scene {
                 this.currentRoom && this.currentRoom.update();
                 this.checkRooms();
                 break;
+            case GameState.AWAITING_MENU_INPUT:
+                if (Phaser.Input.Keyboard.JustDown(this.menuKey)) {
+                    this.currentLevel++;
+                    this.scene.start('LevelIntro', {currentLevel: this.currentLevel});
+                }
+                break;
             case GameState.GAME_OVER:
-                // TODO: Create this scene.
                 this.scene.start('GameOver');
                 break;
         }
@@ -330,16 +344,59 @@ export class GameScene extends Phaser.Scene {
         this.beetle.destroy();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
-        this.currentLevel++;
         this.camera.pan(512, 384, 800, 'Linear', true);
         this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
-                setTimeout(() => { this.scene.start('LevelIntro', {currentLevel: this.currentLevel}); }, 0);
+                setTimeout(() => { this.showInvoice(); }, 0);
             }
         });
 
         // stop playing music
         this.music.stop();
+    }
+
+    private showInvoice() {
+        // Start the dance party
+        for (let key in this.rooms) {
+            let room = this.rooms[key];
+            room.danceParty();
+        }
+        this.invoice = new Phaser.GameObjects.Sprite(this, 70, 30, 'invoice');
+        this.invoice.setOrigin(0.5, 0.5);
+        this.invoice.setScale(0);
+        this.add.existing(this.invoice);
+        this.add.tween({
+            targets: [this.invoice],
+            duration: 500,
+            scaleX: 2,
+            scaleY: 2,
+            x: 512,
+            y: 384,
+            angle: 720,
+            ease: 'Linear',
+            onComplete: () => {
+                this.paid = new Phaser.GameObjects.Sprite(this, 512, 384, 'paid');
+                this.paid.setOrigin(0.5, 0.5);
+                this.paid.setAlpha(0);
+                this.paid.setScale(0.2);
+                this.add.existing(this.paid);
+                this.add.tween({
+                    targets: [this.paid],
+                    delay: 1000,
+                    duration: 1000,
+                    alpha: 0.7,
+                    ease: 'Linear',
+                    onComplete: () => {
+                        this.add.text(512, 500, 'Press Space', {
+                            fontFamily: 'Digital',
+                            fontSize: 30,
+                            color: '#000'
+                        }).setOrigin(0.5, 0.5);
+                        this.state = GameState.AWAITING_MENU_INPUT;
+                    }
+                });
+            }
+        });
     }
 
     private setGameOver() {
