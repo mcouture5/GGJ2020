@@ -19,6 +19,13 @@ export class Room extends Phaser.GameObjects.Container {
     private activeHazards: Hazard[];
     private ant: Phaser.GameObjects.Sprite;
 
+    // sound effects
+    private hammerSound: Phaser.Sound.BaseSound;
+    private plungerSound: Phaser.Sound.BaseSound;
+    private screwdriverSound: Phaser.Sound.BaseSound;
+    private wrenchSound: Phaser.Sound.BaseSound;
+    private wrongToolSound: Phaser.Sound.BaseSound;
+
     constructor(scene: Phaser.Scene, x: number, y: number, room: IRoom) {
 
         // all rooms shall use this
@@ -48,6 +55,13 @@ export class Room extends Phaser.GameObjects.Container {
         this.ant = new Phaser.GameObjects.Sprite(this.scene, randX, 60, 'ant_' + randAntIndex);
         this.ant.setOrigin(0.5, 0.5);
         this.ant.setScale(0.5);
+
+        // set up sound effects
+        this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
+        this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
+        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.75});
+        this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
+        this.wrongToolSound = this.scene.sound.add('wrong-tool-1', {volume: 0.2});
     }
 
     update(): void {
@@ -71,18 +85,24 @@ export class Room extends Phaser.GameObjects.Container {
     public checkInteraction(tool, x) {
         // Filter out hazards that are fixed here
         this.activeHazards = this.activeHazards.filter(hazard => {
-            if (hazard.tool === tool && Math.abs(this.x + hazard.x - x) < 25) {
-                hazard.actionsUntilFixed--;
-                if (hazard.actionsUntilFixed === 0) {
-                    // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
-                    // If so, do more fancies with the hazard
-                    let duration = 200;
-                    let remaining = (this.scene as GameScene).roomsRemaining();
-                    if (remaining === 1 && this.activeHazards.length === 1) {
-                        duration = 1800;
+            if (Math.abs(this.x + hazard.x - x) < 25) {
+                if (hazard.tool === tool) {
+                    this.playToolSound(tool);
+                    hazard.actionsUntilFixed--;
+                    if (hazard.actionsUntilFixed === 0) {
+                        // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
+                        // If so, do more fancies with the hazard
+                        let duration = 200;
+                        let remaining = (this.scene as GameScene).roomsRemaining();
+                        if (remaining === 1 && this.activeHazards.length === 1) {
+                            duration = 1800;
+                        }
+                        hazard.fix(duration);
+                        return false;
                     }
-                    hazard.fix(duration);
-                    return false;
+                }
+                else {
+                    this.wrongToolSound.play();
                 }
             }
             return true;
@@ -105,6 +125,16 @@ export class Room extends Phaser.GameObjects.Container {
             setTimeout(() => {
                 this.dance();
             }, Math.floor(Math.random() * 800) + 800);
+        }
+    }
+
+    private playToolSound(tool: string) {
+        switch (tool) {
+            case 'hammer': this.hammerSound.play(); break;
+            case 'plunger': this.plungerSound.play(); break;
+            case 'screwdriver': this.screwdriverSound.play(); break;
+            case 'wrench': this.wrenchSound.play(); break;
+            default: throw new Error('unexpected tool=' + tool);
         }
     }
 

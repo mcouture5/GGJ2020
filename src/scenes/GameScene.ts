@@ -189,7 +189,7 @@ export class GameScene extends Phaser.Scene {
 
         // set up sound effects. don't pause on blur. start playing music at 0 volume. will fade in shortly.
         this.sound.pauseOnBlur = false;
-        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0});
+        this.music = this.sound.add('beetle-beetle-song', {loop: true, volume: 0.03});
         this.music.play();
 
         this.events.emit('pick_tool', undefined);
