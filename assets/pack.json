@@ -23,6 +23,11 @@
             },
             {
                 "type": "image",
+                "key": "instructions",
+                "url": "assets/images/instructions.png"
+            },
+            {
+                "type": "image",
                 "key": "game_bg",
                 "url": "assets/images/game_bg.png"
             },

@@ -72,7 +72,7 @@ export class MainMenu extends Phaser.Scene {
         if (!this.fading) {
             if (Phaser.Input.Keyboard.JustDown(this.startKey)) {
                 if (this.selected === 0) {
-                    this.scene.start('Credits');
+                    this.scene.start('Instructions');
                 } else if (this.selected === 1) {
                     let fadeOutDuration: number = this.selected === 1 ? 1300 : 0;
                     this.cameras.main.fadeOut(fadeOutDuration, 130, 130, 130);

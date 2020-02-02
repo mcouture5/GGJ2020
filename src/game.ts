@@ -8,6 +8,7 @@ import { Credits } from './scenes/Credits';
 import { GameScene } from './scenes/GameScene';
 import { LevelIntro } from './scenes/LevelIntro';
 import { HUDScene } from './scenes/HUDScene';
+import { Instructions } from './scenes/Instructions';
 
 // main game configuration
 const config: GameConfig = {
@@ -16,7 +17,7 @@ const config: GameConfig = {
   height: 768,
   type: Phaser.WEBGL,
   parent: 'game',
-  scene: [Boot, MainMenu, /*Instructions, */Credits, GameScene, LevelIntro, HUDScene],
+  scene: [Boot, MainMenu, Instructions, Credits, GameScene, LevelIntro, HUDScene],
   input: {
     keyboard: true,
     mouse: false,
