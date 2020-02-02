@@ -7,7 +7,6 @@ export class Beetle extends Phaser.GameObjects.Sprite {
     protected enterDoorKey: Phaser.Input.Keyboard.Key;
     protected actionKey: Phaser.Input.Keyboard.Key;
 
-    protected beetleEvents: Phaser.Events.EventEmitter;
     protected moveSpeed: integer;
 
     protected roomCoords;
@@ -17,21 +16,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
-        this.beetleEvents = params.eventEmitter;
         this.initializeToRoom(params.roomCoords);
 
-        params.scene.anims.create({
-            key: 'idle',
-            frames: params.scene.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1,
-        });
-        params.scene.anims.create({
-            key: 'run',
-            frames: params.scene.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
-            frameRate: 8,
-            repeat: -1,
-        });
         this.anims.play('idle');
 
         // image
@@ -64,13 +50,13 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 	
     update(): void {
         if (this.canEnterLeftDoor() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-            this.beetleEvents.emit("enterDoor", "left");
+            this.scene.events.emit("enterDoor", "left");
         } else if (this.canEnterRightDoor() && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-            this.beetleEvents.emit("enterDoor", "right");
+            this.scene.events.emit("enterDoor", "right");
         } else if (Math.abs(this.x - this.roomCoords.x) < 25 && Phaser.Input.Keyboard.JustDown(this.enterDoorKey)) {
-            this.beetleEvents.emit("enterDoor", "center");
+            this.scene.events.emit("enterDoor", "center");
         } else if (Phaser.Input.Keyboard.JustDown(this.actionKey)) {
-            this.beetleEvents.emit("action");
+            this.scene.events.emit("action");
         }
         else {
             this.handleMove();
