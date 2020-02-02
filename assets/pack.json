@@ -188,18 +188,8 @@
             },
             {
                 "type": "audio",
-                "key": "ants-displeased-1",
-                "url": "assets/sound/ants-displeased-1.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "ants-displeased-2",
-                "url": "assets/sound/ants-displeased-2.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "ants-displeased-3",
-                "url": "assets/sound/ants-displeased-3.mp3"
+                "key": "ants-boo",
+                "url": "assets/sound/ants-boo.mp3"
             },
             {
                 "type": "audio",
@@ -210,6 +200,11 @@
                 "type": "audio",
                 "key": "ants-great-job",
                 "url": "assets/sound/ants-great-job.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-grumble",
+                "url": "assets/sound/ants-grumble.mp3"
             },
             {
                 "type": "audio",
@@ -243,23 +238,8 @@
             },
             {
                 "type": "audio",
-                "key": "not-a-tool-area",
-                "url": "assets/sound/not-a-tool-area.mp3"
-            },
-            {
-                "type": "audio",
                 "key": "plunger",
                 "url": "assets/sound/plunger.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "right-tool",
-                "url": "assets/sound/right-tool.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "right-tool-2",
-                "url": "assets/sound/right-tool-2.mp3"
             },
             {
                 "type": "audio",
@@ -278,13 +258,8 @@
             },
             {
                 "type": "audio",
-                "key": "wrong-tool-1",
-                "url": "assets/sound/wrong-tool-1.mp3"
-            },
-            {
-                "type": "audio",
-                "key": "wrong-tool-2",
-                "url": "assets/sound/wrong-tool-2.mp3"
+                "key": "wrong-tool",
+                "url": "assets/sound/wrong-tool.mp3"
             }
         ]
     }
