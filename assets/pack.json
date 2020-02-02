@@ -87,6 +87,26 @@
                 "url": "assets/images/doors/doorside.png"
             },
             {
+                "type": "image",
+                "key": "hammer",
+                "url": "assets/images/hammer.png"
+            },
+            {
+                "type": "image",
+                "key": "driver",
+                "url": "assets/images/driver.png"
+            },
+            {
+                "type": "image",
+                "key": "plunger",
+                "url": "assets/images/plunger.png"
+            },
+            {
+                "type": "image",
+                "key": "wrench",
+                "url": "assets/images/wrench.png"
+            },
+            {
                 "type": "audio",
                 "key": "riff",
                 "url": "assets/sound/riff.mp3"

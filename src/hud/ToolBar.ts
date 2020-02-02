@@ -1,39 +1,36 @@
-// import { Scene } from "phaser";
+import { Scene } from "phaser";
+import { ToolIcon } from "./ToolIcon";
 
-// export class ProgressBar extends Phaser.GameObjects.Container {
-//     private tools: Phaser.GameObjects.Graphics;
-// 	private progressBar: Phaser.GameObjects.Graphics;
-// 	private gameScene: Scene;
+export class ToolBar extends Phaser.GameObjects.Container {
+    private toolIcons: ToolIcon[] = [];
+    private tools = ['hammer', 'driver', 'plunger', 'wrench'];
+    private gameScene: Scene;
+    private selectedTool: ToolIcon;
 
-//     constructor(scene: Phaser.Scene, x: number, y: number, gameScene: Phaser.Scene) {
-// 		super(scene, x, y, []);
-// 		this.setSize(150,15);
-		
-//         this.progressBox = new Phaser.GameObjects.Graphics(scene);
-//         this.progressBox.fillStyle(0x000000, 1);
-//         this.progressBox.fillRect(0, 0, 150, 15);
-//         this.progressBox.setScrollFactor(0);
-//         this.add(this.progressBox);
+    constructor(scene: Phaser.Scene, x: number, y: number, gameScene: Phaser.Scene) {
+        super(scene, x, y, []);
+        this.gameScene = gameScene;
 
-//         // The timer bar
-//         this.progressBar = new Phaser.GameObjects.Graphics(scene);
-//         this.progressBar.setScrollFactor(0);
-// 		this.add(this.progressBar);
-		
-// 		this.gameScene = gameScene;
-//         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
-//     }
+        let iconx = 0;
+        for (let tool of this.tools) {
+            let toolIcon = new ToolIcon(this.scene, iconx, 0, this.gameScene, tool);
+            this.toolIcons.push(toolIcon);
+            this.add(toolIcon);
+            iconx += 115;
+        }
+        this.selectTool(0);
 
-//     update(): void {
-// 	}
-	
-// 	reset(): void {
-//         this.updateProgressBar(0);
-// 	}
+        this.gameScene.events.on('timer_update', (toolIndex) => { this.selectTool(toolIndex); });
+    }
 
-//     private updateProgressBar(progress: number) {
-//         this.progressBar.clear();
-//         this.progressBar.fillStyle(0xF93208, 1);
-//         this.progressBar.fillRect(100, 50, 150 * progress, 15);
-//     }
-// }
+    update(): void {
+    }
+    
+    selectTool(toolIndex): void {
+        if (this.selectedTool) {
+            this.selectedTool.setSelected(false);
+        }
+        this.selectedTool = this.toolIcons[toolIndex];
+        this.selectedTool.setSelected(true);
+    }
+}
