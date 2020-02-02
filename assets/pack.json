@@ -77,6 +77,16 @@
                 "url": "assets/images/doors/door.png"
             },
             {
+                "type": "image",
+                "key": "door_open",
+                "url": "assets/images/doors/door_open.png"
+            },
+            {
+                "type": "image",
+                "key": "doorside",
+                "url": "assets/images/doors/doorside.png"
+            },
+            {
                 "type": "audio",
                 "key": "riff",
                 "url": "assets/sound/riff.mp3"

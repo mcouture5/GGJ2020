@@ -96,16 +96,22 @@ export class GameScene extends Phaser.Scene {
 
         // Listen for when the hero interacts with a door
         this.events.addListener('enterDoor', (doorString: string) => {
-            const doorToEnter = this.currentRoom.getDoors().find(door => door.position === doorString);
+            const doorToEnter = this.currentRoom.getDoors()[doorString];
             if (doorToEnter) {
                 this.beetle.stop();
                 // Stop all input!
                 this.state = GameState.ANIMATING;
-                // Move to next room
-                const roomString = doorToEnter.target;
-                const roomObj = this.rooms[roomString];
-                this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
-                this.moveToRoom(roomString);
+                // Open the door
+                doorToEnter.open();
+                // Move to next room, after a slight delay to see the door close
+                this.beetle.hide();
+                setTimeout(() => {
+                    const roomString = doorToEnter.target;
+                    const roomObj = this.rooms[roomString];
+                    this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
+                    this.beetle.show();
+                    this.moveToRoom(roomString);
+                }, 250);
             }
         });
 
@@ -213,7 +219,7 @@ export class GameScene extends Phaser.Scene {
 
     private moveToRoom(key: string) {
         this.currentRoom = this.rooms[key];
-        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
+        this.camera.pan(this.currentRoom.x, this.currentRoom.y, 400, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
                 this.state = GameState.AWAITING_INPUT;
             }

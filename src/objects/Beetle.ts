@@ -119,6 +119,14 @@ export class Beetle extends Phaser.GameObjects.Sprite {
         this.applyVelocity(0);
     }
 
+    public hide() {
+        this.setAlpha(0);
+    }
+
+    public show() {
+        this.setAlpha(1);
+    }
+
     protected applyVelocity(velocity): void {
         this.anims.play(velocity === 0 ? 'idle' : 'run', true);
         this.body.setVelocityX(velocity);

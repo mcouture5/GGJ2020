@@ -1,7 +1,6 @@
 import { IHazard, Hazard } from "./Hazard";
 import { FubarObject, IFubarObject } from "./FubarObject";
 import { IDoor, Door } from "./Door";
-import { DoorGroup } from "../groups/DoorGroup";
 
 export interface IRoom {
     key: string;
@@ -14,7 +13,7 @@ export class Room extends Phaser.GameObjects.Container {
     // Contains all the children. Used for "collision" detections
     private children: FubarObject[];
 
-    private doors: IDoor[];
+    private doors: { [key: string]: Door };
     private hazards: { [key: string]: Hazard };
     private activeHazards: Hazard[];
 
@@ -25,7 +24,7 @@ export class Room extends Phaser.GameObjects.Container {
         this.children = [];
         this.activeHazards = [];
 
-        this.doors = room.doors;
+        this.doors = {};
         this.hazards = {};
 
         this.setSize(300, 200);
@@ -94,17 +93,18 @@ export class Room extends Phaser.GameObjects.Container {
             let x = 0, y = (this.displayHeight / 4) - 20;
             switch (door.position) {
                 case "left":
-                    x = 0 - (this.displayWidth / 2);
+                    x = 0 - (this.displayWidth / 2) + 15;
                     break;
                 case "center":
                     break;
                 case "right":
-                    x = this.displayWidth / 2;
+                    x = (this.displayWidth / 2) - 15;
                     break;
             }
-            let dr = new Door({ scene: this.scene, x: x, y: y, key: door.key }, door);
+            let dr = new Door({ scene: this.scene, x: x, y: y, key: door.key }, door, this);
             this.add(dr);
             this.children.push(dr);
+            this.doors[door.position] = dr;
         }
     }
     
