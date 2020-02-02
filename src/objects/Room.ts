@@ -113,9 +113,6 @@ export class Room extends Phaser.GameObjects.Container {
                     this.wrongToolSound.play();
                 }
             }
-            else {
-                //this.notAToolAreaSound.play();
-            }
             return true;
         });
     }

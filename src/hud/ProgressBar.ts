@@ -8,6 +8,12 @@ export class ProgressBar extends Phaser.GameObjects.Container {
     private red: number;
     private green: number;
 
+    // sound effects
+    private antsDispleased1: Phaser.Sound.BaseSound;
+    private antsDispleased2: Phaser.Sound.BaseSound;
+    private antsDispleased3: Phaser.Sound.BaseSound;
+    private antsDispleasedLevel: number;
+
     constructor(scene: Phaser.Scene, x: number, y: number, gameScene: Phaser.Scene) {
 		super(scene, x, y, []);
 		this.setSize(150,15);
@@ -28,6 +34,12 @@ export class ProgressBar extends Phaser.GameObjects.Container {
 		
 		this.gameScene = gameScene;
         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
+
+        // set up sound effects
+        this.antsDispleased1 = this.scene.sound.add('ants-displeased-1', {volume: 0.5});
+        this.antsDispleased2 = this.scene.sound.add('ants-displeased-2', {volume: 0.5});
+        this.antsDispleased3 = this.scene.sound.add('ants-displeased-3', {volume: 0.5});
+        this.antsDispleasedLevel = 0;
     }
 
     update(): void {
@@ -43,6 +55,32 @@ export class ProgressBar extends Phaser.GameObjects.Container {
         this.red = Math.ceil(255 * progress);
         this.green = 255 - Math.ceil(255 * progress);
         this.progressBar.fillStyle(parseInt(this.rgbToHex(this.red, this.green, 0)), 1);
+
+        // play appropriate ants displeased sound if needed
+        switch (this.antsDispleasedLevel) {
+            case 0:
+                if (progress >= .75) {
+                    this.antsDispleasedLevel++;
+                    this.antsDispleased1.play();
+                }
+                break;
+            case 1:
+                if (progress >= .8) {
+                    this.antsDispleasedLevel++;
+                    this.antsDispleased2.play();
+                }
+                break;
+            case 2:
+                if (progress >= .9) {
+                    this.antsDispleasedLevel++;
+                    this.antsDispleased3.play();
+                }
+                break;
+            case 3:
+                break; // do nothing
+            default:
+                throw new Error("unexpected antDispleasedLevel=" + this.antsDispleasedLevel)
+        }
     }
 
     private toHex(c) {
