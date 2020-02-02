@@ -200,7 +200,8 @@ export class Beetle extends Phaser.GameObjects.Sprite {
                 velocity = this.moveSpeed;
             }
             this.flipX = true;
-        } else if (this.hammerKey.isDown) {
+        }
+        if (this.hammerKey.isDown) {
             this.toolEquipped = 1;
             this.pickTool('hammer');
         } else if (this.plungerKey.isDown) {
