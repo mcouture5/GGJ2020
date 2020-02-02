@@ -87,7 +87,6 @@ export class Room extends Phaser.GameObjects.Container {
         this.activeHazards = this.activeHazards.filter(hazard => {
             if (Math.abs(this.x + hazard.x - x) < 25) {
                 if (hazard.tool === tool) {
-                    this.playToolSound(tool);
                     hazard.actionsUntilFixed--;
                     if (hazard.actionsUntilFixed === 0) {
                         // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.

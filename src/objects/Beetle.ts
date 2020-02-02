@@ -20,6 +20,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     // sound effects
     protected doorSound: Phaser.Sound.BaseSound;
+    private hammerSound: Phaser.Sound.BaseSound;
+    private plungerSound: Phaser.Sound.BaseSound;
+    private screwdriverSound: Phaser.Sound.BaseSound;
+    private wrenchSound: Phaser.Sound.BaseSound;
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
@@ -68,6 +72,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
         // set up sound effects
         this.doorSound = this.scene.sound.add('door', {volume: 0.25});
+        this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
+        this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
+        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.75});
+        this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
     }
 	
     update(): void {
@@ -82,21 +90,25 @@ export class Beetle extends Phaser.GameObjects.Sprite {
                 this.pickTool('hammer');
                 this.anims.play('use-hammer', false);
                 this.scene.events.emit("action", "hammer", this.x);
+                this.hammerSound.play();
             }
             if (this.toolEquipped === 2) {
                 this.pickTool('plunger');
                 this.anims.play('use-plunger', false);
                 this.scene.events.emit("action", "plunger", this.x);
+                this.plungerSound.play();
             }
             if (this.toolEquipped === 3) {
                 this.pickTool('screwdriver');
                 this.anims.play('use-screwdriver', false);
                 this.scene.events.emit("action", "screwdriver", this.x);
+                this.screwdriverSound.play();
             }
             if (this.toolEquipped === 4) {
                 this.pickTool('wrench');
                 this.anims.play('use-wrench', false);
                 this.scene.events.emit("action", "wrench", this.x);
+                this.wrenchSound.play();
             }
         }
         else {
