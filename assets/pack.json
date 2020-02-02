@@ -213,6 +213,11 @@
             },
             {
                 "type": "audio",
+                "key": "level-complete",
+                "url": "assets/sound/level-complete.mp3"
+            },
+            {
+                "type": "audio",
                 "key": "plunger",
                 "url": "assets/sound/plunger.mp3"
             },
