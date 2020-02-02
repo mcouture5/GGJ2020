@@ -27,7 +27,7 @@ export class Door extends FubarObject {
         this.setOrigin(0.5, 0.5);
         this.setScale(0.3, 0.3);
 
-        this.doorSound = this.scene.sound.add('door', {volume: 0.25});
+        this.doorSound = this.scene.sound.add('door', {volume: 1});
     }
 
     update(): void {

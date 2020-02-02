@@ -73,8 +73,8 @@ export class Hazard extends FubarObject {
         this.tooltip = null;
 
         // set up sound effects
-        this.antsThankYouSound = this.scene.sound.add('ants-thank-you', {volume: 0.5});
-        this.antsGreatJobSound = this.scene.sound.add('ants-great-job', {volume: 0.5});
+        this.antsThankYouSound = this.scene.sound.add('ants-thank-you', {volume: 1.5});
+        this.antsGreatJobSound = this.scene.sound.add('ants-great-job', {volume: 1.5});
     }
 
     update(): void {

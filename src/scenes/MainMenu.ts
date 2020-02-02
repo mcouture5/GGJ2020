@@ -43,7 +43,7 @@ export class MainMenu extends Phaser.Scene {
         // set up sound effects. don't pause on blur. start playing music.
         this.sound.pauseOnBlur = false;
         if (!this.music) {
-            this.music = this.sound.add('riff', {loop: true, volume: 0.2});
+            this.music = this.sound.add('riff', {loop: true, volume: 1});
             this.music.play();
         }
 

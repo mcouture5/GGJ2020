@@ -53,7 +53,7 @@ export class Room extends Phaser.GameObjects.Container {
         this.ant.setScale(0.5);
 
         // set up sound effects
-        this.wrongToolSound = this.scene.sound.add('wrong-tool', {volume: 0.2});
+        this.wrongToolSound = this.scene.sound.add('wrong-tool', {volume: 0.8});
     }
 
     update(): void {
