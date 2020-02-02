@@ -44,6 +44,7 @@ export class GameScene extends Phaser.Scene {
     private layout: IRoom[];
     private rooms: { [key: string]: Room };
     private currentRoom: Room;
+    private fixedRoomCount;
 
     // Levels
     private level: ILevel;
@@ -80,6 +81,7 @@ export class GameScene extends Phaser.Scene {
         this.currentRoom = null;
         this.level = null;
         this.currentLevel = config['currentLevel'] || 1;
+        this.fixedRoomCount = 0;
 
         // References
         this.camera = this.cameras.main;
@@ -215,6 +217,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private loadLevel(level: number) {
+        let brokenRoomCount = 0;
         this.level = this.cache.json.get('level_' + level);
         let rooms = this.level['hazards'];
         this.events.emit('load_level', this.currentLevel);
@@ -222,7 +225,9 @@ export class GameScene extends Phaser.Scene {
         for (let key in rooms) {
             let room = this.rooms[key];
             room.loadHazards(rooms[key])
+            brokenRoomCount++;
         }
+        this.fixedRoomCount = 6 - brokenRoomCount;
     }
 
     private startCurrentLevel() {
@@ -329,28 +334,49 @@ export class GameScene extends Phaser.Scene {
      * Check the rooms for cleared hazards. If all clear, advance
      */
     private checkRooms() {
-        let allClear = true;
+        let fixedRooms = 0;
         for (let key in this.rooms) {
             let room = this.rooms[key];
-            if (!room.allHazardsFixed()) {
-                allClear = false;
-                break;
+            let roomFixed = room.allHazardsFixed();
+            if (roomFixed) {
+                fixedRooms++;
             }
         }
-        if (allClear) {
+        if (fixedRooms === 6) {
             this.levelComplete();
         }
+        this.fixedRoomCount = fixedRooms;
+    }
+
+    public roomsRemaining() {
+        return 6 - this.fixedRoomCount;
     }
 
     private levelComplete() {
         this.gameStarted = false;
-        this.beetle.destroy();
+        this.beetle.stop();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
-        this.camera.pan(512, 384, 800, 'Linear', true);
-        this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
+        // Zoom closer into the current room for that last fix effect
+        this.camera.zoomTo(3.2, 1800, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
-                setTimeout(() => { this.showInvoice(); }, 0);
+                // Now quickly zoom back out to normal and wait a few before finishing
+                setTimeout(() => {
+                    this.camera.zoomTo(2.7, 400, 'Linear', true, (camera, progress) => {
+                        if (progress >= 1) {
+                            // Finish the scene
+                            setTimeout(() => { 
+                                this.beetle.destroy();
+                                this.camera.pan(512, 384, 800, 'Linear', true);
+                                this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
+                                    if (progress >= 1) {
+                                        setTimeout(() => { this.showInvoice(); }, 0);
+                                    }
+                                });
+                            }, 800);
+                        }
+                    });
+                }, 0);
             }
         });
 
@@ -371,8 +397,8 @@ export class GameScene extends Phaser.Scene {
         this.add.tween({
             targets: [this.invoice],
             duration: 500,
-            scaleX: 2,
-            scaleY: 2,
+            scaleX: 0.5,
+            scaleY: 0.5,
             x: 512,
             y: 384,
             angle: 720,
@@ -390,11 +416,17 @@ export class GameScene extends Phaser.Scene {
                     alpha: 0.7,
                     ease: 'Linear',
                     onComplete: () => {
-                        this.add.text(512, 500, 'Press Space', {
+                        let text = this.add.text(512, 560, 'Press Space', {
                             fontFamily: 'Digital',
                             fontSize: 30,
                             color: '#000'
                         }).setOrigin(0.5, 0.5);
+                        this.add.tween({
+                            targets: [text],
+                            duration: 1200,
+                            loop: -1,
+                            alpha: 0
+                        });
                         this.state = GameState.AWAITING_MENU_INPUT;
                     }
                 });
