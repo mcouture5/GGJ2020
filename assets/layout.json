@@ -6,22 +6,10 @@
         },
         "hazards": [
             {
-                "key": "stove",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
-                },
-                "tool": "screwdriver"
-            },
-            {
                 "key": "sink",
                 "position": {
-                    "x": 0,
-                    "y": 14
+                    "x": -100,
+                    "y": 16
                 },
                 "display_ratio": {
                     "width": 0.3,
@@ -33,7 +21,7 @@
                 "key": "fridge",
                 "position": {
                     "x": 0,
-                    "y": 0
+                    "y": 31
                 },
                 "display_ratio": {
                     "width": 0.3,
@@ -57,14 +45,14 @@
         },
         "hazards": [
             {
-                "key": "hole",
+                "key": "dresser",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 70,
+                    "y": 24
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.35,
+                    "height": 0.35
                 },
                 "tool": "hammer"
             },
@@ -72,7 +60,7 @@
                 "key": "lamp",
                 "position": {
                     "x": -70,
-                    "y": 24
+                    "y": 28
                 },
                 "display_ratio": {
                     "width": 0.3,
@@ -108,24 +96,12 @@
             {
                 "key": "chair",
                 "position": {
-                    "x": -60,
+                    "x": 60,
                     "y": 45
                 },
                 "display_ratio": {
                     "width": 0.2,
                     "height": 0.3
-                },
-                "tool": "hammer"
-            },
-            {
-                "key": "table",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
                 },
                 "tool": "hammer"
             },
@@ -140,18 +116,6 @@
                     "height": 0.5
                 },
                 "tool": "hammer"
-            },
-            {
-                "key": "wetbar",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
-                },
-                "tool": "plunger"
             }
         ],
         "doors": [
@@ -171,38 +135,38 @@
             {
                 "key": "bed",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": -80,
+                    "y": 48
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": -0.3,
+                    "height": 0.3
+                },
+                "tool": "hammer"
+            },
+            {
+                "key": "dresser",
+                "position": {
+                    "x": 30,
+                    "y": 24
+                },
+                "display_ratio": {
+                    "width": 0.35,
+                    "height": 0.35
                 },
                 "tool": "hammer"
             },
             {
                 "key": "lamp",
                 "position": {
-                    "x": 5,
-                    "y": 23
+                    "x": 100,
+                    "y": 28
                 },
                 "display_ratio": {
                     "width": 0.3,
                     "height": 0.3
                 },
                 "tool": "screwdriver"
-            },
-            {
-                "key": "dresser",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
-                },
-                "tool": "hammer"
             }
         ],
         "doors": [
@@ -222,7 +186,7 @@
             {
                 "key": "hole",
                 "position": {
-                    "x": 0,
+                    "x": -70,
                     "y": 0
                 },
                 "display_ratio": {
@@ -230,18 +194,17 @@
                     "height": 0.5
                 },
                 "tool": "hammer"
-            },
-            {
-                "key": "tv",
+            },{
+                "key": "chair",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 70,
+                    "y": 45
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.2,
+                    "height": 0.3
                 },
-                "tool": "screwdriver"
+                "tool": "hammer"
             }
         ],
         "doors": [
@@ -296,7 +259,7 @@
                 "key": "toilet",
                 "position": {
                     "x": 100,
-                    "y": 45
+                    "y": 50
                 },
                 "display_ratio": {
                     "width": 0.3,
