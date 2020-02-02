@@ -178,6 +178,11 @@
             },
             {
                 "type": "audio",
+                "key": "ants-good-thing",
+                "url": "assets/sound/ants-good-thing.mp3"
+            },
+            {
+                "type": "audio",
                 "key": "ants-great-job",
                 "url": "assets/sound/ants-great-job.mp3"
             },
@@ -185,6 +190,11 @@
                 "type": "audio",
                 "key": "ants-thank-you",
                 "url": "assets/sound/ants-thank-you.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "ants-yikes",
+                "url": "assets/sound/ants-yikes.mp3"
             },
             {
                 "type": "audio",
