@@ -94,6 +94,18 @@
         },
         "hazards": [
             {
+                "key": "shelf",
+                "position": {
+                    "x": -50,
+                    "y": 26
+                },
+                "display_ratio": {
+                    "width": 0.3,
+                    "height": 0.3
+                },
+                "tool": "hammer"
+            },
+            {
                 "key": "chair",
                 "position": {
                     "x": 60,
@@ -115,7 +127,7 @@
                     "width": 0.5,
                     "height": 0.5
                 },
-                "tool": "hammer"
+                "tool": "screwdriver"
             }
         ],
         "doors": [
@@ -190,8 +202,8 @@
                     "y": 0
                 },
                 "display_ratio": {
-                    "width": 0.5,
-                    "height": 0.5
+                    "width": 0.3,
+                    "height": 0.3
                 },
                 "tool": "hammer"
             },{
