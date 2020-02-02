@@ -19,6 +19,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
     // sound effects
     protected doorSound: Phaser.Sound.BaseSound;
+    protected hammerSound: Phaser.Sound.BaseSound;
+    protected plungerSound: Phaser.Sound.BaseSound;
+    protected screwdriverSound: Phaser.Sound.BaseSound;
+    protected wrenchSound: Phaser.Sound.BaseSound;
 
     constructor(params) {
         super(params.scene, params.x, params.y, params.key, params.frame);
@@ -126,6 +130,10 @@ export class Beetle extends Phaser.GameObjects.Sprite {
 
         // set up sound effects
         this.doorSound = this.scene.sound.add('door', {volume: 0.25});
+        this.hammerSound = this.scene.sound.add('hammer', {volume: 0.2});
+        this.plungerSound = this.scene.sound.add('plunger', {volume: 1});
+        this.screwdriverSound = this.scene.sound.add('screwdriver', {volume: 0.75});
+        this.wrenchSound = this.scene.sound.add('wrench', {volume: 0.6});
     }
 	
     update(): void {
@@ -139,15 +147,19 @@ export class Beetle extends Phaser.GameObjects.Sprite {
             this.beetleEvents.emit("action");
             if (this.toolEquipped === 1) {
                 this.anims.play('use-hammer', false);
+                this.hammerSound.play();
             }
             if (this.toolEquipped === 2) {
                 this.anims.play('use-plunger', false);
+                this.plungerSound.play();
             }
             if (this.toolEquipped === 3) {
                 this.anims.play('use-screwdriver', false);
+                this.screwdriverSound.play();
             }
             if (this.toolEquipped === 4) {
                 this.anims.play('use-wrench', false);
+                this.wrenchSound.play();
             }
         }
         else {
