@@ -115,7 +115,7 @@ export class GameScene extends Phaser.Scene {
             this.state = GameState.AWAITING_INPUT;
 
             // Load the first level
-            this.loadLevel(1);
+            this.startCurrentLevel();
         });
         this.beetle = new Beetle({
             scene: this,
@@ -126,6 +126,8 @@ export class GameScene extends Phaser.Scene {
             roomCoords: {x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y}
         });
         this.add.existing(this.beetle);
+        
+        this.loadLevel(1);
     }
 
     update(): void {
@@ -161,6 +163,9 @@ export class GameScene extends Phaser.Scene {
                 this.moveToRoom(FAMILY_ROOM);
             }, 1000);
         }
+    }
+
+    private startCurrentLevel() {
         // Create timer event
         this.timer = this.time.addEvent({
             delay: this.level.time_limit,
@@ -219,7 +224,7 @@ export class GameScene extends Phaser.Scene {
             this.camera.pan(512, 384, 1000, 'Linear', true);
             this.camera.zoomTo(1, 1000, 'Linear', true, (camera, progress) => {
                 if (progress >= 1) {
-                    setTimeout(() => { this.loadLevel(this.currentLevel); }, 1000);
+                    this.scene.start('LevelIntro');
                 }
             });
         }

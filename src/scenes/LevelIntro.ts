@@ -2,6 +2,7 @@ import { Foot } from '../objects/Foot';
 import { IFubarObject, FubarObject } from '../objects/FubarObject';
 import { IRoom, Room } from '../objects/Room';
 import { Family } from '../objects/Family';
+import { ILevel } from './GameScene';
 
 enum GameState {
 	EVERYTHING_IS_FINE,
@@ -20,8 +21,11 @@ export class LevelIntro extends Phaser.Scene {
 	private lastState: GameState;
 
 	private footAnim: Phaser.Tweens.Tween;
-
 	private antAnim: Phaser.Tweens.Tween;
+
+    // Levels
+    private level: ILevel;
+	private currentLevel: number;
 
     constructor() {
         super({
@@ -36,7 +40,9 @@ export class LevelIntro extends Phaser.Scene {
         this.layout = this.cache.json.get('layout');
 
         // Create new rooms using the layout config
-        this.rooms = {};
+		this.rooms = {};
+		this.level = null;
+		this.currentLevel = 1;
     }
 
     create(): void {
@@ -111,6 +117,9 @@ export class LevelIntro extends Phaser.Scene {
 				}
 				break;
 			case GameState.END:
+				if(this.lastState !== GameState.END) {	
+					this.bye();
+				}
 				break;
 		}
 		this.lastState = this.state
@@ -142,6 +151,7 @@ export class LevelIntro extends Phaser.Scene {
 					duration: 1000,
 					y: -512
 				})
+				this.loadLevel(this.currentLevel);
 			}
 		})
 	}
@@ -172,6 +182,7 @@ export class LevelIntro extends Phaser.Scene {
 									x: 50,
 									delay: 1000,
 									onComplete: () => {
+										this.state = GameState.END;
 									},
 								})
 							},
@@ -181,4 +192,22 @@ export class LevelIntro extends Phaser.Scene {
 			}
 		})
 	}
+
+	private bye() {
+        this.cameras.main.fadeOut(2000, 255, 255, 255);
+		this.cameras.main.once('camerafadeoutcomplete', (camera) => {
+            this.scene.start('GameScene');
+        });
+	}
+
+	
+    private loadLevel(level: number) {
+        this.level = this.cache.json.get('level_' + level);
+        let rooms = this.level['hazards'];
+        // Apply the level to each room
+        for (let key in rooms) {
+            let room = this.rooms[key];
+            room.loadHazards(rooms[key])
+        }
+    }
 }
