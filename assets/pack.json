@@ -157,11 +157,6 @@
                 "url": "assets/images/wrenchbutton.png"
             },
             {
-                "type": "image",
-                "key": "meter",
-                "url": "assets/images/meter.png"
-            },
-            {
                 "type": "audio",
                 "key": "riff",
                 "url": "assets/sound/riff.mp3"

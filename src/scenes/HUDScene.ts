@@ -17,7 +17,7 @@ export class HUDScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.pack('preload', './assets/pack.json');
+        this.load.pack('preload', './assets/hud.json');
     }
 
     create() {

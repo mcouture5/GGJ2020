@@ -99,18 +99,6 @@ export class GameScene extends Phaser.Scene {
             repeat: -1,
         });
         this.anims.create({
-            key: 'idle',
-            frames: this.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
-            frameRate: 3,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: 'run',
-            frames: this.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
-            frameRate: 8,
-            repeat: -1,
-        });
-        this.anims.create({
             key: 'hammer',
             frames: this.anims.generateFrameNames('beetle', { start: 4, end: 4 }),
             frameRate: 8,

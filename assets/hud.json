@@ -1,0 +1,11 @@
+{
+    "preload": {
+        "files": [
+            {
+                "type": "image",
+                "key": "meter",
+                "url": "assets/images/meter.png"
+            }
+        ]
+    }
+}
