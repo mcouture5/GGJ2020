@@ -88,7 +88,7 @@ export class Room extends Phaser.GameObjects.Container {
             if (Math.abs(this.x + hazard.x - x) < 25) {
                 if (hazard.tool === tool) {
                     hazard.actionsUntilFixed--;
-                    if (hazard.actionsUntilFixed === 0) {
+                    if (hazard.actionsUntilFixed <= 0) {
                         // If this is going to be the last fix for this room, check with the game to see if this is the last room that needs fixin.
                         // If so, do more fancies with the hazard
                         let duration = 200;
@@ -101,6 +101,7 @@ export class Room extends Phaser.GameObjects.Container {
                     }
                 }
                 else {
+                    hazard.actionsUntilFixed += 0.5;
                     this.wrongToolSound.play();
                 }
             }
