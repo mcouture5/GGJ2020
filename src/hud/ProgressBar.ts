@@ -9,9 +9,8 @@ export class ProgressBar extends Phaser.GameObjects.Container {
     private green: number;
 
     // sound effects
-    private antsDispleased1: Phaser.Sound.BaseSound;
-    private antsDispleased2: Phaser.Sound.BaseSound;
-    private antsDispleased3: Phaser.Sound.BaseSound;
+    private antsGrumbleSound: Phaser.Sound.BaseSound;
+    private antsBooSound: Phaser.Sound.BaseSound;
     private antsDispleasedLevel: number;
 
     constructor(scene: Phaser.Scene, x: number, y: number, gameScene: Phaser.Scene) {
@@ -33,9 +32,8 @@ export class ProgressBar extends Phaser.GameObjects.Container {
         this.gameScene.events.on('timer_update', (progress) => { this.updateProgressBar(progress); });
 
         // set up sound effects
-        this.antsDispleased1 = this.scene.sound.add('ants-displeased-1', {volume: 0.5});
-        this.antsDispleased2 = this.scene.sound.add('ants-displeased-2', {volume: 0.5});
-        this.antsDispleased3 = this.scene.sound.add('ants-displeased-3', {volume: 0.5});
+        this.antsGrumbleSound = this.scene.sound.add('ants-grumble', {volume: 0.5});
+        this.antsBooSound = this.scene.sound.add('ants-boo', {volume: 0.5});
         this.antsDispleasedLevel = 0;
     }
 
@@ -59,24 +57,18 @@ export class ProgressBar extends Phaser.GameObjects.Container {
         }
         switch (this.antsDispleasedLevel) {
             case 0:
-                if (progress >= .75) {
+                if (progress >= 0.8) {
                     this.antsDispleasedLevel++;
-                    this.antsDispleased1.play();
+                    this.antsGrumbleSound.play();
                 }
                 break;
             case 1:
-                if (progress >= .8) {
+                if (progress >= 0.9) {
                     this.antsDispleasedLevel++;
-                    this.antsDispleased2.play();
+                    this.antsBooSound.play();
                 }
                 break;
             case 2:
-                if (progress >= .9) {
-                    this.antsDispleasedLevel++;
-                    this.antsDispleased3.play();
-                }
-                break;
-            case 3:
                 break; // do nothing
             default:
                 throw new Error("unexpected antDispleasedLevel=" + this.antsDispleasedLevel)
