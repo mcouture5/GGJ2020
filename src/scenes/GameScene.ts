@@ -65,10 +65,12 @@ export class GameScene extends Phaser.Scene {
         this.state = GameState.STARTING_LEVEL;
         // starts fading
         this.fading = true;
+        this.gameStarted = false;
         // Get the rooms layout
         this.layout = this.cache.json.get('layout');
 
         // Create new rooms using the layout config
+        this.beetle = null;
         this.rooms = {};
         this.currentRoom = null;
         this.level = null;
@@ -76,11 +78,82 @@ export class GameScene extends Phaser.Scene {
 
         // References
         this.camera = this.cameras.main;
+        
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
+            frameRate: 3,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNames('beetle', { start: 0, end: 1 }),
+            frameRate: 3,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNames('beetle', { start: 2, end: 3 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'hammer',
+            frames: this.anims.generateFrameNames('beetle', { start: 4, end: 4 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-hammer',
+            frames: this.anims.generateFrameNames('beetle', { start: 5, end: 6 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'plunger',
+            frames: this.anims.generateFrameNames('beetle', { start: 7, end: 7 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-plunger',
+            frames: this.anims.generateFrameNames('beetle', { start: 8, end: 9 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'screwdriver',
+            frames: this.anims.generateFrameNames('beetle', { start: 10, end: 10 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-screwdriver',
+            frames: this.anims.generateFrameNames('beetle', { start: 11, end: 12 }),
+            frameRate: 8,
+            repeat: 0,
+        });
+        this.anims.create({
+            key: 'wrench',
+            frames: this.anims.generateFrameNames('beetle', { start: 13, end: 13 }),
+            frameRate: 8,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: 'use-wrench',
+            frames: this.anims.generateFrameNames('beetle', { start: 14, end: 15 }),
+            frameRate: 8,
+            repeat: 0,
+        });
     }
 
     create(): void {
-
-
         // Create the background and main scene
         let bg = this.add.sprite(0, 0, 'game_bg').setOrigin(0, 0);
         bg.displayWidth = 1024;
@@ -97,32 +170,6 @@ export class GameScene extends Phaser.Scene {
             this.rooms[room_key] = roomContainer;
         }
 
-        // Listen for when the hero interacts with a door
-        this.events.addListener('enterDoor', (doorString: string) => {
-            const doorToEnter = this.currentRoom.getDoors()[doorString];
-            if (doorToEnter) {
-                this.beetle.stop();
-                // Stop all input!
-                this.state = GameState.ANIMATING;
-                // Open the door
-                doorToEnter.open();
-                // Move to next room, after a slight delay to see the door close
-                this.beetle.hide();
-                setTimeout(() => {
-                    const roomString = doorToEnter.target;
-                    const roomObj = this.rooms[roomString];
-                    this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
-                    this.beetle.show();
-                    this.moveToRoom(roomString);
-                }, 250);
-            }
-        });
-
-        // Listen for when the hero interacts with a hazard
-        this.events.addListener('action', () => {
-            this.currentRoom.checkInteraction();
-        });
-
         // Listen for every time the camera is done fading
         this.camera.once('camerafadeincomplete', (camera) => {
             // Load the first level
@@ -133,12 +180,11 @@ export class GameScene extends Phaser.Scene {
             x: 0,
             y: 0,
             key: 'beetle',
-            eventEmitter: this.events,
             roomCoords: {x: this.rooms[FAMILY_ROOM].x, y: this.rooms[FAMILY_ROOM].y}
         });
         this.add.existing(this.beetle);
         
-        this.loadLevel(1);
+        this.loadLevel(this.currentLevel);
 
         // set up sound effects. don't pause on blur. start playing music.
         this.sound.pauseOnBlur = false;
@@ -182,6 +228,37 @@ export class GameScene extends Phaser.Scene {
             this.camera.pan(this.currentRoom.x, this.currentRoom.y, 800, 'Power2', true, (camera, progress) => {
                 if (progress >= 1) {
                     this.events.emit('begin_level', this.currentLevel);
+                    
+                    // Listen for when the hero interacts with a door
+                    (this.events.off as any)('enterDoor');
+                    this.events.addListener('enterDoor', (doorString: string) => {
+                        const doorToEnter = this.currentRoom.getDoors()[doorString];
+                        console.log(doorString);
+                        if (doorToEnter) {
+                            console.log(doorToEnter);
+                            this.beetle.stop();
+                            // Stop all input!
+                            this.state = GameState.ANIMATING;
+                            // Open the door
+                            doorToEnter.open();
+                            // Move to next room, after a slight delay to see the door close
+                            this.beetle.hide();
+                            setTimeout(() => {
+                                const roomString = doorToEnter.target;
+                                const roomObj = this.rooms[roomString];
+                                this.beetle.moveToRoom({x: roomObj.x, y: roomObj.y});
+                                this.beetle.show();
+                                this.moveToRoom(roomString);
+                            }, 250);
+                        }
+                    });
+
+                    // Listen for when the hero interacts with a hazard
+                    (this.events.off as any)('action');
+                    this.events.addListener('action', (tool, x) => {
+                        this.currentRoom.checkInteraction(tool, x);
+                    });
+
                     // Create timer event
                     this.timer = this.time.addEvent({
                         delay: this.level.time_limit,
@@ -250,14 +327,14 @@ export class GameScene extends Phaser.Scene {
 
     private levelComplete() {
         this.gameStarted = false;
-        this.beetle.stop();
+        this.beetle.destroy();
         this.state = GameState.ANIMATING;
         this.events.emit('end_level');
         this.currentLevel++;
         this.camera.pan(512, 384, 800, 'Linear', true);
         this.camera.zoomTo(1, 800, 'Linear', true, (camera, progress) => {
             if (progress >= 1) {
-                this.scene.start('LevelIntro', {currentLevel: this.currentLevel});``
+                setTimeout(() => { this.scene.start('LevelIntro', {currentLevel: this.currentLevel}); }, 0);
             }
         });
 

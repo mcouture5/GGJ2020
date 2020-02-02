@@ -59,12 +59,18 @@ export class Room extends Phaser.GameObjects.Container {
         }
     }
 
-    public checkInteraction() {
-        // Fix all hazards
-        for (let hazard of this.activeHazards) {
-            hazard.fix();
-        }
-        this.activeHazards = [];
+    public checkInteraction(tool, x) {
+        // Filter out hazards that are fixed here
+        this.activeHazards = this.activeHazards.filter(hazard => {
+            if (hazard.tool === tool && Math.abs(this.x + hazard.x - x) < 25) {
+                hazard.actionsUntilFixed--;
+                if (hazard.actionsUntilFixed === 0) {
+                    hazard.fix();
+                    return false;
+                }
+            }
+            return true;
+        });
     }
 
     public fixHazard(key: string) {
