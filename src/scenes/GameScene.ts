@@ -466,6 +466,7 @@ export class GameScene extends Phaser.Scene {
         overlay.fillStyle(0xFFFFFF, 1);
         overlay.fillRect(0, 0, 1024, 768);
         overlay.setAlpha(0);
+        overlay.setDepth(99999);
         this.add.tween({
             targets: [overlay],
             duration: 4000,
@@ -481,6 +482,7 @@ export class GameScene extends Phaser.Scene {
                 fontSize: 42,
                 color: '#000'
             }).setOrigin(0.5, 0.5).setScale(1.2);
+            textojb.setDepth(overlay.depth + 1);
             textObjs.push(textojb);
             if (text !== ' ' && text === text.toLowerCase()) {
                 toBreak.push(textojb);
@@ -550,8 +552,9 @@ export class GameScene extends Phaser.Scene {
                                                             let text = this.add.text(512, 560, 'Press Space', {
                                                                 fontFamily: 'Digital',
                                                                 fontSize: 30,
-                                                                color: '#000'
+                                                                color: '#000',
                                                             }).setOrigin(0.5, 0.5);
+                                                            text.setDepth(overlay.depth + 1);
                                                             this.add.tween({
                                                                 targets: [text],
                                                                 duration: 1200,

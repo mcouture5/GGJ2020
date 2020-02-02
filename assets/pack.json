@@ -28,6 +28,11 @@
             },
             {
                 "type": "image",
+                "key": "hazard-meter",
+                "url": "assets/images/hazardmeter.png"
+            },
+            {
+                "type": "image",
                 "key": "invoice",
                 "url": "assets/images/invoice.png"
             },
