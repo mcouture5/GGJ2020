@@ -57,6 +57,9 @@ export class ProgressBar extends Phaser.GameObjects.Container {
         this.progressBar.fillStyle(parseInt(this.rgbToHex(this.red, this.green, 0)), 1);
 
         // play appropriate ants displeased sound if needed
+        if (progress == 0) {
+            this.antsDispleasedLevel = 0;
+        }
         switch (this.antsDispleasedLevel) {
             case 0:
                 if (progress >= .75) {
